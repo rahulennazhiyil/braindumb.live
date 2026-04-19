@@ -98,7 +98,13 @@ The override uses `tsc --noEmit` against both `tsconfig.app.json` and
 `commands` array entries. If you see a typecheck failure referencing
 `--emitDeclarationOnly`, the override was clobbered — restore it.
 
-Libs are buildable with `ng-package.json` and use the plugin's inferred
-typecheck target as-is (no conflict there). Do not add a `typecheck`
-override to any lib's project.json unless that specific lib hits the same
-compiler conflict.
+Libs hit the SAME `emitDeclarationOnly` vs `composite` conflict as the app.
+The `@nx/js/typescript` plugin runs `tsc --build <tsconfig> --emitDeclarationOnly`
+against each lib's `tsconfig.spec.json` (and the e2e tsconfig), and those
+tsconfigs intentionally lack `composite`/`declaration` because they're spec
+configs. Every lib therefore has a `typecheck` override in its project.json
+using `tsc --noEmit -p libs/<scope>/<name>/tsconfig.lib.json` and
+`tsc --noEmit -p libs/<scope>/<name>/tsconfig.spec.json`. `apps/web-e2e`
+has the same override pattern for its single `tsconfig.json`. If a new lib
+is added, add the matching typecheck override — do not rely on the inferred
+target.

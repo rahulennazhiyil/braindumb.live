@@ -27,6 +27,19 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "tsc --noEmit -p libs/features/feed/tsconfig.lib.json",
+          "tsc --noEmit -p libs/features/feed/tsconfig.spec.json"
+        ],
+        "cwd": "{workspaceRoot}",
+        "parallel": false
+      },
+      "cache": true,
+      "inputs": ["default", "^default", "{projectRoot}/tsconfig*.json"]
     }
   }
 }
