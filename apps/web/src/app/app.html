@@ -1,1 +1,9 @@
-<router-outlet />
+<div class="min-h-dvh flex flex-col bg-bg-primary text-text-primary">
+  <app-navbar [links]="navLinks">
+    <app-theme-toggle nav-actions />
+  </app-navbar>
+  <main class="flex-1">
+    <router-outlet />
+  </main>
+  <app-footer [socials]="socials" />
+</div>

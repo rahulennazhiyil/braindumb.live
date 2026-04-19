@@ -1,1 +1,1 @@
-export * from './lib/auth/auth';
+export { authGuard } from './lib/auth.guard';

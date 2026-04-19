@@ -1,0 +1,31 @@
+<div
+  class="min-h-[calc(100vh-3.5rem)] grid grid-cols-1 md:grid-cols-[220px_1fr]"
+>
+  <aside
+    class="border-b md:border-b-0 md:border-r border-glass-border bg-bg-surface/40"
+  >
+    <nav
+      class="p-4 flex md:flex-col gap-1 overflow-x-auto"
+      aria-label="Admin sections"
+    >
+      @for (item of items; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="bg-bg-elevated text-accent-primary border-accent-primary/40"
+          class="inline-flex items-center gap-2 whitespace-nowrap px-3 py-2 rounded-chip border border-transparent font-mono text-xs uppercase tracking-wider text-text-secondary hover:text-accent-primary hover:bg-bg-elevated transition-colors"
+        >
+          <lucide-angular
+            [img]="item.icon"
+            [size]="14"
+            aria-hidden="true"
+          />
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+  </aside>
+
+  <section class="p-4 md:p-8">
+    <router-outlet />
+  </section>
+</div>

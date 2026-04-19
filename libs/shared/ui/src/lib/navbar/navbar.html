@@ -14,20 +14,25 @@
       <span class="text-text-muted">~$</span> {{ logoText() }}
     </a>
 
-    <ul class="hidden md:flex items-center gap-6">
-      @for (link of links(); track link.href) {
-        <li>
-          <a
-            [routerLink]="link.href"
-            routerLinkActive="text-accent-primary"
-            [routerLinkActiveOptions]="{ exact: link.href === '/' }"
-            class="font-mono text-xs uppercase tracking-wider text-text-secondary hover:text-accent-primary transition-colors"
-          >
-            {{ link.label }}
-          </a>
-        </li>
-      }
-    </ul>
+    <div class="hidden md:flex items-center gap-6">
+      <ul class="flex items-center gap-6">
+        @for (link of links(); track link.href) {
+          <li>
+            <a
+              [routerLink]="link.href"
+              routerLinkActive="text-accent-primary"
+              [routerLinkActiveOptions]="{ exact: link.href === '/' }"
+              class="font-mono text-xs uppercase tracking-wider text-text-secondary hover:text-accent-primary transition-colors"
+            >
+              {{ link.label }}
+            </a>
+          </li>
+        }
+      </ul>
+      <div class="flex items-center gap-2">
+        <ng-content select="[nav-actions]" />
+      </div>
+    </div>
 
     <button
       type="button"
@@ -61,6 +66,9 @@
           </li>
         }
       </ul>
+      <div class="px-4 pb-4 flex items-center gap-2">
+        <ng-content select="[nav-actions]" />
+      </div>
     </div>
   }
 </nav>
