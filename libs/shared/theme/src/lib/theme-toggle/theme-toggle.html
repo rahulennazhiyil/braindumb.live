@@ -1,0 +1,10 @@
+<button
+  type="button"
+  class="inline-flex items-center gap-2 px-3 py-1.5 rounded-chip border border-border text-text-secondary hover:text-accent-primary hover:border-accent-primary/60 font-mono text-xs uppercase tracking-wider transition-colors"
+  [attr.aria-label]="'Switch theme (currently ' + label() + '). Next: ' + nextLabel()"
+  [title]="'Theme: ' + label() + ' → ' + nextLabel()"
+  (click)="cycle()"
+>
+  <lucide-angular [img]="icon()" [size]="14" aria-hidden="true" />
+  <span>{{ label() }}</span>
+</button>

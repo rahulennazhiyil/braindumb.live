@@ -2,7 +2,10 @@
   "name": "@rahul-dev/shared-theme",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "vitest": "^4.0.8",
+    "lucide-angular": "^1.0.0",
+    "@angular/common": "~21.2.0"
   },
   "sideEffects": false
 }
