@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "public": true,
+  "buildCommand": "npx nx build web",
+  "installCommand": "npm ci",
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
+  "functions": {
+    "api/index.mjs": { "includeFiles": "dist/apps/web/**" }
+  }
+}
