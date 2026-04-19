@@ -1,0 +1,60 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@rahul-dev/core-auth": ["libs/core/auth/src/index.ts"],
+      "@rahul-dev/core-supabase": ["libs/core/supabase/src/index.ts"],
+      "@rahul-dev/core-seo": ["libs/core/seo/src/index.ts"],
+      "@rahul-dev/core-analytics": ["libs/core/analytics/src/index.ts"],
+      "@rahul-dev/core-config": ["libs/core/config/src/index.ts"],
+      "@rahul-dev/shared-ui": ["libs/shared/ui/src/index.ts"],
+      "@rahul-dev/shared-command-palette": [
+        "libs/shared/command-palette/src/index.ts"
+      ],
+      "@rahul-dev/shared-theme": ["libs/shared/theme/src/index.ts"],
+      "@rahul-dev/shared-terminal": ["libs/shared/terminal/src/index.ts"],
+      "@rahul-dev/shared-utils": ["libs/shared/utils/src/index.ts"],
+      "@rahul-dev/shared-types": ["libs/shared/types/src/index.ts"],
+      "@rahul-dev/features-hero-graph": [
+        "libs/features/hero-graph/src/index.ts"
+      ],
+      "@rahul-dev/features-career-timeline": [
+        "libs/features/career-timeline/src/index.ts"
+      ],
+      "@rahul-dev/features-tech-bubbles": [
+        "libs/features/tech-bubbles/src/index.ts"
+      ],
+      "@rahul-dev/features-portfolio": ["libs/features/portfolio/src/index.ts"],
+      "@rahul-dev/features-feed": ["libs/features/feed/src/index.ts"],
+      "@rahul-dev/features-contact-form": [
+        "libs/features/contact-form/src/index.ts"
+      ],
+      "@rahul-dev/features-ai-chat": ["libs/features/ai-chat/src/index.ts"],
+      "@rahul-dev/features-admin": ["libs/features/admin/src/index.ts"],
+      "@rahul-dev/features-visitor-insights": [
+        "libs/features/visitor-insights/src/index.ts"
+      ],
+      "@rahul-dev/features-finance-analyzer": [
+        "libs/features/finance-analyzer/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
