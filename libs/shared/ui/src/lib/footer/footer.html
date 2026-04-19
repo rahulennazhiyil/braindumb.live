@@ -1,0 +1,37 @@
+<footer class="mt-24 border-t border-glass-border">
+  <div
+    class="max-w-6xl mx-auto px-4 md:px-6 py-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+  >
+    <div class="flex flex-col gap-2">
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-primary">
+        <span class="text-text-muted">~$</span> exit 0
+      </span>
+      <p class="font-body text-sm text-text-secondary max-w-sm">
+        {{ tagline() }}
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3 md:items-end">
+      @if (socials().length > 0) {
+        <ul class="flex gap-3">
+          @for (s of socials(); track s.href) {
+            <li>
+              <a
+                [href]="s.href"
+                [attr.aria-label]="s.label"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="p-2 text-text-secondary hover:text-accent-primary transition-colors"
+              >
+                <lucide-angular [img]="iconFor(s.icon)" [size]="18" />
+              </a>
+            </li>
+          }
+        </ul>
+      }
+      <p class="font-mono text-xs text-text-muted">
+        © {{ year() }} · Rahul E
+      </p>
+    </div>
+  </div>
+</footer>

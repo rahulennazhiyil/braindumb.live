@@ -1,0 +1,10 @@
+<div class="flex flex-col gap-2" role="status" aria-label="Loading">
+  @for (i of indices.slice(0, lines()); track i) {
+    <div
+      class="skeleton-bar bg-bg-elevated"
+      [class.rounded-chip]="rounded()"
+      [style.width]="width()"
+      [style.height]="height()"
+    ></div>
+  }
+</div>

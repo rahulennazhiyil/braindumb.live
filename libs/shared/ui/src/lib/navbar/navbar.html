@@ -1,0 +1,66 @@
+<nav
+  class="sticky top-0 z-40 glass backdrop-blur-xl"
+  role="navigation"
+  aria-label="Primary"
+>
+  <div
+    class="max-w-6xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between"
+  >
+    <a
+      routerLink="/"
+      class="font-mono text-accent-primary font-bold text-sm uppercase tracking-[0.2em]"
+      (click)="close()"
+    >
+      <span class="text-text-muted">~$</span> {{ logoText() }}
+    </a>
+
+    <ul class="hidden md:flex items-center gap-6">
+      @for (link of links(); track link.href) {
+        <li>
+          <a
+            [routerLink]="link.href"
+            routerLinkActive="text-accent-primary"
+            [routerLinkActiveOptions]="{ exact: link.href === '/' }"
+            class="font-mono text-xs uppercase tracking-wider text-text-secondary hover:text-accent-primary transition-colors"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <button
+      type="button"
+      class="md:hidden p-2 text-text-primary hover:text-accent-primary"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="nav-drawer"
+      aria-label="Toggle menu"
+      (click)="toggle()"
+    >
+      <lucide-angular [img]="menuOpen() ? X : Menu" [size]="20" />
+    </button>
+  </div>
+
+  @if (menuOpen()) {
+    <div
+      id="nav-drawer"
+      class="md:hidden border-t border-glass-border bg-bg-surface/95"
+    >
+      <ul class="flex flex-col gap-1 p-4">
+        @for (link of links(); track link.href) {
+          <li>
+            <a
+              [routerLink]="link.href"
+              routerLinkActive="text-accent-primary"
+              [routerLinkActiveOptions]="{ exact: link.href === '/' }"
+              class="block font-mono text-sm uppercase tracking-wider py-3 px-2 text-text-secondary hover:text-accent-primary"
+              (click)="close()"
+            >
+              {{ link.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</nav>

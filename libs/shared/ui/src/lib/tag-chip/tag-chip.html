@@ -1,0 +1,15 @@
+@if (variant() === 'terminal') {
+  <span
+    class="inline-flex items-center font-mono text-xs uppercase tracking-wider px-2 py-0.5 rounded-chip border border-border text-accent-primary bg-bg-elevated/50"
+  >
+    <span class="text-text-muted mr-1">{{ '{' }}</span>
+    <ng-content />
+    <span class="text-text-muted ml-1">{{ '}' }}</span>
+  </span>
+} @else {
+  <span
+    class="inline-flex items-center font-body text-xs px-2.5 py-0.5 rounded-chip bg-bg-elevated text-text-secondary"
+  >
+    <ng-content />
+  </span>
+}
