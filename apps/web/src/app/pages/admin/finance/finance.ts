@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SectionHeading } from '@rahul-dev/shared-ui';
+import { FinanceAnalyzer } from '@rahul-dev/features-finance-analyzer';
 
 @Component({
   selector: 'app-admin-finance',
-  imports: [SectionHeading],
+  imports: [FinanceAnalyzer],
   templateUrl: './finance.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

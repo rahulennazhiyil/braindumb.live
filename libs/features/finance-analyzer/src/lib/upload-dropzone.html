@@ -1,0 +1,34 @@
+<div
+  class="glass p-6 flex flex-col items-center justify-center gap-3 text-center border-dashed cursor-pointer transition-colors"
+  [class.border-accent-primary]="dragging()"
+  [class.bg-bg-elevated]="dragging()"
+  role="button"
+  tabindex="0"
+  aria-label="Drop an .xlsx file here or click to browse"
+  (click)="open()"
+  (keydown.enter)="open()"
+  (keydown.space)="$event.preventDefault(); open()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave()"
+  (drop)="onDrop($event)"
+>
+  <lucide-angular
+    [img]="Upload"
+    [size]="24"
+    class="text-accent-primary"
+    aria-hidden="true"
+  />
+  <p class="font-body text-sm text-text-primary">
+    Drop the filled-in <span class="font-mono">.xlsx</span> here
+  </p>
+  <p class="font-mono text-xs text-text-muted">
+    — or click to pick a file from disk
+  </p>
+  <input
+    #fileInput
+    type="file"
+    accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    class="hidden"
+    (change)="onFile($event)"
+  />
+</div>

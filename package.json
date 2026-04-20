@@ -72,6 +72,7 @@
     "@supabase/supabase-js": "^2.103.3",
     "d3": "^7.9.0",
     "d3-sankey": "^0.12.3",
+    "exceljs": "^4.4.0",
     "express": "^4.21.2",
     "lucide-angular": "^1.0.0",
     "rxjs": "~7.8.0"

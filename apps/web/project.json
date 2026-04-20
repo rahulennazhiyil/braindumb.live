@@ -24,7 +24,8 @@
         "ssr": {
           "entry": "apps/web/src/server.ts"
         },
-        "outputMode": "server"
+        "outputMode": "server",
+        "allowedCommonJsDependencies": ["exceljs"]
       },
       "configurations": {
         "production": {

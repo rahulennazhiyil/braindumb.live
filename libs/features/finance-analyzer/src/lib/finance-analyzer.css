@@ -1,0 +1,5 @@
+/* Reserve space so the dashboard layout doesn't jump when panels
+ * mount after the D3 draw triggers a first layout pass. */
+:host {
+  display: block;
+}

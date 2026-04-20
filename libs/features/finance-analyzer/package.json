@@ -2,7 +2,12 @@
   "name": "@rahul-dev/features-finance-analyzer",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "@angular/common": "~21.2.0",
+    "lucide-angular": "^1.0.0",
+    "@rahul-dev/shared-ui": "0.0.1",
+    "d3": "^7.9.0",
+    "exceljs": "^4.4.0"
   },
   "sideEffects": false
 }

@@ -1,0 +1,158 @@
+<div class="flex flex-col gap-6">
+  <header class="flex items-end justify-between flex-wrap gap-4">
+    <app-section-heading
+      kicker="/admin/finance"
+      title="Finance analyzer"
+      subtitle="Client-side only. Your .xlsx stays in this browser tab. Refresh or navigate away to clear."
+    />
+
+    <div class="flex items-center gap-2 flex-wrap">
+      <button
+        type="button"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-chip border border-border text-text-secondary hover:text-accent-primary hover:border-accent-primary/60 font-mono text-xs uppercase tracking-wider transition-colors disabled:opacity-40"
+        [disabled]="busy()"
+        (click)="downloadTemplate()"
+      >
+        <lucide-angular [img]="Download" [size]="14" aria-hidden="true" />
+        <span>download template</span>
+      </button>
+      @if (hasData()) {
+        <button
+          type="button"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-chip border border-border text-text-secondary hover:text-error hover:border-error/60 font-mono text-xs uppercase tracking-wider transition-colors"
+          (click)="reset()"
+        >
+          <lucide-angular [img]="RotateCcw" [size]="14" aria-hidden="true" />
+          <span>clear</span>
+        </button>
+      }
+    </div>
+  </header>
+
+  @if (error(); as e) {
+    <p class="font-mono text-xs text-error">
+      <span class="text-text-muted">&gt;</span> {{ e }}
+    </p>
+  }
+
+  @if (!hasData()) {
+    <app-finance-upload-dropzone (fileChosen)="onFile($event)" />
+    <section class="glass p-5 flex flex-col gap-3 font-body text-sm text-text-secondary leading-relaxed">
+      <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-accent-primary">
+        How it works
+      </h3>
+      <ol class="flex flex-col gap-2 list-decimal list-inside">
+        <li>
+          Download the template above — it has a
+          <span class="font-mono">Transactions</span> sheet and a
+          <span class="font-mono">Monthly Summary</span> sheet with
+          dropdowns pre-wired for Type, Category, and Payment Method.
+        </li>
+        <li>
+          Fill it in locally — Excel, Google Sheets, LibreOffice all work.
+          Delete the two example rows before uploading.
+        </li>
+        <li>
+          Drop the finished <span class="font-mono">.xlsx</span> back onto
+          this page. Everything is parsed and charted in-memory.
+        </li>
+      </ol>
+      <p class="font-mono text-xs text-text-muted">
+        No data ever leaves this browser. Nothing is stored. Refresh and
+        you're back to an empty analyzer.
+      </p>
+    </section>
+  } @else {
+    <section class="glass p-4 flex items-center justify-between flex-wrap gap-3 text-sm">
+      <div class="flex items-center gap-3 font-mono text-xs text-text-muted">
+        <span>
+          <span class="text-accent-primary">$</span> loaded
+        </span>
+        <span class="text-text-primary">{{ filename() }}</span>
+        <span>·</span>
+        <span>{{ transactions().length }} transactions</span>
+      </div>
+      @if (warnings().length > 0) {
+        <details class="w-full md:w-auto">
+          <summary class="inline-flex items-center gap-2 cursor-pointer font-mono text-xs text-accent-secondary">
+            <lucide-angular
+              [img]="TriangleAlert"
+              [size]="14"
+              aria-hidden="true"
+            />
+            <span>{{ warnings().length }} warning{{ warnings().length === 1 ? '' : 's' }}</span>
+          </summary>
+          <ul class="mt-2 flex flex-col gap-1 font-mono text-xs text-text-secondary">
+            @for (w of warnings(); track w.row + w.sheet) {
+              <li>
+                <span class="text-text-muted">{{ w.sheet }}</span>
+                · {{ w.message }}
+              </li>
+            }
+          </ul>
+        </details>
+      }
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <article class="glass p-4 flex flex-col gap-1 md:col-span-1">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+          income
+        </span>
+        <p class="font-display font-bold text-2xl text-success">
+          {{ aggregates().totalIncome.toLocaleString() }}
+        </p>
+      </article>
+      <article class="glass p-4 flex flex-col gap-1 md:col-span-1">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+          expenses
+        </span>
+        <p class="font-display font-bold text-2xl text-error">
+          {{ aggregates().totalExpenses.toLocaleString() }}
+        </p>
+      </article>
+      <article class="glass p-4 flex flex-col gap-1 md:col-span-1">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+          net
+        </span>
+        <p
+          class="font-display font-bold text-2xl"
+          [class.text-accent-primary]="
+            aggregates().totalIncome - aggregates().totalExpenses >= 0
+          "
+          [class.text-error]="
+            aggregates().totalIncome - aggregates().totalExpenses < 0
+          "
+        >
+          {{ (aggregates().totalIncome - aggregates().totalExpenses).toLocaleString() }}
+        </p>
+      </article>
+    </section>
+
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+      <app-finance-panel-income-expenses
+        class="min-h-[280px]"
+        [data]="aggregates().byMonth"
+      />
+      <app-finance-panel-savings-gauge
+        class="min-h-[280px]"
+        [data]="aggregates().savingsRate"
+      />
+    </section>
+
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-3">
+      <app-finance-panel-category-donut
+        class="min-h-[260px]"
+        [data]="aggregates().topExpenseCategories"
+      />
+      <app-finance-panel-payment-pie
+        class="min-h-[260px]"
+        [data]="aggregates().paymentSplit"
+      />
+      <app-finance-panel-daily-spend
+        class="min-h-[260px]"
+        [data]="aggregates().dailyExpense"
+      />
+    </section>
+  }
+</div>
