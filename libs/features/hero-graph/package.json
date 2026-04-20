@@ -2,7 +2,9 @@
   "name": "@rahul-dev/features-hero-graph",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "@angular/common": "~21.2.0",
+    "d3": "^7.9.0"
   },
   "sideEffects": false
 }

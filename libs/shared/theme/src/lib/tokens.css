@@ -14,6 +14,10 @@
   --success: #22c55e;
   --error: #ef4444;
 
+  --cat-infra: #a78bfa;
+  --cat-data: #34d399;
+  --cat-platform: #f472b6;
+
   --font-display: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-body: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -38,6 +42,10 @@
   --glass-border: rgba(0, 255, 65, 0.15);
   --success: #00ff41;
   --error: #ff3333;
+
+  --cat-infra: #00cc33;
+  --cat-data: #00ff41;
+  --cat-platform: #00ff41;
 
   --font-display: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
   --font-body: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
@@ -64,6 +72,10 @@
   --success: #15803d;
   --error: #b91c1c;
 
+  --cat-infra: #7c3aed;
+  --cat-data: #047857;
+  --cat-platform: #be185d;
+
   --font-display: 'Merriweather', Georgia, serif;
   --font-body: 'Merriweather', Georgia, serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
@@ -88,6 +100,10 @@
   --glass-border: rgba(255, 41, 117, 0.25);
   --success: #00ffaa;
   --error: #ff5577;
+
+  --cat-infra: #8b5cf6;
+  --cat-data: #00ffaa;
+  --cat-platform: #ff2975;
 
   --font-display: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
   --font-body: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;

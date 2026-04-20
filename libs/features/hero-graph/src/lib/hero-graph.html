@@ -1,0 +1,10 @@
+<div #host class="hero-graph-host absolute inset-0">
+  <div
+    #tooltip
+    class="hero-graph-tooltip pointer-events-none absolute px-2 py-1 rounded-chip text-xs font-mono bg-bg-elevated/90 border border-glass-border text-text-primary opacity-0 transition-opacity duration-150"
+    role="status"
+    aria-live="polite"
+  >
+    {{ hoveredLabel() }}
+  </div>
+</div>

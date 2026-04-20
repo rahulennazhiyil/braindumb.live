@@ -1,0 +1,62 @@
+.hero-graph-host {
+  contain: strict;
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--border) 35%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--border) 35%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+  background-position: center;
+}
+
+.hero-graph-host :global(svg) {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-graph-host :global(.node) {
+  transition: opacity 200ms ease;
+}
+
+.hero-graph-host :global(.node.dim) {
+  opacity: 0.2;
+}
+
+.hero-graph-host :global(.links line) {
+  transition: opacity 200ms ease;
+}
+
+.hero-graph-host :global(.links line.dim) {
+  opacity: 0.05;
+}
+
+.hero-graph-host :global(.node-secret circle) {
+  animation: hero-secret-pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes hero-secret-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-graph-host :global(.node-secret circle) {
+    animation: none;
+  }
+  .hero-graph-host :global(.node),
+  .hero-graph-host :global(.links line) {
+    transition: none;
+  }
+}

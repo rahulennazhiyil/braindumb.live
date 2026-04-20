@@ -1,27 +1,35 @@
 <section
-  class="relative min-h-[calc(100vh-3.5rem)] flex items-center overflow-hidden"
+  class="relative min-h-[calc(100vh-3.5rem)] overflow-hidden"
+  aria-label="Rahul E — intro"
 >
+  <app-hero-graph
+    (secretTriggered)="onSecretTriggered()"
+    (nodeActivated)="onNodeActivated($event)"
+  />
+
   <div
-    class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,var(--accent-primary)_0%,transparent_60%)] opacity-[0.08]"
+    class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--bg-primary)_85%)]"
     aria-hidden="true"
   ></div>
 
-  <div class="relative max-w-6xl mx-auto px-4 md:px-6 w-full py-16 md:py-24">
-    <div class="flex flex-col gap-6 max-w-3xl">
-      <span
-        class="font-mono text-xs uppercase tracking-[0.3em] text-accent-primary"
-      >
+  <div
+    class="relative z-10 max-w-6xl mx-auto px-4 md:px-6 w-full py-16 md:py-24 min-h-[calc(100vh-3.5rem)] flex items-center"
+  >
+    <div class="flex flex-col gap-6 max-w-xl pointer-events-auto">
+      <span class="font-mono text-xs uppercase tracking-[0.3em] text-accent-primary">
         <span class="text-text-muted">~$</span> whoami
       </span>
-      <h1 class="font-display font-bold text-5xl md:text-7xl text-text-primary leading-[1.05]">
+      <h1
+        class="font-display font-bold text-5xl md:text-7xl text-text-primary leading-[1.05]"
+      >
         Rahul E
       </h1>
-      <p class="font-body text-lg md:text-xl text-text-secondary max-w-2xl leading-relaxed">
+      <p class="font-body text-lg md:text-xl text-text-secondary leading-relaxed">
         Frontend engineer building AI-powered interfaces at Data Unveil.
         Lives at the intersection of Angular, RxJS, and D3.
       </p>
       <p class="font-mono text-xs text-text-muted">
-        Hero graph lands in Phase 7 — force-directed map of the tech stack.
+        Drag the graph. Hover a node. Three nodes hide a door.
       </p>
 
       <div class="flex flex-wrap gap-3 pt-2">
@@ -33,13 +41,13 @@
         </a>
       </div>
     </div>
-
-    <div class="mt-24 md:mt-32">
-      <app-section-heading
-        kicker="next"
-        title="What's here"
-        subtitle="A portfolio, a D3.js playground, a blog, and a self-managed admin."
-      />
-    </div>
   </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 md:px-6 py-16 md:py-24">
+  <app-section-heading
+    kicker="next"
+    title="What's here"
+    subtitle="A portfolio, a D3.js playground, a blog, and a self-managed admin."
+  />
 </section>
