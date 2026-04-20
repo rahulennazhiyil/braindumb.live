@@ -1,0 +1,128 @@
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0 1.25rem;
+}
+
+/* Spine: dot + connector line */
+.entry__spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.25rem;
+}
+
+.entry__dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.entry--current .entry__dot {
+  border-color: var(--color-accent-primary);
+  background: var(--color-accent-primary);
+  box-shadow: 0 0 8px var(--color-accent-primary);
+}
+
+.entry__line {
+  flex: 1;
+  width: 2px;
+  background: var(--color-border);
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  min-height: 2rem;
+}
+
+/* Body */
+.entry__body {
+  padding-bottom: 2.5rem;
+}
+
+.entry--last .entry__body {
+  padding-bottom: 0;
+}
+
+.entry__badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent-primary);
+  border: 1px solid var(--color-accent-primary);
+  border-radius: 9999px;
+  padding: 0.1rem 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.entry__role {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 0.25rem;
+}
+
+.entry__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.entry__company {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.entry__period {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.entry__summary {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin: 0 0 0.75rem;
+}
+
+.entry__highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.entry__highlights li {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.entry__highlights li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent-primary);
+}
+
+.entry__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}

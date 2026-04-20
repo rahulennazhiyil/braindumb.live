@@ -1,1 +1,12 @@
-<p>TechBubbles works!</p>
+<div class="bubbles-wrap">
+  <svg #svg class="bubbles-svg" width="100%" aria-label="Tech skill bubble chart"></svg>
+
+  <div class="legend" role="list" aria-label="Category legend">
+    @for (cat of categories; track cat.id) {
+      <span class="legend__item" role="listitem">
+        <span class="legend__dot legend__dot--{{ cat.id }}" aria-hidden="true"></span>
+        {{ cat.label }}
+      </span>
+    }
+  </div>
+</div>
