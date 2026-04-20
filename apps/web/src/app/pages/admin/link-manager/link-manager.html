@@ -1,5 +1,100 @@
-<app-section-heading
-  kicker="/admin/links"
-  title="Links"
-  subtitle="Quick-add external links. Phase 9."
-/>
+<div class="flex flex-col gap-6">
+  <app-section-heading
+    kicker="/admin/links"
+    title="Links"
+    subtitle="Quick-add external links to the public feed (type=link)."
+  />
+
+  @if (error(); as e) {
+    <p class="font-mono text-xs text-error">
+      <span class="text-text-muted">&gt;</span> {{ e }}
+    </p>
+  }
+
+  <form
+    class="glass p-5 flex flex-col gap-3"
+    (submit)="$event.preventDefault(); save()"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-3">
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">title</span>
+      <input
+        type="text"
+        class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-body text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+        [ngModel]="title()"
+        (ngModelChange)="title.set($event)"
+        name="title"
+        required
+      />
+
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">url</span>
+      <input
+        type="url"
+        class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+        [ngModel]="url()"
+        (ngModelChange)="url.set($event)"
+        name="url"
+        required
+        placeholder="https://…"
+      />
+
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">tags</span>
+      <app-tag-input [tags]="tags()" (tagsChange)="tags.set($event)" />
+    </div>
+
+    <div class="flex items-center gap-2 justify-end">
+      <button
+        type="submit"
+        class="px-4 py-1.5 rounded-chip bg-accent-primary text-bg-primary hover:shadow-glow font-mono text-xs uppercase tracking-wider disabled:opacity-40"
+        [disabled]="saving()"
+      >
+        {{ saving() ? 'saving…' : 'add link' }}
+      </button>
+    </div>
+  </form>
+
+  @if (loading()) {
+    <p class="font-mono text-xs text-text-muted">
+      <span class="text-accent-primary">$</span> loading…
+    </p>
+  } @else if (links().length === 0) {
+    <app-admin-empty
+      message="No links yet."
+      hint="Use the form above to quick-add one."
+    />
+  } @else {
+    <ul class="flex flex-col divide-y divide-glass-border border border-glass-border rounded-card overflow-hidden">
+      @for (link of links(); track link.id) {
+        <li class="p-4 flex items-center justify-between gap-4 hover:bg-bg-elevated/50 transition-colors">
+          <div class="flex flex-col gap-1 min-w-0 flex-1">
+            <time
+              class="font-mono text-xs text-text-muted"
+              [attr.datetime]="link.published_at"
+            >
+              {{ link.published_at | date: 'MMM d, yyyy' }}
+            </time>
+            <p class="font-body text-sm text-text-primary truncate">
+              {{ link.title }}
+            </p>
+            @if (link.url) {
+              <a
+                [href]="link.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-mono text-xs text-accent-primary hover:underline truncate"
+              >
+                {{ link.url }}
+              </a>
+            }
+          </div>
+          <button
+            type="button"
+            class="px-2 py-1 rounded-chip font-mono text-xs uppercase tracking-wider text-text-secondary hover:text-error flex-shrink-0"
+            (click)="remove(link)"
+          >
+            delete
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>

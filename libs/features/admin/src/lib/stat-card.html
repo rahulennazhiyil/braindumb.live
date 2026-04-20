@@ -1,0 +1,26 @@
+<article class="glass p-5 flex flex-col gap-2">
+  <div class="flex items-center justify-between">
+    <span
+      class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted"
+    >
+      {{ label() }}
+    </span>
+    @if (icon(); as i) {
+      <lucide-angular
+        [img]="i"
+        [size]="16"
+        class="text-accent-primary/70"
+        aria-hidden="true"
+      />
+    }
+  </div>
+  <p
+    class="font-display font-bold text-3xl text-text-primary"
+    [class.animate-pulse]="loading()"
+  >
+    {{ loading() ? '…' : value() }}
+  </p>
+  @if (trend(); as t) {
+    <span class="font-mono text-xs text-text-secondary">{{ t }}</span>
+  }
+</article>

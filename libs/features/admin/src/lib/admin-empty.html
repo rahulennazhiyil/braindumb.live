@@ -1,0 +1,12 @@
+<div
+  class="glass p-8 text-center flex flex-col gap-2 items-center text-text-secondary"
+  role="status"
+>
+  <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+    <span class="text-accent-primary">~#</span> ls
+  </span>
+  <p class="font-body text-sm">{{ message() }}</p>
+  @if (hint(); as h) {
+    <p class="font-mono text-xs text-text-muted">{{ h }}</p>
+  }
+</div>

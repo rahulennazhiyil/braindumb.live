@@ -1,5 +1,40 @@
-<app-section-heading
-  kicker="/admin"
-  title="Dashboard"
-  subtitle="Stats + analytics charts. Populated in Phase 9."
-/>
+<div class="flex flex-col gap-6">
+  <app-section-heading
+    kicker="/admin"
+    title="Dashboard"
+    subtitle="Live counts from Supabase. Traffic chart wires in Phase 11."
+  />
+
+  @if (error(); as e) {
+    <p class="font-mono text-xs text-error">
+      <span class="text-text-muted">&gt;</span> {{ e }}
+    </p>
+  }
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+    <app-stat-card
+      label="Projects"
+      [value]="projectCount()"
+      [icon]="icons.projects"
+      [loading]="loading()"
+    />
+    <app-stat-card
+      label="Feed items"
+      [value]="feedCount()"
+      [icon]="icons.feed"
+      [loading]="loading()"
+    />
+    <app-stat-card
+      label="Unread"
+      [value]="unreadCount()"
+      [icon]="icons.inbox"
+      [loading]="loading()"
+    />
+    <app-stat-card
+      label="Insights"
+      value="Phase 11"
+      [icon]="icons.insights"
+      trend="Coming soon"
+    />
+  </div>
+</div>

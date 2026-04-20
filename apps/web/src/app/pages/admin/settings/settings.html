@@ -1,5 +1,80 @@
-<app-section-heading
-  kicker="/admin/settings"
-  title="Settings"
-  subtitle="Toggle sections, bio, social links. Phase 9."
-/>
+<div class="flex flex-col gap-6">
+  <app-section-heading
+    kicker="/admin/settings"
+    title="Settings"
+    subtitle="Raw key/value editor backed by site_settings. Typed UI for bio/socials lands in Phase 9.1."
+  />
+
+  @if (error(); as e) {
+    <p class="font-mono text-xs text-error">
+      <span class="text-text-muted">&gt;</span> {{ e }}
+    </p>
+  }
+
+  <form
+    class="glass p-5 flex flex-col gap-3"
+    (submit)="$event.preventDefault(); save()"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-3">
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">key</span>
+      <input
+        type="text"
+        class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+        [ngModel]="key()"
+        (ngModelChange)="key.set($event)"
+        name="key"
+        placeholder="e.g. bio, socials, open_to_opportunities"
+        required
+      />
+
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-start pt-2" role="presentation">value (json)</span>
+      <textarea
+        class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60 min-h-[140px] resize-y"
+        [ngModel]="valueJson()"
+        (ngModelChange)="valueJson.set($event)"
+        name="value"
+        placeholder='{ "headline": "…", "body": "…" }'
+        required
+      ></textarea>
+    </div>
+
+    <div class="flex items-center gap-2 justify-end">
+      <button
+        type="submit"
+        class="px-4 py-1.5 rounded-chip bg-accent-primary text-bg-primary hover:shadow-glow font-mono text-xs uppercase tracking-wider disabled:opacity-40"
+        [disabled]="saving()"
+      >
+        {{ saving() ? 'saving…' : 'upsert' }}
+      </button>
+    </div>
+  </form>
+
+  @if (loading()) {
+    <p class="font-mono text-xs text-text-muted">
+      <span class="text-accent-primary">$</span> loading…
+    </p>
+  } @else if (items().length === 0) {
+    <app-admin-empty
+      message="No settings set."
+      hint="Use the form above to upsert a key."
+    />
+  } @else {
+    <ul class="flex flex-col gap-3">
+      @for (s of items(); track s.key) {
+        <li class="glass p-4 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-primary">
+              {{ s.key }}
+            </span>
+            <time class="font-mono text-xs text-text-muted">
+              {{ s.updated_at }}
+            </time>
+          </div>
+          <pre
+            class="font-mono text-xs text-text-secondary whitespace-pre-wrap overflow-x-auto"
+          >{{ stringify(s.value) }}</pre>
+        </li>
+      }
+    </ul>
+  }
+</div>

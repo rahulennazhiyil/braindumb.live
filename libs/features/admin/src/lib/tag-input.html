@@ -1,0 +1,29 @@
+<div
+  class="flex flex-wrap items-center gap-1.5 p-2 rounded-chip border border-border bg-bg-surface/40 focus-within:border-accent-primary/60 transition-colors"
+>
+  @for (tag of current(); track tag) {
+    <span
+      class="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-wider px-2 py-0.5 rounded-chip border border-border text-accent-primary bg-bg-elevated/50"
+    >
+      {{ tag }}
+      <button
+        type="button"
+        class="text-text-muted hover:text-error"
+        [attr.aria-label]="'Remove tag ' + tag"
+        (click)="remove(tag)"
+      >
+        <lucide-angular [img]="X" [size]="10" aria-hidden="true" />
+      </button>
+    </span>
+  }
+  <input
+    type="text"
+    class="flex-1 min-w-[8rem] bg-transparent border-0 outline-none font-mono text-xs text-text-primary placeholder:text-text-muted"
+    [placeholder]="placeholder()"
+    [value]="draft()"
+    (input)="draft.set($any($event.target).value)"
+    (keydown)="onKeydown($event)"
+    (blur)="add()"
+    aria-label="Add tag"
+  />
+</div>

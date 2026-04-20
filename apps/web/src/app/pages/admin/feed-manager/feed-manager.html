@@ -1,5 +1,158 @@
-<app-section-heading
-  kicker="/admin/feed"
-  title="Feed manager"
-  subtitle="CRUD, markdown editor, draft/publish. Phase 9."
-/>
+<div class="flex flex-col gap-6">
+  <div class="flex items-start justify-between flex-wrap gap-4">
+    <app-section-heading
+      kicker="/admin/feed"
+      title="Feed manager"
+      subtitle="Blog posts, external links, project updates, learning notes."
+    />
+    <app-admin-toolbar
+      [disabled]="loading() || saving()"
+      newLabel="New item"
+      (refresh)="refresh()"
+      (create)="startCreate()"
+    />
+  </div>
+
+  @if (error(); as e) {
+    <p class="font-mono text-xs text-error">
+      <span class="text-text-muted">&gt;</span> {{ e }}
+    </p>
+  }
+
+  @if (isEditing()) {
+    <form
+      class="glass p-5 flex flex-col gap-4"
+      (submit)="$event.preventDefault(); save()"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-3">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">type</span>
+        <select
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          [ngModel]="draft().type"
+          (ngModelChange)="updateDraft('type', $event)"
+          name="type"
+        >
+          @for (t of feedTypes; track t) {
+            <option [value]="t">{{ t }}</option>
+          }
+        </select>
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">title</span>
+        <input
+          type="text"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-body text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          [ngModel]="draft().title"
+          (ngModelChange)="updateDraft('title', $event)"
+          name="title"
+          required
+        />
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">url</span>
+        <input
+          type="url"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          [ngModel]="draft().url"
+          (ngModelChange)="updateDraft('url', $event)"
+          name="url"
+          placeholder="https://…"
+        />
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">tags</span>
+        <app-tag-input
+          [tags]="draft().tags"
+          (tagsChange)="updateDraft('tags', $event)"
+        />
+
+        <span
+          class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-start pt-2" role="presentation">content (md)</span>
+        <textarea
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60 min-h-[160px] resize-y"
+          [ngModel]="draft().content"
+          (ngModelChange)="updateDraft('content', $event)"
+          name="content"
+          placeholder="# heading&#10;&#10;markdown here…"
+        ></textarea>
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">published</span>
+        <label class="inline-flex items-center gap-2 text-sm text-text-primary">
+          <input
+            type="checkbox"
+            class="accent-accent-primary"
+            [checked]="draft().is_published"
+            (change)="updateDraft('is_published', $any($event.target).checked)"
+            name="is_published"
+          />
+          <span class="font-mono text-xs text-text-muted">
+            {{ draft().is_published ? 'public' : 'draft' }}
+          </span>
+        </label>
+      </div>
+
+      <div class="flex items-center gap-2 justify-end">
+        <button
+          type="button"
+          class="px-3 py-1.5 rounded-chip text-text-secondary hover:text-accent-primary font-mono text-xs uppercase tracking-wider"
+          [disabled]="saving()"
+          (click)="cancel()"
+        >
+          cancel
+        </button>
+        <button
+          type="submit"
+          class="px-4 py-1.5 rounded-chip bg-accent-primary text-bg-primary hover:shadow-glow font-mono text-xs uppercase tracking-wider disabled:opacity-40"
+          [disabled]="saving()"
+        >
+          {{ saving() ? 'saving…' : isCreating() ? 'create' : 'save' }}
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (loading()) {
+    <p class="font-mono text-xs text-text-muted">
+      <span class="text-accent-primary">$</span> loading…
+    </p>
+  } @else if (items().length === 0) {
+    <app-admin-empty
+      message="No feed items yet."
+      hint='Click "new item" to create the first one.'
+    />
+  } @else {
+    <ul class="flex flex-col divide-y divide-glass-border border border-glass-border rounded-card overflow-hidden">
+      @for (item of items(); track item.id) {
+        <li class="p-4 flex items-center justify-between gap-4 hover:bg-bg-elevated/50 transition-colors">
+          <div class="flex flex-col gap-1 min-w-0 flex-1">
+            <div class="flex items-center gap-2 text-xs font-mono text-text-muted">
+              <span class="text-accent-primary">{{ item.type }}</span>
+              <span>·</span>
+              <time [attr.datetime]="item.published_at">
+                {{ item.published_at | date: 'MMM d, yyyy' }}
+              </time>
+              @if (!item.is_published) {
+                <span>·</span>
+                <span class="text-error">draft</span>
+              }
+            </div>
+            <p class="font-body text-sm text-text-primary truncate">{{ item.title }}</p>
+          </div>
+          <div class="flex items-center gap-1 flex-shrink-0">
+            <button
+              type="button"
+              class="px-2 py-1 rounded-chip font-mono text-xs uppercase tracking-wider text-text-secondary hover:text-accent-primary"
+              (click)="startEdit(item)"
+            >
+              edit
+            </button>
+            <button
+              type="button"
+              class="px-2 py-1 rounded-chip font-mono text-xs uppercase tracking-wider text-text-secondary hover:text-error"
+              (click)="remove(item)"
+            >
+              delete
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>

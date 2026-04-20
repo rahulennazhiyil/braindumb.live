@@ -1,5 +1,209 @@
-<app-section-heading
-  kicker="/admin/projects"
-  title="Project manager"
-  subtitle="CRUD, tags, images, sort order. Phase 9."
-/>
+<div class="flex flex-col gap-6">
+  <div class="flex items-start justify-between flex-wrap gap-4">
+    <app-section-heading
+      kicker="/admin/projects"
+      title="Project manager"
+      subtitle="Case studies shown on the public /projects grid."
+    />
+    <app-admin-toolbar
+      [disabled]="loading() || saving()"
+      newLabel="New project"
+      (refresh)="refresh()"
+      (create)="startCreate()"
+    />
+  </div>
+
+  @if (error(); as e) {
+    <p class="font-mono text-xs text-error">
+      <span class="text-text-muted">&gt;</span> {{ e }}
+    </p>
+  }
+
+  @if (isEditing()) {
+    <form
+      class="glass p-5 flex flex-col gap-4"
+      (submit)="$event.preventDefault(); save()"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-3">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">title</span>
+        <input
+          type="text"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-body text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          [ngModel]="draft().title"
+          (ngModelChange)="onTitleChange($event)"
+          name="title"
+          required
+        />
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">slug</span>
+        <input
+          type="text"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          [ngModel]="draft().slug"
+          (ngModelChange)="updateDraft('slug', $event)"
+          name="slug"
+          required
+          pattern="[a-z0-9-]+"
+        />
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">description</span>
+        <input
+          type="text"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-body text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          [ngModel]="draft().description"
+          (ngModelChange)="updateDraft('description', $event)"
+          name="description"
+        />
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">tech tags</span>
+        <app-tag-input
+          [tags]="draft().tech_tags"
+          (tagsChange)="updateDraft('tech_tags', $event)"
+        />
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">image url</span>
+        <input
+          type="url"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          [ngModel]="draft().image_url"
+          (ngModelChange)="updateDraft('image_url', $event)"
+          name="image_url"
+          placeholder="https://…"
+        />
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">live url</span>
+        <input
+          type="url"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          [ngModel]="draft().live_url"
+          (ngModelChange)="updateDraft('live_url', $event)"
+          name="live_url"
+          placeholder="https://…"
+        />
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">github url</span>
+        <input
+          type="url"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          [ngModel]="draft().github_url"
+          (ngModelChange)="updateDraft('github_url', $event)"
+          name="github_url"
+          placeholder="https://github.com/…"
+        />
+
+        <span
+          class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-start pt-2" role="presentation">content (md)</span>
+        <textarea
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60 min-h-[180px] resize-y"
+          [ngModel]="draft().content"
+          (ngModelChange)="updateDraft('content', $event)"
+          name="content"
+          placeholder="# problem&#10;# approach&#10;# result&#10;"
+        ></textarea>
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">sort order</span>
+        <input
+          type="number"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60 w-24"
+          [ngModel]="draft().sort_order"
+          (ngModelChange)="updateDraft('sort_order', +$event)"
+          name="sort_order"
+        />
+
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted self-center" role="presentation">flags</span>
+        <div class="flex items-center gap-4 text-sm text-text-primary">
+          <label class="inline-flex items-center gap-2">
+            <input
+              type="checkbox"
+              class="accent-accent-primary"
+              [checked]="draft().is_featured"
+              (change)="updateDraft('is_featured', $any($event.target).checked)"
+              name="is_featured"
+            />
+            <span class="font-mono text-xs text-text-muted">featured</span>
+          </label>
+          <label class="inline-flex items-center gap-2">
+            <input
+              type="checkbox"
+              class="accent-accent-primary"
+              [checked]="draft().is_published"
+              (change)="updateDraft('is_published', $any($event.target).checked)"
+              name="is_published"
+            />
+            <span class="font-mono text-xs text-text-muted">published</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 justify-end">
+        <button
+          type="button"
+          class="px-3 py-1.5 rounded-chip text-text-secondary hover:text-accent-primary font-mono text-xs uppercase tracking-wider"
+          [disabled]="saving()"
+          (click)="cancel()"
+        >
+          cancel
+        </button>
+        <button
+          type="submit"
+          class="px-4 py-1.5 rounded-chip bg-accent-primary text-bg-primary hover:shadow-glow font-mono text-xs uppercase tracking-wider disabled:opacity-40"
+          [disabled]="saving()"
+        >
+          {{ saving() ? 'saving…' : isCreating() ? 'create' : 'save' }}
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (loading()) {
+    <p class="font-mono text-xs text-text-muted">
+      <span class="text-accent-primary">$</span> loading…
+    </p>
+  } @else if (items().length === 0) {
+    <app-admin-empty
+      message="No projects yet."
+      hint='Click "new project" to add the first case study.'
+    />
+  } @else {
+    <ul class="flex flex-col divide-y divide-glass-border border border-glass-border rounded-card overflow-hidden">
+      @for (item of items(); track item.id) {
+        <li class="p-4 flex items-center justify-between gap-4 hover:bg-bg-elevated/50 transition-colors">
+          <div class="flex flex-col gap-1 min-w-0 flex-1">
+            <div class="flex items-center gap-2 text-xs font-mono text-text-muted">
+              <span class="text-accent-primary">/{{ item.slug }}</span>
+              @if (item.is_featured) {
+                <span>·</span>
+                <span class="text-accent-secondary">★ featured</span>
+              }
+              @if (!item.is_published) {
+                <span>·</span>
+                <span class="text-error">draft</span>
+              }
+              <span>·</span>
+              <span>sort {{ item.sort_order }}</span>
+            </div>
+            <p class="font-body text-sm text-text-primary truncate">
+              {{ item.title }}
+            </p>
+          </div>
+          <div class="flex items-center gap-1 flex-shrink-0">
+            <button
+              type="button"
+              class="px-2 py-1 rounded-chip font-mono text-xs uppercase tracking-wider text-text-secondary hover:text-accent-primary"
+              (click)="startEdit(item)"
+            >
+              edit
+            </button>
+            <button
+              type="button"
+              class="px-2 py-1 rounded-chip font-mono text-xs uppercase tracking-wider text-text-secondary hover:text-error"
+              (click)="remove(item)"
+            >
+              delete
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>
