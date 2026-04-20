@@ -1,0 +1,17 @@
+@if (isOffline()) {
+  <div
+    class="fixed bottom-4 right-4 z-40 glass border-accent-secondary/40 px-3 py-2 flex items-center gap-2"
+    role="status"
+    aria-live="polite"
+  >
+    <lucide-angular
+      [img]="CloudOff"
+      [size]="14"
+      class="text-accent-secondary"
+      aria-hidden="true"
+    />
+    <span class="font-mono text-xs uppercase tracking-wider text-text-secondary">
+      offline — cached pages only
+    </span>
+  </div>
+}

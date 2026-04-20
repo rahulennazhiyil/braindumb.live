@@ -1,0 +1,82 @@
+@if (isOpen()) {
+  <div
+    class="palette-backdrop fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-bg-primary/80 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Command palette"
+  >
+    <div
+      class="palette-panel w-full max-w-xl glass border-accent-primary/30 overflow-hidden animate-palette-drop"
+    >
+      <div class="flex items-center gap-2 px-4 py-3 border-b border-glass-border">
+        <lucide-angular
+          [img]="Search"
+          [size]="16"
+          class="text-accent-primary"
+          aria-hidden="true"
+        />
+        <input
+          #searchInput
+          type="text"
+          class="flex-1 bg-transparent border-0 outline-none font-mono text-sm text-text-primary placeholder:text-text-muted"
+          placeholder="Search commands… (Esc to close)"
+          [value]="query()"
+          (input)="onQueryInput($event)"
+          aria-label="Search commands"
+        />
+        <kbd class="font-mono text-xs text-text-muted">esc</kbd>
+      </div>
+
+      <div
+        class="palette-list max-h-[50vh] overflow-y-auto"
+        role="listbox"
+        aria-label="Available commands"
+      >
+        @if (results().length === 0) {
+          <p class="px-4 py-8 text-center font-mono text-xs text-text-muted">
+            No matches.
+          </p>
+        }
+        @for (group of grouped(); track group.group) {
+          <section class="flex flex-col">
+            <header
+              class="px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted bg-bg-surface/40"
+            >
+              {{ group.label }}
+            </header>
+            @for (i of group.indices; track results()[i].id) {
+              @let cmd = results()[i];
+              <button
+                type="button"
+                role="option"
+                [attr.aria-selected]="selectedIndex() === i"
+                class="flex items-center justify-between gap-3 px-4 py-2 text-left transition-colors"
+                [class.bg-bg-elevated]="selectedIndex() === i"
+                [class.text-accent-primary]="selectedIndex() === i"
+                (mouseenter)="hover(i)"
+                (click)="select(i)"
+              >
+                <span class="font-body text-sm truncate">
+                  {{ cmd.label }}
+                </span>
+                <span class="flex items-center gap-2 flex-shrink-0">
+                  @if (cmd.hint; as hint) {
+                    <kbd class="font-mono text-xs text-text-muted">{{ hint }}</kbd>
+                  }
+                  @if (selectedIndex() === i) {
+                    <lucide-angular
+                      [img]="CornerDownLeft"
+                      [size]="12"
+                      class="text-accent-primary"
+                      aria-hidden="true"
+                    />
+                  }
+                </span>
+              </button>
+            }
+          </section>
+        }
+      </div>
+    </div>
+  </div>
+}

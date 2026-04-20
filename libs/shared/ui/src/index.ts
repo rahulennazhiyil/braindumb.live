@@ -9,3 +9,4 @@ export { Footer } from './lib/footer/footer';
 export type { SocialLink } from './lib/footer/footer';
 export { ProjectCard } from './lib/project-card/project-card';
 export { BlogCard } from './lib/blog-card/blog-card';
+export { OfflineBanner } from './lib/offline-banner/offline-banner';

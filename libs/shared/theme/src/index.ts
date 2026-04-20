@@ -1,5 +1,6 @@
 export { ThemeService } from './lib/theme.service';
 export { ThemeToggle } from './lib/theme-toggle/theme-toggle';
+export { ViewSourceService } from './lib/view-source.service';
 export {
   DEFAULT_THEME,
   isThemeName,

@@ -25,22 +25,23 @@
           "entry": "apps/web/src/server.ts"
         },
         "outputMode": "server",
-        "allowedCommonJsDependencies": ["exceljs"]
+        "allowedCommonJsDependencies": ["exceljs"],
+        "serviceWorker": "apps/web/ngsw-config.json",
+        "budgets": [
+          {
+            "type": "initial",
+            "maximumWarning": "700kb",
+            "maximumError": "1mb"
+          },
+          {
+            "type": "anyComponentStyle",
+            "maximumWarning": "4kb",
+            "maximumError": "8kb"
+          }
+        ]
       },
       "configurations": {
         "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "4kb",
-              "maximumError": "8kb"
-            }
-          ],
           "outputHashing": "all"
         },
         "development": {

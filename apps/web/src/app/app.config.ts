@@ -2,6 +2,7 @@ import {
   ApplicationConfig,
   ErrorHandler,
   inject,
+  isDevMode,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
@@ -10,11 +11,12 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
+import { provideServiceWorker } from '@angular/service-worker';
 import { PageViewTracker } from '@rahul-dev/core-analytics';
 import { AuthService } from '@rahul-dev/core-auth';
 import { APP_CONFIG, provideAppConfig } from '@rahul-dev/core-config';
 import { createSupabaseClientProvider } from '@rahul-dev/core-supabase';
-import { ThemeService } from '@rahul-dev/shared-theme';
+import { ThemeService, ViewSourceService } from '@rahul-dev/shared-theme';
 import {
   SudoKeystrokeTrap,
   TERMINAL_AUTH,
@@ -57,6 +59,13 @@ export const appConfig: ApplicationConfig = {
       },
     },
 
+    // Phase 13: PWA service worker. Registers after 5s so it doesn't
+    // fight the first render. Disabled in dev to avoid stale-file pain.
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:5000',
+    }),
+
     provideAppInitializer(() => {
       inject(ThemeService);
       // Force AuthService to construct so it hydrates the session early.
@@ -66,6 +75,9 @@ export const appConfig: ApplicationConfig = {
       // Phase 11: start page-view tracking. No-ops on SSR and when
       // config.analytics.enabled is false (default).
       inject(PageViewTracker).start();
+      // Phase 13: eagerly construct the view-source service so its
+      // effect writes the initial data-view-source attribute on <html>.
+      inject(ViewSourceService);
     }),
   ],
 };

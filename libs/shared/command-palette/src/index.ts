@@ -1,1 +1,3 @@
-export * from './lib/command-palette/command-palette';
+export { CommandPaletteService } from './lib/command-palette.service';
+export { CommandPaletteOverlay } from './lib/command-palette-overlay';
+export type { Command, CommandGroup } from './lib/command';
