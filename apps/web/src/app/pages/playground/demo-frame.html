@@ -1,0 +1,57 @@
+<main class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16 flex flex-col gap-6">
+  <a
+    routerLink="/playground"
+    class="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-text-muted hover:text-accent-primary transition-colors w-max"
+  >
+    <lucide-angular [img]="ArrowLeft" [size]="12" aria-hidden="true" />
+    <span>cd ../</span>
+  </a>
+
+  <div class="flex items-start justify-between flex-wrap gap-4">
+    <app-section-heading
+      [kicker]="kicker()"
+      [title]="title()"
+      [subtitle]="summary()"
+    />
+    @if (notes()) {
+      <button
+        type="button"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-chip border border-border text-text-secondary hover:text-accent-primary hover:border-accent-primary/60 font-mono text-xs uppercase tracking-wider transition-colors"
+        [attr.aria-pressed]="showNotes()"
+        (click)="toggleNotes()"
+      >
+        <lucide-angular [img]="Code2" [size]="14" aria-hidden="true" />
+        <span>{{ showNotes() ? 'hide notes' : 'view notes' }}</span>
+      </button>
+    }
+  </div>
+
+  @if (techTags().length > 0) {
+    <ul class="flex flex-wrap gap-1.5">
+      @for (tag of techTags(); track tag) {
+        <li>
+          <app-tag-chip>{{ tag }}</app-tag-chip>
+        </li>
+      }
+    </ul>
+  }
+
+  <section
+    class="glass relative w-full h-[min(70vh,560px)] overflow-hidden"
+    aria-label="Visualization canvas"
+  >
+    <ng-content select="[slot=viz]" />
+  </section>
+
+  <section class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 mt-4">
+    <div class="flex flex-col gap-3 font-body text-sm text-text-secondary leading-relaxed">
+      <ng-content select="[slot=explanation]" />
+    </div>
+
+    @if (showNotes() && notes(); as n) {
+      <pre
+        class="glass p-4 font-mono text-xs text-text-muted whitespace-pre-wrap overflow-x-auto"
+      >{{ n }}</pre>
+    }
+  </section>
+</main>

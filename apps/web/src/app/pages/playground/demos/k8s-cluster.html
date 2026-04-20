@@ -1,0 +1,22 @@
+<app-demo-frame
+  [kicker]="kicker"
+  [title]="title"
+  [summary]="summary"
+  [techTags]="techTags"
+  [notes]="source"
+>
+  <div #host slot="viz" class="absolute inset-0"></div>
+
+  <ng-container slot="explanation">
+    <p>
+      Four shapes map to four resource kinds — rectangles for deployments,
+      hexagons for services, triangles for config maps, circles for pods.
+      Status colors the outer stroke (green running, amber pending, red
+      failed). The force layout groups pods under their deployment while
+      service edges pull adjacent pods closer.
+    </p>
+    <p>
+      Drag any node to pin it; release to let the simulation settle again.
+    </p>
+  </ng-container>
+</app-demo-frame>

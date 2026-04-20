@@ -1,0 +1,21 @@
+<app-demo-frame
+  [kicker]="kicker"
+  [title]="title"
+  [summary]="summary"
+  [techTags]="techTags"
+  [notes]="source"
+>
+  <div #host slot="viz" class="absolute inset-0"></div>
+
+  <ng-container slot="explanation">
+    <p>
+      Each horizontal band is a stage in a Nx pipeline — source, build,
+      test, gate, deploy. Link width is proportional to wall-clock time,
+      so the Playwright e2e run (74s) visually dominates the graph.
+    </p>
+    <p>
+      Hover any flow for the exact duration. The gate stage collapses all
+      three test outputs before fanning out to preview and prod.
+    </p>
+  </ng-container>
+</app-demo-frame>

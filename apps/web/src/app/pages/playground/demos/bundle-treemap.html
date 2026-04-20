@@ -1,0 +1,23 @@
+<app-demo-frame
+  [kicker]="kicker"
+  [title]="title"
+  [summary]="summary"
+  [techTags]="techTags"
+  [notes]="source"
+>
+  <div #host slot="viz" class="absolute inset-0"></div>
+
+  <ng-container slot="explanation">
+    <p>
+      Squarify packs nested groups into rectangles sized by total KB. The
+      bundle splits into framework (Angular core), visualization (D3
+      primitives), features (admin, hero, playground), data (Supabase),
+      and fonts.
+    </p>
+    <p>
+      Cyan leaves load eagerly at bootstrap; amber leaves are route-split
+      and only fetched when the user navigates there. Lazy bundles trade
+      a tiny network hop for faster first paint.
+    </p>
+  </ng-container>
+</app-demo-frame>
