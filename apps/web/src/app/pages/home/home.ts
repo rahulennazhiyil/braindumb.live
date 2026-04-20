@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HeroGraph, type TechNode } from '@rahul-dev/features-hero-graph';
+import { TerminalService } from '@rahul-dev/shared-terminal';
 import { Button, SectionHeading } from '@rahul-dev/shared-ui';
 
 @Component({
@@ -10,17 +11,14 @@ import { Button, SectionHeading } from '@rahul-dev/shared-ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
-  /**
-   * Phase 8 will replace this with the terminal overlay. For now the graph's
-   * triple-click on the secret node is a no-op so we don't block users from
-   * exploring the visualization.
-   */
+  private readonly terminal = inject(TerminalService);
+
   protected onSecretTriggered(): void {
-    // intentionally empty — Phase 8 wires the terminal login overlay
+    this.terminal.open();
   }
 
   protected onNodeActivated(node: TechNode): void {
-    // Future: navigate to case study / filter projects by tag.
+    // Future: navigate to case study or filter projects by tag.
     void node;
   }
 }

@@ -1,0 +1,71 @@
+@if (isOpen()) {
+  <div
+    class="terminal-backdrop fixed inset-0 z-50 flex items-start justify-center p-4 md:p-10 bg-bg-primary/80 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Admin login terminal"
+  >
+    <div
+      class="terminal-panel w-full max-w-2xl mt-8 md:mt-16 glass border-accent-primary/30 p-5 md:p-6 font-mono text-sm text-text-primary animate-terminal-drop"
+    >
+      <div class="flex items-center justify-between text-text-muted text-xs mb-3">
+        <span>rahul@dev :: secure_entry</span>
+        <button
+          type="button"
+          class="hover:text-accent-primary"
+          aria-label="Close terminal"
+          (click)="close()"
+        >
+          [ esc ]
+        </button>
+      </div>
+
+      <p class="text-text-secondary">
+        <span class="text-accent-primary">$</span> sudo su
+      </p>
+
+      <form (submit)="onSubmit($event)" class="mt-2">
+        <label for="terminal-password" class="sr-only">Password</label>
+        <div class="flex items-center gap-2">
+          <span class="text-text-muted">password:</span>
+          <input
+            #passwordInput
+            id="terminal-password"
+            type="password"
+            autocomplete="current-password"
+            spellcheck="false"
+            class="flex-1 bg-transparent border-0 outline-none text-accent-primary caret-accent-primary placeholder:text-text-muted"
+            placeholder="enter passphrase"
+            [value]="password()"
+            (input)="password.set($any($event.target).value)"
+            [disabled]="status() === 'submitting' || status() === 'granted'"
+          />
+        </div>
+      </form>
+
+      @if (promptSuffix(); as suffix) {
+        <p
+          class="mt-3 text-xs"
+          [class.text-accent-primary]="status() === 'granted'"
+          [class.text-error]="status() === 'denied'"
+          [class.text-text-muted]="status() === 'submitting'"
+        >
+          &gt; {{ suffix }}
+        </p>
+      }
+
+      @if (status() === 'denied') {
+        <p class="mt-3 text-xs text-text-secondary">
+          {{ lastError() }}
+          <a
+            routerLink="/contact"
+            class="text-accent-primary hover:underline ml-1"
+            (click)="close()"
+          >
+            → this area is for Rahul, reach me here
+          </a>
+        </p>
+      }
+    </div>
+  </div>
+}

@@ -14,6 +14,14 @@ export interface AppConfig {
     /** When false, the AnalyticsService skips all writes. */
     readonly enabled: boolean;
   };
+  readonly admin: {
+    /**
+     * Hard-coded admin email. The terminal overlay prompts only for password
+     * and calls signInWithPassword({ email, password }). Empty in dev → sign
+     * in will fail and the terminal shows "access denied".
+     */
+    readonly email: string;
+  };
 }
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
@@ -26,6 +34,7 @@ export const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 export const DEFAULT_APP_CONFIG: AppConfig = {
   supabase: { url: '', anonKey: '' },
   analytics: { enabled: false },
+  admin: { email: '' },
 };
 
 export function provideAppConfig(config: Partial<AppConfig>): Provider {
@@ -37,6 +46,10 @@ export function provideAppConfig(config: Partial<AppConfig>): Provider {
     analytics: {
       ...DEFAULT_APP_CONFIG.analytics,
       ...config.analytics,
+    },
+    admin: {
+      ...DEFAULT_APP_CONFIG.admin,
+      ...config.admin,
     },
   };
   return { provide: APP_CONFIG, useValue: merged };

@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Footer, NavLink, Navbar, SocialLink } from '@rahul-dev/shared-ui';
+import { TerminalOverlay } from '@rahul-dev/shared-terminal';
 import { ThemeToggle } from '@rahul-dev/shared-theme';
+import { Footer, NavLink, Navbar, SocialLink } from '@rahul-dev/shared-ui';
 
 @Component({
-  imports: [RouterOutlet, Navbar, Footer, ThemeToggle],
+  imports: [RouterOutlet, Navbar, Footer, ThemeToggle, TerminalOverlay],
   selector: 'app-root',
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
