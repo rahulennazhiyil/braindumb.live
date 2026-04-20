@@ -29,8 +29,11 @@ export default [
               onlyDependOnLibsWithTags: ['type:shared', 'type:core'],
             },
             {
+              // core libs may depend on shared libs and on each other
+              // (e.g. auth → supabase, supabase → config). Feature and
+              // type:app tiers handle the outer direction.
               sourceTag: 'type:core',
-              onlyDependOnLibsWithTags: ['type:shared'],
+              onlyDependOnLibsWithTags: ['type:shared', 'type:core'],
             },
             {
               sourceTag: 'type:shared',

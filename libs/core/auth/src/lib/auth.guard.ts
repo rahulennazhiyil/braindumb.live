@@ -1,12 +1,16 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router, UrlTree } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 /**
- * Temporary guard used by /admin until Phase 6/8 wires Supabase-backed auth.
- * Deny-by-default: unauthenticated visitors are redirected to /contact per
- * blueprint §5.6 ("This area is for Rahul. Reach me here →").
+ * Allows navigation when the visitor has a valid Supabase session; otherwise
+ * redirects to /contact per blueprint §5.6. Until Phase 8 adds the terminal
+ * login overlay, the only way to get a session is via the Supabase dashboard
+ * (manual email/password entry — single-admin account).
  */
-export const authGuard: CanActivateFn = (): UrlTree => {
+export const authGuard: CanActivateFn = () => {
+  const auth = inject(AuthService);
   const router = inject(Router);
+  if (auth.isAuthenticated()) return true;
   return router.createUrlTree(['/contact']);
 };

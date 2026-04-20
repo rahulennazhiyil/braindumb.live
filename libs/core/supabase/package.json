@@ -2,7 +2,11 @@
   "name": "@rahul-dev/core-supabase",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "@rahul-dev/core-config": "0.0.1",
+    "@rahul-dev/shared-types": "0.0.1",
+    "@angular/common": "~21.2.0",
+    "@supabase/supabase-js": "^2.103.3"
   },
   "sideEffects": false
 }

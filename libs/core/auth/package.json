@@ -4,7 +4,9 @@
   "peerDependencies": {
     "@angular/core": "^21.2.0",
     "@angular/router": "~21.2.0",
-    "vitest": "^4.0.8"
+    "@angular/common": "~21.2.0",
+    "@rahul-dev/core-supabase": "0.0.1",
+    "@supabase/supabase-js": "^2.103.3"
   },
   "sideEffects": false
 }
