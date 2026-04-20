@@ -10,6 +10,7 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
+import { PageViewTracker } from '@rahul-dev/core-analytics';
 import { AuthService } from '@rahul-dev/core-auth';
 import { APP_CONFIG, provideAppConfig } from '@rahul-dev/core-config';
 import { createSupabaseClientProvider } from '@rahul-dev/core-supabase';
@@ -62,6 +63,9 @@ export const appConfig: ApplicationConfig = {
       inject(AuthService);
       // Wire the global "sudo su" keystroke trap.
       inject(SudoKeystrokeTrap);
+      // Phase 11: start page-view tracking. No-ops on SSR and when
+      // config.analytics.enabled is false (default).
+      inject(PageViewTracker).start();
     }),
   ],
 };

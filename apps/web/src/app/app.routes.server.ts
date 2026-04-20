@@ -7,6 +7,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'playground', renderMode: RenderMode.Prerender },
   { path: 'feed', renderMode: RenderMode.Prerender },
   { path: 'contact', renderMode: RenderMode.Prerender },
+  { path: 'privacy', renderMode: RenderMode.Prerender },
 
   // Dynamic slugs / demos — rendered per-request.
   { path: 'projects/:slug', renderMode: RenderMode.Server },

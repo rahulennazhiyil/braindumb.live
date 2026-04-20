@@ -1,0 +1,70 @@
+<main class="max-w-3xl mx-auto px-4 md:px-6 py-16 flex flex-col gap-8">
+  <app-section-heading
+    kicker="cat /privacy"
+    title="Privacy"
+    subtitle="How rahul.dev tracks visitors, and what it deliberately doesn't."
+  />
+
+  <section class="flex flex-col gap-3 font-body text-text-secondary leading-relaxed">
+    <h2 class="font-display font-bold text-xl text-text-primary mt-4">
+      What gets recorded
+    </h2>
+    <p>
+      When analytics is enabled in the app config, every page navigation
+      records: the URL path, the referrer (if the browser shares it),
+      your user-agent string, coarse device type (desktop / mobile /
+      tablet), browser + OS derived from the user-agent, screen
+      dimensions, browser language, and the timezone reported by your
+      browser.
+    </p>
+    <p>
+      No cookies are set. No third-party scripts run. Nothing is sent to
+      Google, Meta, Vercel, or any analytics vendor — the data lives
+      only in this site's own Supabase database.
+    </p>
+
+    <h2 class="font-display font-bold text-xl text-text-primary mt-4">
+      What does <em>not</em> get recorded
+    </h2>
+    <p>
+      Your raw IP address is never stored. It's used only at write-time
+      to resolve an approximate country (Phase 11.1) and then discarded.
+      Your real identity is never recorded.
+    </p>
+
+    <h2 class="font-display font-bold text-xl text-text-primary mt-4">
+      How "unique visitors" works
+    </h2>
+    <p>
+      For the admin dashboard's "unique visitors" count, a SHA-256 hash
+      is computed from a daily-rotated random salt + your user-agent.
+      The salt is stored in your browser's localStorage and rotates
+      every UTC day, which means today's hash cannot be correlated with
+      tomorrow's. Phase 11.1 moves the salt rotation server-side via a
+      Supabase Edge Function for full privacy guarantees even against
+      someone with DB access.
+    </p>
+
+    <h2 class="font-display font-bold text-xl text-text-primary mt-4">
+      Bots are filtered
+    </h2>
+    <p>
+      Requests with user-agents matching common bot signatures
+      (crawlers, headless Chrome, Playwright, Lighthouse, etc.) are
+      flagged and excluded from dashboard stats.
+    </p>
+
+    <h2 class="font-display font-bold text-xl text-text-primary mt-4">
+      Questions
+    </h2>
+    <p>
+      Reach me via
+      <a
+        href="mailto:duboopathi@gmail.com"
+        class="text-accent-primary hover:underline"
+        >email</a
+      >
+      or the <a routerLink="/contact" class="text-accent-primary hover:underline">contact form</a>.
+    </p>
+  </section>
+</main>

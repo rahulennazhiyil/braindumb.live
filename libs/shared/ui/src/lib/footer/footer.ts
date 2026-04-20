@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   Github,
   Linkedin,
@@ -23,7 +24,7 @@ const ICON_MAP: Record<SocialLink['icon'], LucideIconData> = {
 
 @Component({
   selector: 'app-footer',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, RouterLink],
   templateUrl: './footer.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

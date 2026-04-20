@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SectionHeading } from '@rahul-dev/shared-ui';
+import { VisitorInsights } from '@rahul-dev/features-visitor-insights';
 
 @Component({
   selector: 'app-admin-visitor-insights',
-  imports: [SectionHeading],
+  imports: [VisitorInsights],
   templateUrl: './visitor-insights.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

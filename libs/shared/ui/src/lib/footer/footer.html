@@ -29,8 +29,15 @@
           }
         </ul>
       }
-      <p class="font-mono text-xs text-text-muted">
-        © {{ year() }} · Rahul E
+      <p class="font-mono text-xs text-text-muted flex items-center gap-2">
+        <span>© {{ year() }} · Rahul E</span>
+        <span aria-hidden="true">·</span>
+        <a
+          routerLink="/privacy"
+          class="hover:text-accent-primary transition-colors"
+        >
+          privacy
+        </a>
       </p>
     </div>
   </div>

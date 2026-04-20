@@ -1,0 +1,129 @@
+<div class="flex flex-col gap-6">
+  <header class="flex items-end justify-between flex-wrap gap-4">
+    <div class="flex flex-col gap-1">
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-primary">
+        <span class="text-text-muted">/admin/insights</span>
+      </span>
+      <h2 class="font-display font-bold text-2xl md:text-3xl text-text-primary">
+        Visitor insights
+      </h2>
+      <p class="font-body text-sm text-text-secondary max-w-xl">
+        Privacy-first analytics. Visitor hash rotates daily; raw IP never
+        touches the DB. Country + geographic map land in Phase 11.1.
+      </p>
+    </div>
+
+    <div
+      class="inline-flex items-center rounded-chip border border-border p-0.5"
+      role="tablist"
+      aria-label="Date range"
+    >
+      @for (p of presets; track p) {
+        <button
+          type="button"
+          role="tab"
+          [attr.aria-selected]="preset() === p"
+          [class.bg-accent-primary]="preset() === p"
+          [class.text-bg-primary]="preset() === p"
+          [class.text-text-secondary]="preset() !== p"
+          class="px-3 py-1.5 rounded-chip font-mono text-xs uppercase tracking-wider hover:text-accent-primary transition-colors"
+          (click)="setPreset(p)"
+        >
+          {{ p }}
+        </button>
+      }
+    </div>
+  </header>
+
+  @if (error(); as e) {
+    <p class="font-mono text-xs text-error">
+      <span class="text-text-muted">&gt;</span> {{ e }}
+    </p>
+  }
+
+  <section class="grid grid-cols-1 md:grid-cols-4 gap-3">
+    <article class="glass p-4 flex flex-col gap-1">
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+        total views
+      </span>
+      <p class="font-display font-bold text-2xl text-text-primary">
+        {{ loading() ? '…' : aggregates().total }}
+      </p>
+    </article>
+    <article class="glass p-4 flex flex-col gap-1">
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+        unique visitors
+      </span>
+      <p class="font-display font-bold text-2xl text-text-primary">
+        {{ loading() ? '…' : aggregates().uniqueVisitors }}
+      </p>
+    </article>
+    <article class="glass p-4 flex flex-col gap-1">
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+        window
+      </span>
+      <p class="font-display font-bold text-2xl text-text-primary">
+        {{ preset() }}
+      </p>
+    </article>
+    <article class="glass p-4 flex flex-col gap-1">
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+        top device
+      </span>
+      <p class="font-display font-bold text-2xl text-text-primary">
+        {{ loading() ? '…' : (aggregates().devices[0]?.key ?? '—') }}
+      </p>
+    </article>
+  </section>
+
+  <section class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-3">
+    <app-panel-traffic
+      class="min-h-[260px]"
+      [data]="aggregates().daily"
+      title="Daily views"
+    />
+    <app-panel-device-donut
+      class="min-h-[260px]"
+      [data]="aggregates().devices"
+      title="Devices"
+    />
+  </section>
+
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+    <app-panel-browser-bar
+      class="min-h-[240px]"
+      [data]="aggregates().browsers"
+      title="Browsers"
+    />
+    <app-panel-peak-hours
+      class="min-h-[240px]"
+      [data]="aggregates().peakHours"
+      title="Peak hours (UTC)"
+    />
+  </section>
+
+  <section class="glass p-5 flex flex-col gap-3">
+    <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-accent-primary">
+      Top pages
+    </h3>
+    @if (aggregates().topPaths.length === 0) {
+      <p class="font-body text-sm text-text-muted">No data in this window.</p>
+    } @else {
+      <ol class="flex flex-col divide-y divide-glass-border">
+        @for (p of aggregates().topPaths; track p.key; let i = $index) {
+          <li class="py-2 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="font-mono text-xs text-text-muted w-6 text-right">
+                {{ i + 1 }}.
+              </span>
+              <span class="font-mono text-xs text-text-primary truncate">
+                {{ p.key }}
+              </span>
+            </div>
+            <span class="font-mono text-xs text-accent-primary">{{ p.count }}</span>
+          </li>
+        }
+      </ol>
+    }
+  </section>
+</div>

@@ -11,6 +11,7 @@ describe('appRoutes', () => {
       'playground',
       'feed',
       'contact',
+      'privacy',
       'admin',
       '**',
     ]);

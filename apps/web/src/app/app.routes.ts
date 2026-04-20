@@ -36,6 +36,12 @@ export const appRoutes: Route[] = [
     title: 'Contact · Rahul E',
   },
   {
+    path: 'privacy',
+    loadComponent: () =>
+      import('./pages/privacy/privacy').then((m) => m.Privacy),
+    title: 'Privacy · Rahul E',
+  },
+  {
     path: 'admin',
     canActivate: [authGuard],
     loadChildren: () =>
