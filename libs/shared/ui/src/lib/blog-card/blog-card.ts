@@ -22,6 +22,8 @@ export class BlogCard {
   readonly publishedAt = input.required<Date | string>();
   readonly tags = input<readonly string[]>([]);
   readonly href = input<string>();
+  /** Render the wrapper as a plain <a target="_blank"> for off-site URLs. */
+  readonly external = input<boolean>(false);
   readonly readingMinutes = input<number>();
 
   protected readonly ArrowUpRight = ArrowUpRight;

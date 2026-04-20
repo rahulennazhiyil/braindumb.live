@@ -43,9 +43,20 @@
   'group glass p-5 flex flex-col gap-2 h-full no-underline hover:shadow-glow hover:border-accent-primary/30 hover:-translate-y-0.5 transition-all duration-300';
 
 @if (href(); as h) {
-  <a [routerLink]="h" [class]="wrapperClass">
-    <ng-container *ngTemplateOutlet="content" />
-  </a>
+  @if (external()) {
+    <a
+      [href]="h"
+      target="_blank"
+      rel="noopener noreferrer"
+      [class]="wrapperClass"
+    >
+      <ng-container *ngTemplateOutlet="content" />
+    </a>
+  } @else {
+    <a [routerLink]="h" [class]="wrapperClass">
+      <ng-container *ngTemplateOutlet="content" />
+    </a>
+  }
 } @else {
   <article [class]="wrapperClass">
     <ng-container *ngTemplateOutlet="content" />

@@ -39,7 +39,7 @@ describe('authGuard', () => {
     const result = TestBed.runInInjectionContext(() =>
       authGuard(dummyRoute, dummyState),
     ) as UrlTree;
-    expect(router.serializeUrl(result)).toBe('/contact');
+    expect(router.serializeUrl(result)).toBe('/contact?from=admin');
   });
 
   it('allows navigation when authenticated', async () => {

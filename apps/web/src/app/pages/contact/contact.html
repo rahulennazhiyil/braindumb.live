@@ -1,7 +1,123 @@
-<main class="max-w-3xl mx-auto px-4 md:px-6 py-16">
+<main class="max-w-3xl mx-auto px-4 md:px-6 py-16 flex flex-col gap-8">
+  @if (fromAdmin()) {
+    <aside
+      class="glass border-accent-primary/30 p-4 flex flex-col gap-1"
+      role="status"
+    >
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-primary">
+        <span class="text-text-muted">~#</span> denied
+      </span>
+      <p class="font-body text-sm text-text-secondary">
+        That area is for Rahul. If you're looking for him, the form below
+        is the quickest way to reach him.
+      </p>
+    </aside>
+  }
+
   <app-section-heading
     kicker="echo $EMAIL"
     title="Contact"
-    subtitle="Form + socials. Wires up in Phase 11 (Resend + Supabase)."
+    subtitle="The fastest way to reach me. Messages land in a Supabase inbox I read."
   />
+
+  @if (sent()) {
+    <p class="glass p-4 font-mono text-xs text-accent-primary">
+      <span class="text-text-muted">&gt;</span> message sent. talk soon.
+    </p>
+  } @else {
+    <form
+      class="glass p-5 flex flex-col gap-4"
+      (submit)="submit($event)"
+      novalidate
+    >
+      @if (error(); as e) {
+        <p class="font-mono text-xs text-error">
+          <span class="text-text-muted">&gt;</span> {{ e }}
+        </p>
+      }
+
+      <div class="flex flex-col gap-1">
+        <label
+          for="contact-name"
+          class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted"
+          >name</label
+        >
+        <input
+          id="contact-name"
+          type="text"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-body text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          name="name"
+          required
+          minlength="1"
+          [ngModel]="name()"
+          (ngModelChange)="name.set($event)"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label
+          for="contact-email"
+          class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted"
+          >email</label
+        >
+        <input
+          id="contact-email"
+          type="email"
+          autocomplete="email"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-mono text-sm text-text-primary focus:outline-none focus:border-accent-primary/60"
+          name="email"
+          required
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label
+          for="contact-message"
+          class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted"
+          >message</label
+        >
+        <textarea
+          id="contact-message"
+          class="bg-bg-surface border border-border rounded-chip px-3 py-2 font-body text-sm text-text-primary focus:outline-none focus:border-accent-primary/60 min-h-[140px] resize-y"
+          name="message"
+          required
+          minlength="4"
+          [ngModel]="message()"
+          (ngModelChange)="message.set($event)"
+        ></textarea>
+      </div>
+
+      <div class="flex items-center gap-2 justify-end">
+        <button
+          type="submit"
+          class="px-4 py-2 rounded-chip bg-accent-primary text-bg-primary hover:shadow-glow hover:-translate-y-0.5 font-mono text-xs uppercase tracking-wider transition-all disabled:opacity-40"
+          [disabled]="!canSubmit()"
+        >
+          {{ submitting() ? 'sending…' : 'send' }}
+        </button>
+      </div>
+    </form>
+  }
+
+  <section class="flex flex-col gap-3">
+    <h2 class="font-mono text-xs uppercase tracking-[0.2em] text-accent-primary">
+      <span class="text-text-muted">~$</span> cat ./socials
+    </h2>
+    <ul class="flex flex-wrap gap-3">
+      @for (s of socials; track s.href) {
+        <li>
+          <a
+            [href]="s.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-chip border border-border text-text-secondary hover:text-accent-primary hover:border-accent-primary/60 font-mono text-xs uppercase tracking-wider transition-colors"
+          >
+            {{ s.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </section>
 </main>

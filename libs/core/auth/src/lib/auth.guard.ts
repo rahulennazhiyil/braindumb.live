@@ -12,5 +12,9 @@ export const authGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
   if (auth.isAuthenticated()) return true;
-  return router.createUrlTree(['/contact']);
+  // `from=admin` lets /contact render the blueprint §5.6 "This area is
+  // for Rahul" banner instead of its default framing.
+  return router.createUrlTree(['/contact'], {
+    queryParams: { from: 'admin' },
+  });
 };

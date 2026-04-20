@@ -1,7 +1,67 @@
-<main class="max-w-4xl mx-auto px-4 md:px-6 py-16">
+<main class="max-w-4xl mx-auto px-4 md:px-6 py-16 flex flex-col gap-8">
   <app-section-heading
     kicker="tail -f feed.log"
     title="Feed"
-    subtitle="Latest posts, links, project updates. Wires into Supabase in Phase 6."
+    subtitle="Blog posts, external links, project updates, learning notes."
   />
+
+  <nav
+    class="flex flex-wrap gap-2"
+    role="tablist"
+    aria-label="Feed type filter"
+  >
+    @for (f of filters; track f) {
+      <button
+        type="button"
+        role="tab"
+        class="px-3 py-1.5 rounded-chip font-mono text-xs uppercase tracking-wider transition-colors border"
+        [class.bg-accent-primary]="filter() === f"
+        [class.text-bg-primary]="filter() === f"
+        [class.border-accent-primary]="filter() === f"
+        [class.text-text-secondary]="filter() !== f"
+        [class.border-border]="filter() !== f"
+        [class.hover:text-accent-primary]="filter() !== f"
+        [attr.aria-selected]="filter() === f"
+        (click)="setFilter(f)"
+      >
+        {{ f }} <span class="opacity-60">{{ countFor(f) }}</span>
+      </button>
+    }
+  </nav>
+
+  @if (error(); as e) {
+    <p class="font-mono text-xs text-error">
+      <span class="text-text-muted">&gt;</span> {{ e }}
+    </p>
+  }
+
+  @if (loading()) {
+    <p class="font-mono text-xs text-text-muted">
+      <span class="text-accent-primary">$</span> loading…
+    </p>
+  } @else if (visible().length === 0) {
+    <div class="glass p-8 text-center flex flex-col gap-2 items-center">
+      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+        <span class="text-accent-primary">~$</span> ls --empty
+      </span>
+      <p class="font-body text-sm text-text-secondary">
+        Nothing here yet. Admin adds items via <span class="font-mono">/admin/feed</span>.
+      </p>
+    </div>
+  } @else {
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      @for (item of visible(); track item.id) {
+        <li>
+          <app-blog-card
+            [title]="item.title"
+            [excerpt]="item.content ?? item.url ?? ''"
+            [publishedAt]="item.published_at"
+            [tags]="item.tags ?? []"
+            [href]="hrefFor(item)"
+            [external]="true"
+          />
+        </li>
+      }
+    </ul>
+  }
 </main>
