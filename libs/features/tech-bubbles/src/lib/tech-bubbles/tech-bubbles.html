@@ -1,12 +1,109 @@
 <div class="bubbles-wrap">
-  <svg #svg class="bubbles-svg" width="100%" aria-label="Tech skill bubble chart"></svg>
-
-  <div class="legend" role="list" aria-label="Category legend">
+  <!-- Filter chips (category legend) -->
+  <div class="tb-filters" role="toolbar" aria-label="Filter tech by category">
+    <button
+      type="button"
+      class="tb-chip"
+      [class.tb-chip--active]="activeFilter() === null"
+      (click)="activeFilter.set(null); applyFilterExternal()"
+    >
+      All · {{ SKILL_COUNT }}
+    </button>
     @for (cat of categories; track cat.id) {
-      <span class="legend__item" role="listitem">
-        <span class="legend__dot legend__dot--{{ cat.id }}" aria-hidden="true"></span>
+      <button
+        type="button"
+        class="tb-chip"
+        [class.tb-chip--active]="activeFilter() === cat.id"
+        (click)="toggleFilter(cat.id)"
+      >
+        <span class="tb-chip__dot" [style.background]="cat.color"></span>
         {{ cat.label }}
-      </span>
+        <span class="tb-chip__count">{{ cat.count }}</span>
+      </button>
     }
   </div>
+
+  <!-- Chart + floating tooltip + detail panel -->
+  <div class="tb-stage">
+    <svg #svg class="bubbles-svg" width="100%" aria-label="Tech skill bubble chart"></svg>
+
+    @if (hover(); as h) {
+      <div
+        class="tb-tooltip"
+        [style.left.px]="h.x + 14"
+        [style.top.px]="h.y + 14"
+        [style.border-color]="colorFor(h.skill.category)"
+        role="tooltip"
+      >
+        <div class="tb-tooltip__head">
+          <span class="tb-tooltip__name">{{ h.skill.name }}</span>
+          <span
+            class="tb-tooltip__cat"
+            [style.color]="colorFor(h.skill.category)"
+          >
+            {{ labelFor(h.skill.category) }}
+          </span>
+        </div>
+        <div class="tb-level" aria-label="Mastery">
+          @for (on of levelSegments(h.skill.level); track $index) {
+            <span
+              class="tb-level__seg"
+              [class.tb-level__seg--on]="on"
+              [style.background]="on ? colorFor(h.skill.category) : null"
+            ></span>
+          }
+          <span class="tb-level__label">{{ levelLabel(h.skill.level) }}</span>
+        </div>
+        @if (h.skill.note) {
+          <p class="tb-tooltip__note">{{ h.skill.note }}</p>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Persistent detail panel when a bubble is clicked -->
+  @if (selected(); as s) {
+    <div
+      class="tb-detail"
+      [style.border-color]="colorFor(s.category)"
+      role="region"
+      [attr.aria-label]="s.name + ' details'"
+    >
+      <div class="tb-detail__head">
+        <div class="tb-detail__titles">
+          <h4 class="tb-detail__name">{{ s.name }}</h4>
+          <span
+            class="tb-detail__cat"
+            [style.color]="colorFor(s.category)"
+          >
+            {{ labelFor(s.category) }} · {{ levelLabel(s.level) }}
+          </span>
+        </div>
+        <button
+          type="button"
+          class="tb-detail__close"
+          (click)="clearSelection()"
+          aria-label="Close details"
+        >×</button>
+      </div>
+      @if (s.note) {
+        <p class="tb-detail__note">{{ s.note }}</p>
+      }
+      <div class="tb-level tb-level--detail">
+        @for (on of levelSegments(s.level); track $index) {
+          <span
+            class="tb-level__seg"
+            [class.tb-level__seg--on]="on"
+            [style.background]="on ? colorFor(s.category) : null"
+          ></span>
+        }
+      </div>
+    </div>
+  } @else {
+    <p class="tb-hint">
+      <span class="tb-hint__kbd">Click</span> a bubble for details ·
+      <span class="tb-hint__kbd">Drag</span> to rearrange ·
+      <span class="tb-hint__kbd">Filter</span> above
+    </p>
+  }
 </div>

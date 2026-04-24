@@ -25,16 +25,18 @@
 
     <div class="bio__links">
       <a href="https://github.com/rahulennazhiyil" target="_blank" rel="noopener" class="bio__link">
+        <lucide-angular [img]="Github" [size]="15" aria-hidden="true" />
         GitHub
       </a>
       <a href="https://linkedin.com/in/rahul-e" target="_blank" rel="noopener" class="bio__link">
+        <lucide-angular [img]="Linkedin" [size]="15" aria-hidden="true" />
         LinkedIn
       </a>
     </div>
   </section>
 
   <!-- Career -->
-  <section>
+  <section appReveal>
     <app-section-heading
       kicker="$ git log --career"
       title="Career"
@@ -46,7 +48,7 @@
   </section>
 
   <!-- Tech stack -->
-  <section>
+  <section appReveal>
     <app-section-heading
       kicker="$ npm list --depth=0"
       title="Tech Stack"

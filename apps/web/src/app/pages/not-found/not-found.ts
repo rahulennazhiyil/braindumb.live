@@ -6,6 +6,7 @@ import { Button } from '@rahul-dev/shared-ui';
   selector: 'app-not-found',
   imports: [RouterLink, Button],
   templateUrl: './not-found.html',
+  styleUrl: './not-found.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFound {}

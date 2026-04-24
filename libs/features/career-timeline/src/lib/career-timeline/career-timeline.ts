@@ -6,41 +6,63 @@ interface CareerEntry {
   readonly company: string;
   readonly role: string;
   readonly period: string;
+  readonly location: string;
   readonly summary: string;
   readonly highlights: readonly string[];
   readonly tags: readonly string[];
   readonly current?: boolean;
 }
 
-// Edit this array with your actual career history.
 const CAREER: readonly CareerEntry[] = [
   {
     id: 'data-unveil',
     company: 'Data Unveil',
-    role: 'Frontend Developer',
-    period: '2022 — Present',
+    role: 'Software Developer',
+    period: 'Oct 2025 — Present',
+    location: 'Hyderabad, India',
     summary:
-      'Building data-heavy web applications and interactive dashboards for enterprise clients using Angular and D3.',
+      'Building the SCRAII analytics platform — an AI-powered text-to-SQL interface and workflow automation modules for enterprise teams.',
     highlights: [
-      'Architected a reusable Angular component library adopted across 3 product lines',
-      'Built real-time D3 dashboards visualising 10k+ data points with <16ms frame budgets',
-      'Led team migration from AngularJS to Angular 15+, reducing bundle size by 40%',
+      'Shipping the SCRAII AI module — converts natural-language prompts into SQL and renders results as tables or D3 charts.',
+      'Building a Task Management & Workflow module to automate complex operational flows.',
+      'Reduced load time and bundle size via lazy loading, route-level code splitting, and Signals-based rendering.',
+      'Using Claude Code for AI-augmented debugging and performance work.',
     ],
-    tags: ['Angular', 'TypeScript', 'D3', 'RxJS', 'Tailwind'],
+    tags: ['Angular 19', 'Signals', 'TypeScript', 'D3.js', 'Chart.js', 'REST APIs', 'Claude Code'],
     current: true,
   },
   {
-    id: 'prev-1',
-    company: 'Previous Company',
-    role: 'Junior Frontend Developer',
-    period: '2020 — 2022',
+    id: 'finch-engineer',
+    company: 'Finch Innovate',
+    role: 'Engineer — Software Development',
+    period: 'Nov 2024 — Oct 2025',
+    location: 'Kochi, India',
     summary:
-      'Developed client-facing web applications and internal tooling in an Angular + Node.js stack.',
+      'Senior FE on FinchCOMPLY and FinchSCAN — SaaS compliance and AML tooling for international enterprise clients.',
     highlights: [
-      'Shipped 5+ features end-to-end across the full Angular/Node.js stack',
-      'Improved CI pipeline run time by 30% through parallelisation and caching',
+      'Designed compliance dashboards in FinchCOMPLY, automating risk & regulatory workflows.',
+      'Cut manual AML review time by 40% through real-time REST integrations and interactive visualisations on FinchSCAN.',
+      'Improved client satisfaction by 20% via UX collaboration with international teams.',
+      'Strengthened CI/CD pipelines with Azure DevOps and explored Docker-based deployments.',
     ],
-    tags: ['Angular', 'TypeScript', 'SCSS', 'Jest'],
+    tags: ['Angular 15–18', 'RxJS', 'PrimeNG', 'Chart.js', 'Azure DevOps', 'Jasmine', 'Karma'],
+    current: false,
+  },
+  {
+    id: 'finch-junior',
+    company: 'Finch Innovate',
+    role: 'Junior Engineer — Software Development',
+    period: 'Nov 2022 — Nov 2024',
+    location: 'Kochi, India',
+    summary:
+      'Started my career shipping responsive, production-grade UIs on enterprise fintech.',
+    highlights: [
+      'Led the Angular 14 → 15 migration across enterprise fintech apps, preserving stability at scale.',
+      'Built responsive UIs with PrimeNG and Angular Material for cross-device compatibility.',
+      'Delivered visual reporting modules with Chart.js for compliance analytics.',
+      'Contributed to Agile sprint planning and international delivery cycles.',
+    ],
+    tags: ['Angular 14–15', 'TypeScript', 'SCSS', 'PrimeNG', 'Angular Material', 'Bootstrap'],
     current: false,
   },
 ];

@@ -1,0 +1,39 @@
+@keyframes glitch-404 {
+  0%,
+  85%,
+  100% {
+    text-shadow: none;
+    transform: none;
+  }
+  87% {
+    text-shadow: -3px 0 var(--accent-primary), 3px 0 var(--accent-secondary);
+    transform: translate(-1px) skewX(-0.5deg);
+  }
+  89% {
+    text-shadow: 3px 0 var(--accent-primary), -3px 0 var(--accent-secondary);
+    transform: translate(1px) skewX(0.5deg);
+  }
+  91% {
+    text-shadow: none;
+    transform: none;
+  }
+  93% {
+    text-shadow: -2px 0 var(--accent-secondary);
+    transform: translate(-0.5px);
+  }
+  95% {
+    text-shadow: none;
+    transform: none;
+  }
+}
+
+.glitch-text {
+  display: inline-block;
+  animation: glitch-404 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch-text {
+    animation: none;
+  }
+}
