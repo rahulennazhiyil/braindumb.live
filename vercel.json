@@ -4,9 +4,10 @@
   "public": true,
   "buildCommand": "node scripts/gen-env.mjs && npx nx build web",
   "installCommand": "npm ci",
+  "outputDirectory": "dist/apps/web/browser",
   "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
   "functions": {
-    "api/index.mjs": { "includeFiles": "dist/apps/web/**" }
+    "api/index.mjs": { "includeFiles": "dist/apps/web/server/**" }
   },
   "headers": [
     {
