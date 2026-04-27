@@ -53,7 +53,8 @@
       ],
       "@rahul-dev/features-finance-analyzer": [
         "libs/features/finance-analyzer/src/index.ts"
-      ]
+      ],
+      "@rahul-dev/shared-cinematics": ["libs/shared/cinematics/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

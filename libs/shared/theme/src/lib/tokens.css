@@ -28,6 +28,12 @@
   --shadow-glow: 0 0 24px rgba(0, 240, 255, 0.25);
   --radius-card: 16px;
   --radius-chip: 6px;
+
+  /* Cinematic overlays — read by libs/shared/cinematics. */
+  --cinematic-grain-opacity: 0.06;
+  --cinematic-scan-opacity: 0.04;
+  --cinematic-chromatic-shift: 1px;
+  --cinematic-noise-color: 255, 255, 255;
 }
 
 :root[data-theme='terminal'] {
@@ -59,6 +65,11 @@
   --shadow-glow: 0 0 24px rgba(0, 255, 65, 0.4);
   --radius-card: 0px;
   --radius-chip: 0px;
+
+  --cinematic-grain-opacity: 0.10;
+  --cinematic-scan-opacity: 0.07;
+  --cinematic-chromatic-shift: 0px;
+  --cinematic-noise-color: 0, 255, 65;
 }
 
 :root[data-theme='print'] {
@@ -90,6 +101,12 @@
   --shadow-glow: none;
   --radius-card: 4px;
   --radius-chip: 4px;
+
+  /* Print intentionally disables cinematics — boss-mode for sharing. */
+  --cinematic-grain-opacity: 0;
+  --cinematic-scan-opacity: 0;
+  --cinematic-chromatic-shift: 0px;
+  --cinematic-noise-color: 0, 0, 0;
 }
 
 :root[data-theme='synthwave'] {
@@ -121,4 +138,9 @@
   --shadow-glow: 0 0 24px rgba(255, 41, 117, 0.5);
   --radius-card: 12px;
   --radius-chip: 6px;
+
+  --cinematic-grain-opacity: 0.04;
+  --cinematic-scan-opacity: 0.05;
+  --cinematic-chromatic-shift: 1.5px;
+  --cinematic-noise-color: 255, 0, 200;
 }

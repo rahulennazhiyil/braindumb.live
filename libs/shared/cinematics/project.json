@@ -1,0 +1,45 @@
+{
+  "name": "cinematics",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/cinematics/src",
+  "prefix": "app",
+  "projectType": "library",
+  "tags": ["type:shared", "scope:ui"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/shared/cinematics/ng-package.json",
+        "tsConfig": "libs/shared/cinematics/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/shared/cinematics/tsconfig.lib.prod.json"
+        },
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {}
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "tsc --noEmit -p libs/shared/cinematics/tsconfig.lib.json",
+          "tsc --noEmit -p libs/shared/cinematics/tsconfig.spec.json"
+        ],
+        "cwd": "{workspaceRoot}",
+        "parallel": false
+      },
+      "cache": true,
+      "inputs": ["default", "^default", "{projectRoot}/tsconfig*.json"]
+    }
+  }
+}
