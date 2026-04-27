@@ -1,0 +1,45 @@
+{
+  "name": "boot-sequence",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/boot-sequence/src",
+  "prefix": "app",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:ui"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/features/boot-sequence/ng-package.json",
+        "tsConfig": "libs/features/boot-sequence/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/features/boot-sequence/tsconfig.lib.prod.json"
+        },
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {}
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "tsc --noEmit -p libs/features/boot-sequence/tsconfig.lib.json",
+          "tsc --noEmit -p libs/features/boot-sequence/tsconfig.spec.json"
+        ],
+        "cwd": "{workspaceRoot}",
+        "parallel": false
+      },
+      "cache": true,
+      "inputs": ["default", "^default", "{projectRoot}/tsconfig*.json"]
+    }
+  }
+}

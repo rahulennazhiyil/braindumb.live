@@ -1,0 +1,7 @@
+{
+  "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../dist/libs/features/boot-sequence",
+  "lib": {
+    "entryFile": "src/index.ts"
+  }
+}

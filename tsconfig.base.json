@@ -55,7 +55,12 @@
         "libs/features/finance-analyzer/src/index.ts"
       ],
       "@rahul-dev/shared-cinematics": ["libs/shared/cinematics/src/index.ts"],
-      "@rahul-dev/features-scene-frame": ["libs/features/scene-frame/src/index.ts"]
+      "@rahul-dev/features-scene-frame": [
+        "libs/features/scene-frame/src/index.ts"
+      ],
+      "@rahul-dev/features-boot-sequence": [
+        "libs/features/boot-sequence/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
