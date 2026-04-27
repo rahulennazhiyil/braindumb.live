@@ -1,13 +1,15 @@
 <div class="min-h-dvh flex flex-col bg-bg-primary text-text-primary">
-  <app-navbar [links]="navLinks">
+  <app-navbar [links]="navLinks" (logoLongPress)="onLogoLongPress()">
     <app-theme-toggle nav-actions />
   </app-navbar>
   <main class="flex-1">
     <router-outlet />
   </main>
-  <app-footer [socials]="socials" />
+  <app-footer [socials]="socials" (secretTriggered)="onLogoLongPress()" />
   <app-offline-banner />
   <app-command-palette />
   <app-terminal-overlay />
   <app-scroll-to-top />
+  <app-grain-overlay />
+  <app-scan-line-overlay />
 </div>

@@ -11,8 +11,10 @@
   >
     <a
       routerLink="/"
-      class="font-mono text-accent-primary font-bold text-sm uppercase tracking-[0.2em]"
+      class="font-mono text-accent-primary font-bold text-sm uppercase tracking-[0.2em] select-none touch-none"
       (click)="close()"
+      (appLongPress)="logoLongPress.emit()"
+      [holdMs]="650"
     >
       <span class="text-text-muted">~$</span> {{ logoText() }}
     </a>

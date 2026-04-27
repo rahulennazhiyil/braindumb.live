@@ -3,9 +3,19 @@
     class="max-w-6xl mx-auto px-4 md:px-6 py-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
   >
     <div class="flex flex-col gap-2">
-      <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent-primary">
+      <span
+        class="font-mono text-xs uppercase tracking-[0.2em] text-accent-primary select-none"
+      >
         <span class="text-text-muted">~$</span> exit 0
       </span>
+      <!-- Hidden tap target — easter egg, intentionally not announced. -->
+      <button
+        type="button"
+        aria-hidden="true"
+        tabindex="-1"
+        class="absolute -translate-y-2 w-12 h-6 opacity-0"
+        (click)="onPromptTap()"
+      ></button>
       <p class="font-body text-sm text-text-secondary max-w-sm">
         {{ tagline() }}
       </p>

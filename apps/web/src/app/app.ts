@@ -5,6 +5,10 @@ import {
   CommandPaletteService,
   type Command,
 } from '@rahul-dev/shared-command-palette';
+import {
+  GrainOverlay,
+  ScanLineOverlay,
+} from '@rahul-dev/shared-cinematics';
 import { TerminalOverlay, TerminalService } from '@rahul-dev/shared-terminal';
 import {
   THEMES,
@@ -32,6 +36,8 @@ import {
     CommandPaletteOverlay,
     TerminalOverlay,
     ThemeToggle,
+    GrainOverlay,
+    ScanLineOverlay,
   ],
   selector: 'app-root',
   templateUrl: './app.html',
@@ -68,6 +74,10 @@ export class App {
 
   constructor() {
     this.palette.register(this.buildCommands());
+  }
+
+  protected onLogoLongPress(): void {
+    this.terminal.open();
   }
 
   private buildCommands(): readonly Command[] {

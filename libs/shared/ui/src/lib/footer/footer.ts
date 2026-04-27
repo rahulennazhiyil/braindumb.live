@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   Github,
@@ -22,6 +22,8 @@ const ICON_MAP: Record<SocialLink['icon'], LucideIconData> = {
   twitter: Twitter,
 };
 
+const TRIPLE_TAP_WINDOW_MS = 700;
+
 @Component({
   selector: 'app-footer',
   imports: [LucideAngularModule, RouterLink],
@@ -32,8 +34,22 @@ export class Footer {
   readonly socials = input<readonly SocialLink[]>([]);
   readonly year = input<number>(new Date().getFullYear());
   readonly tagline = input<string>('Built with Angular, D3.js, and too much coffee.');
+  readonly secretTriggered = output<void>();
+
+  private taps: number[] = [];
 
   protected iconFor(key: SocialLink['icon']): LucideIconData {
     return ICON_MAP[key];
+  }
+
+  /** Fires `secretTriggered` after 3 taps on the prompt within 700ms. */
+  protected onPromptTap(): void {
+    const now = Date.now();
+    this.taps = this.taps.filter((t) => now - t < TRIPLE_TAP_WINDOW_MS);
+    this.taps.push(now);
+    if (this.taps.length >= 3) {
+      this.taps = [];
+      this.secretTriggered.emit();
+    }
   }
 }
