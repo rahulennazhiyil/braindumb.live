@@ -6,10 +6,13 @@ import {
   type RouterStateSnapshot,
   type UrlTree,
 } from '@angular/router';
+import { provideAppConfig } from '@rahul-dev/core-config';
 import { SUPABASE_CLIENT } from '@rahul-dev/core-supabase';
 import { describe, expect, it, vi } from 'vitest';
 import { authGuard } from './auth.guard';
 import { AuthService } from './auth.service';
+
+const ADMIN_EMAIL = 'admin@example.test';
 
 function makeMockClient(session: unknown) {
   return {
@@ -32,6 +35,7 @@ describe('authGuard', () => {
     TestBed.configureTestingModule({
       providers: [
         provideRouter([]),
+        provideAppConfig({ admin: { email: ADMIN_EMAIL } }),
         { provide: SUPABASE_CLIENT, useValue: makeMockClient(null) },
       ],
     });
@@ -42,18 +46,20 @@ describe('authGuard', () => {
     expect(router.serializeUrl(result)).toBe('/contact?from=admin');
   });
 
-  it('allows navigation when authenticated', async () => {
+  it('allows navigation when authenticated as the admin email', async () => {
     TestBed.configureTestingModule({
       providers: [
         provideRouter([]),
+        provideAppConfig({ admin: { email: ADMIN_EMAIL } }),
         {
           provide: SUPABASE_CLIENT,
-          useValue: makeMockClient({ user: { id: 'u1' } }),
+          useValue: makeMockClient({
+            user: { id: 'u1', email: ADMIN_EMAIL },
+          }),
         },
       ],
     });
     const auth = TestBed.inject(AuthService);
-    // Allow the getSession() promise chain to resolve.
     await Promise.resolve();
     await Promise.resolve();
     expect(auth.isAuthenticated()).toBe(true);
@@ -61,5 +67,29 @@ describe('authGuard', () => {
       authGuard(dummyRoute, dummyState),
     );
     expect(result).toBe(true);
+  });
+
+  it('redirects when authenticated as a non-admin email', async () => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideRouter([]),
+        provideAppConfig({ admin: { email: ADMIN_EMAIL } }),
+        {
+          provide: SUPABASE_CLIENT,
+          useValue: makeMockClient({
+            user: { id: 'u2', email: 'intruder@example.test' },
+          }),
+        },
+      ],
+    });
+    const router = TestBed.inject(Router);
+    const auth = TestBed.inject(AuthService);
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(auth.isAuthenticated()).toBe(true);
+    const result = TestBed.runInInjectionContext(() =>
+      authGuard(dummyRoute, dummyState),
+    ) as UrlTree;
+    expect(router.serializeUrl(result)).toBe('/contact?from=admin');
   });
 });

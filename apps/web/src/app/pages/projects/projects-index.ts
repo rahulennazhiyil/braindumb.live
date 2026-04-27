@@ -7,15 +7,16 @@ import {
 } from '@angular/core';
 import { ProjectService } from '@rahul-dev/core-supabase';
 import type { Project } from '@rahul-dev/shared-types';
-import { ProjectCard, SectionHeading } from '@rahul-dev/shared-ui';
+import { LoadingSkeleton, ProjectCard, Reveal, SectionHeading } from '@rahul-dev/shared-ui';
 
 @Component({
   selector: 'app-projects-index',
-  imports: [ProjectCard, SectionHeading],
+  imports: [LoadingSkeleton, ProjectCard, Reveal, SectionHeading],
   templateUrl: './projects-index.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsIndex {
+  protected readonly skeletonItems = Array.from({ length: 6 }, (_, i) => i);
   private readonly service = inject(ProjectService);
 
   protected readonly items = signal<readonly Project[]>([]);

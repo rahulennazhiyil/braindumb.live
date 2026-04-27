@@ -2,7 +2,7 @@
   <app-section-heading
     kicker="/admin"
     title="Dashboard"
-    subtitle="Live counts from Supabase. Traffic chart wires in Phase 11."
+    subtitle="Live counts from Supabase. Tap Views for the full insights dashboard."
   />
 
   @if (error(); as e) {
@@ -30,11 +30,14 @@
       [icon]="icons.inbox"
       [loading]="loading()"
     />
-    <app-stat-card
-      label="Insights"
-      value="Phase 11"
-      [icon]="icons.insights"
-      trend="Coming soon"
-    />
+    <a routerLink="/admin/visitor-insights" class="block cursor-pointer" aria-label="Open visitor insights">
+      <app-stat-card
+        label="Views · 7d"
+        [value]="viewCount7d() ?? '—'"
+        [icon]="icons.insights"
+        [loading]="loading()"
+        [trend]="viewCount7d() === null ? 'Analytics offline' : 'last 7 days'"
+      />
+    </a>
   </div>
 </div>

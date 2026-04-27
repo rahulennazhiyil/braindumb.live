@@ -2,10 +2,124 @@
   <app-section-heading
     kicker="/admin/media"
     title="Media"
-    subtitle="Image uploads to Supabase Storage. Coming in Phase 9.1."
+    [subtitle]="
+      'Images and assets stored in Supabase Storage bucket ' +
+      '(`media`). Drag files in or browse to upload.'
+    "
   />
-  <app-admin-empty
-    message="Supabase Storage bucket + drag-and-drop upload lands here."
-    hint="For now, host images externally (Cloudinary, GitHub, etc.) and paste URLs into the project manager."
-  />
+
+  <!-- Upload dropzone -->
+  <label
+    class="media-drop"
+    [class.media-drop--active]="dragOver()"
+    [class.media-drop--busy]="uploading()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave()"
+    (drop)="onDrop($event)"
+  >
+    <input
+      type="file"
+      multiple
+      accept="image/*,video/*,application/pdf"
+      class="media-drop__input"
+      (change)="onFilePick($event)"
+      aria-label="Choose files to upload"
+    />
+    <lucide-angular [img]="UploadCloud" [size]="28" aria-hidden="true" />
+    <div class="media-drop__lead">
+      @if (uploading()) {
+        <strong>Uploading…</strong>
+      } @else {
+        <strong>Drop files here</strong>
+        <span>or click to browse · images, video, PDF up to 50 MB</span>
+      }
+    </div>
+  </label>
+
+  <!-- Status message -->
+  @if (status(); as s) {
+    <p class="media-status media-status--{{ s.tone }}" role="status">
+      {{ s.text }}
+    </p>
+  }
+
+  <!-- Summary -->
+  <div class="media-summary">
+    <span>
+      <strong>{{ items().length }}</strong> file{{ items().length === 1 ? '' : 's' }}
+    </span>
+    <span>· {{ formatSize(totalSize()) }} total</span>
+    <button type="button" class="media-summary__refresh" (click)="refresh()">
+      Refresh
+    </button>
+  </div>
+
+  <!-- Grid -->
+  @if (loading()) {
+    <ul class="media-grid">
+      @for (i of skeletons; track i) {
+        <li class="media-card">
+          <app-loading-skeleton height="140px" width="100%" />
+          <app-loading-skeleton height="0.8rem" width="70%" />
+          <app-loading-skeleton height="0.7rem" width="40%" />
+        </li>
+      }
+    </ul>
+  } @else if (items().length === 0) {
+    <div class="media-empty">
+      <p>No files yet. Upload your first asset above.</p>
+      <p class="media-empty__hint">
+        Need to create the bucket? Supabase Studio → Storage → New bucket →
+        name <code>media</code> → Public.
+      </p>
+    </div>
+  } @else {
+    <ul class="media-grid">
+      @for (item of items(); track trackName($index, item)) {
+        <li class="media-card">
+          <div class="media-card__preview">
+            @if (isImage(item.mimeType)) {
+              <img
+                [src]="item.publicUrl"
+                [alt]="item.name"
+                loading="lazy"
+                decoding="async"
+              />
+            } @else {
+              <div class="media-card__placeholder">
+                <span>{{ item.mimeType.split('/').pop() || 'file' }}</span>
+              </div>
+            }
+          </div>
+          <div class="media-card__body">
+            <p class="media-card__name" [title]="item.name">{{ item.name }}</p>
+            <p class="media-card__meta">
+              {{ formatSize(item.size) }} ·
+              {{ item.mimeType.split('/').pop() }}
+            </p>
+            <div class="media-card__actions">
+              <button
+                type="button"
+                class="media-card__btn"
+                (click)="copyUrl(item.publicUrl)"
+                title="Copy public URL"
+              >
+                <lucide-angular [img]="Copy" [size]="14" aria-hidden="true" />
+                URL
+              </button>
+              <button
+                type="button"
+                class="media-card__btn media-card__btn--danger"
+                (click)="onDelete(item)"
+                title="Delete"
+              >
+                <lucide-angular [img]="Trash2" [size]="14" aria-hidden="true" />
+                Delete
+              </button>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+  }
 </div>

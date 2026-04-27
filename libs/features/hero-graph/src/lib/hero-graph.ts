@@ -166,7 +166,7 @@ export class HeroGraph implements AfterViewInit, OnDestroy {
       .data(nodes)
       .join('g')
       .attr('class', (d) => `node${d.secret ? ' node-secret' : ''}`)
-      .style('cursor', 'pointer');
+      .style('cursor', 'grab');
 
     nodeGroup
       .append('circle')
@@ -210,7 +210,18 @@ export class HeroGraph implements AfterViewInit, OnDestroy {
     // Hover highlight via adjacency.
     const tooltipEl = this.tooltip().nativeElement;
     nodeGroup
-      .on('pointerenter', (event: PointerEvent, d) => {
+      .on('pointerenter', function (event: PointerEvent, d) {
+        // Scale + accent stroke on the hovered node for a crisp affordance.
+        d3.select(this).classed('hot', true).raise();
+        d3.select(this)
+          .select('circle')
+          .transition()
+          .duration(160)
+          .attr('r', 8 + d.level * 3.3)
+          .attr('stroke', 'var(--accent-primary)')
+          .attr('stroke-width', 2);
+      })
+      .on('pointerenter.ctx', (event: PointerEvent, d) => {
         this.zone.run(() => this.hoveredId.set(d.id));
         const neighbors = adjacency.get(d.id) ?? new Set();
         nodeGroup.classed(
@@ -228,7 +239,17 @@ export class HeroGraph implements AfterViewInit, OnDestroy {
         tooltipEl.style.top = `${event.clientY - rect.top + 12}px`;
         tooltipEl.style.opacity = '1';
       })
-      .on('pointerleave', () => {
+      .on('pointerleave', function (_event: PointerEvent, d) {
+        d3.select(this).classed('hot', false);
+        d3.select(this)
+          .select('circle')
+          .transition()
+          .duration(160)
+          .attr('r', 6 + d.level * 3)
+          .attr('stroke', 'var(--bg-primary)')
+          .attr('stroke-width', 1.5);
+      })
+      .on('pointerleave.ctx', () => {
         this.zone.run(() => this.hoveredId.set(null));
         nodeGroup.classed('dim', false);
         linkSel.classed('dim', false);

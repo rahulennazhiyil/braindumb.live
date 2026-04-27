@@ -1,53 +1,244 @@
+<!-- ================= HERO ================= -->
 <section
-  class="relative min-h-[calc(100vh-3.5rem)] overflow-hidden"
+  class="hero relative overflow-hidden"
   aria-label="Rahul E — intro"
 >
-  <app-hero-graph
-    (secretTriggered)="onSecretTriggered()"
-    (nodeActivated)="onNodeActivated($event)"
-  />
+  <!-- Atmospheric graph (pushed far behind the content). -->
+  <div class="hero__graph" aria-hidden="true">
+    <app-hero-graph
+      (secretTriggered)="onSecretTriggered()"
+      (nodeActivated)="onNodeActivated($event)"
+    />
+  </div>
+  <div class="hero__mask" aria-hidden="true"></div>
 
-  <div
-    class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--bg-primary)_85%)]"
-    aria-hidden="true"
-  ></div>
+  <div class="hero__shell">
+    <!-- LEFT — identity + pitch + CTAs -->
+    <div class="hero__lead">
+      <div class="hero__status">
+        <span class="hero__dot" aria-hidden="true"></span>
+        <span class="hero__status-label">
+          Available · Oct 2025 – Present @ Data Unveil
+        </span>
+      </div>
 
-  <div
-    class="relative z-10 max-w-6xl mx-auto px-4 md:px-6 w-full py-16 md:py-24 min-h-[calc(100vh-3.5rem)] flex items-center"
-  >
-    <div class="flex flex-col gap-6 max-w-xl pointer-events-auto">
-      <span class="font-mono text-xs uppercase tracking-[0.3em] text-accent-primary">
-        <span class="text-text-muted">~$</span> whoami
+      <span class="hero__kicker">
+        <span class="text-text-muted">~$</span>
+        whoami --verbose
       </span>
-      <h1
-        class="font-display font-bold text-5xl md:text-7xl text-text-primary leading-[1.05]"
-      >
-        Rahul E
+
+      <h1 class="hero__name">
+        Rahul E<span class="hero__cursor" aria-hidden="true">_</span>
       </h1>
-      <p class="font-body text-lg md:text-xl text-text-secondary leading-relaxed">
-        Frontend engineer building AI-powered interfaces at Data Unveil.
-        Lives at the intersection of Angular, RxJS, and D3.
-      </p>
-      <p class="font-mono text-xs text-text-muted">
-        Drag the graph. Hover a node. Three nodes hide a door.
+
+      <p class="hero__role">
+        Frontend Developer
+        <span class="hero__sep" aria-hidden="true">/</span>
+        Angular · TypeScript · D3.js
       </p>
 
-      <div class="flex flex-wrap gap-3 pt-2">
-        <a routerLink="/projects">
-          <app-button variant="primary">Explore projects</app-button>
+      <p class="hero__pitch">
+        I build <span class="hero__hi">fast, accessible web apps</span> that
+        make dense data feel approachable. Three-plus years of production
+        Angular — currently shipping an
+        <span class="hero__hi">AI-powered text-to-SQL interface</span>
+        on SCRAII at Data Unveil, and a task-management module alongside it.
+      </p>
+
+      <div class="hero__meta">
+        <span class="hero__meta-item">
+          <lucide-angular [img]="MapPin" [size]="14" aria-hidden="true" />
+          {{ contact.location }}
+        </span>
+        <a class="hero__meta-link" [href]="'mailto:' + contact.email">
+          <lucide-angular [img]="Mail" [size]="14" aria-hidden="true" />
+          {{ contact.email }}
         </a>
-        <a routerLink="/playground">
-          <app-button variant="secondary">View playground</app-button>
+        <a class="hero__meta-link" [href]="contact.github" target="_blank" rel="noopener">
+          <lucide-angular [img]="Github" [size]="14" aria-hidden="true" />
+          github.com/rahulennazhiyil
+        </a>
+        <a class="hero__meta-link" [href]="contact.linkedin" target="_blank" rel="noopener">
+          <lucide-angular [img]="Linkedin" [size]="14" aria-hidden="true" />
+          linkedin.com/in/rahul-ennazhiyil
         </a>
       </div>
+
+      <div class="hero__ctas">
+        <a routerLink="/projects">
+          <app-button variant="primary" size="lg">View projects</app-button>
+        </a>
+        <a routerLink="/about">
+          <app-button variant="secondary" size="lg">About me</app-button>
+        </a>
+        <a routerLink="/contact">
+          <app-button variant="ghost" size="lg">Say hello →</app-button>
+        </a>
+      </div>
+
+      <p class="hero__easter">
+        Drag the graph behind. Hover a node. Three nodes hide a door.
+      </p>
     </div>
+
+    <!-- RIGHT — terminal-style identity card -->
+    <aside class="hero__card" aria-label="Identity card">
+      <header class="hero__card-chrome">
+        <span class="hero__card-dot hero__card-dot--r" aria-hidden="true"></span>
+        <span class="hero__card-dot hero__card-dot--y" aria-hidden="true"></span>
+        <span class="hero__card-dot hero__card-dot--g" aria-hidden="true"></span>
+        <span class="hero__card-title">~/rahul-e/profile.ts</span>
+      </header>
+
+      <pre class="hero__card-body"><span class="tok-comment">// Currently</span>
+<span class="tok-key">role</span>:     <span class="tok-str">'Software Developer'</span>,
+<span class="tok-key">company</span>:  <span class="tok-str">'Data Unveil'</span>,
+<span class="tok-key">building</span>: <span class="tok-str">'SCRAII · text-to-SQL AI'</span>,
+
+<span class="tok-comment">// Stack</span>
+<span class="tok-key">core</span>:     [<span class="tok-str">'Angular 14–19'</span>, <span class="tok-str">'TS'</span>, <span class="tok-str">'RxJS'</span>, <span class="tok-str">'Signals'</span>],
+<span class="tok-key">viz</span>:      [<span class="tok-str">'D3.js'</span>, <span class="tok-str">'Chart.js'</span>],
+<span class="tok-key">devops</span>:   [<span class="tok-str">'Azure DevOps'</span>, <span class="tok-str">'Docker'</span>, <span class="tok-str">'Git'</span>],
+
+<span class="tok-comment">// Track record</span>
+<span class="tok-key">impact</span>:   <span class="tok-str">'-40% AML review · +20% CSAT'</span>,
+<span class="tok-key">years</span>:    <span class="tok-num">3</span>,
+<span class="tok-key">open_to</span>:  <span class="tok-str">'senior FE / data-viz roles'</span>,</pre>
+
+      <footer class="hero__card-stack">
+        @for (tech of heroStack; track tech) {
+          <app-tag-chip>{{ tech }}</app-tag-chip>
+        }
+      </footer>
+    </aside>
   </div>
 </section>
 
-<section class="max-w-6xl mx-auto px-4 md:px-6 py-16 md:py-24">
-  <app-section-heading
-    kicker="next"
-    title="What's here"
-    subtitle="A portfolio, a D3.js playground, a blog, and a self-managed admin."
-  />
+<!-- ================= METRICS ================= -->
+<section
+  appReveal
+  class="max-w-6xl mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-6 md:pb-8"
+  aria-label="Key metrics"
+>
+  <ul class="metrics">
+    @for (m of metrics; track m.label) {
+      <li class="metric">
+        <span class="metric__value">
+          @if (m.countTo !== undefined) {
+            <span [appCountUp]="m.countTo" [suffix]="m.countSuffix ?? ''">0</span>
+            @if (m.countTrail) {
+              <span>{{ m.countTrail }}</span>
+            }
+          } @else {
+            {{ m.value }}
+          }
+        </span>
+        <span class="metric__label">{{ m.label }}</span>
+        @if (m.detail) {
+          <span class="metric__detail">{{ m.detail }}</span>
+        }
+      </li>
+    }
+  </ul>
+</section>
+
+<!-- ================= FEATURED WORK ================= -->
+<section class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
+  <div appReveal class="flex items-end justify-between flex-wrap gap-4 mb-8">
+    <app-section-heading
+      kicker="$ git log --featured"
+      title="Selected work"
+      subtitle="Three production platforms I've shaped the front end of."
+    />
+    <a routerLink="/projects" class="featured__more">
+      All projects <span aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <ul class="featured">
+    @for (p of featured; track p.slug) {
+      <li appReveal class="featured__card">
+        <div class="featured__head">
+          <span class="featured__index">{{ '0' + ($index + 1) }}</span>
+          <span class="featured__status">{{ p.status }}</span>
+        </div>
+        <h3 class="featured__name">{{ p.name }}</h3>
+        <p class="featured__tagline">{{ p.tagline }}</p>
+        <p class="featured__desc">{{ p.description }}</p>
+        <div class="featured__tech">
+          @for (t of p.tech; track t) {
+            <app-tag-chip>{{ t }}</app-tag-chip>
+          }
+        </div>
+        <p class="featured__role">
+          <span class="text-text-muted">role ·</span> {{ p.role }}
+        </p>
+      </li>
+    }
+  </ul>
+</section>
+
+<!-- ================= EXPLORE CARDS ================= -->
+<section class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
+  <div appReveal>
+    <app-section-heading
+      kicker="$ ls -la"
+      title="What else is here"
+      subtitle="A portfolio, a D3.js playground, a feed, and the long story."
+    />
+  </div>
+
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
+    @for (card of cards; track card.href) {
+      <a
+        appReveal
+        [routerLink]="card.href"
+        class="group glass p-6 flex flex-col gap-3 hover:border-accent-primary/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+      >
+        <div class="flex items-baseline justify-between">
+          <span class="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-text-muted">
+            {{ card.kicker }}
+          </span>
+          <span
+            class="font-mono text-accent-primary group-hover:translate-x-1 transition-transform"
+            aria-hidden="true"
+          >→</span>
+        </div>
+        <h3 class="font-display text-xl md:text-2xl text-text-primary font-semibold">
+          {{ card.title }}
+        </h3>
+        <p class="font-body text-sm text-text-secondary leading-relaxed">
+          {{ card.description }}
+        </p>
+      </a>
+    }
+  </div>
+</section>
+
+<!-- ================= CONTACT CTA ================= -->
+<section
+  appReveal
+  class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16 border-t border-glass-border"
+>
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    <div>
+      <p class="font-mono text-xs text-text-muted uppercase tracking-[0.3em]">
+        currently
+      </p>
+      <p class="font-body text-base md:text-lg text-text-secondary mt-2 max-w-2xl leading-relaxed">
+        Building the AI-powered
+        <span class="text-accent-primary">SCRAII</span> platform at
+        <span class="text-accent-primary">Data Unveil</span>.
+        Open to senior Angular / data-viz roles and collaborations.
+      </p>
+    </div>
+    <div class="flex gap-2">
+      <a [href]="'mailto:' + contact.email">
+        <app-button variant="primary">Say hello</app-button>
+      </a>
+      <a routerLink="/contact">
+        <app-button variant="secondary">Contact form</app-button>
+      </a>
+    </div>
+  </div>
 </section>

@@ -14,7 +14,7 @@
       <button
         type="button"
         role="tab"
-        class="px-3 py-1.5 rounded-chip font-mono text-xs uppercase tracking-wider transition-colors border"
+        class="px-3 py-1.5 rounded-chip font-mono text-xs uppercase tracking-wider transition-colors border cursor-pointer"
         [class.bg-accent-primary]="filter() === f"
         [class.text-bg-primary]="filter() === f"
         [class.border-accent-primary]="filter() === f"
@@ -36,9 +36,19 @@
   }
 
   @if (loading()) {
-    <p class="font-mono text-xs text-text-muted">
-      <span class="text-accent-primary">$</span> loading…
-    </p>
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4" aria-label="Loading feed">
+      @for (i of skeletonItems; track i) {
+        <li class="glass p-6 flex flex-col gap-4 min-h-[140px]">
+          <app-loading-skeleton height="1.125rem" width="70%" />
+          <app-loading-skeleton height="0.8rem" width="100%" />
+          <app-loading-skeleton height="0.8rem" width="55%" />
+          <div class="flex gap-1.5 mt-auto">
+            <app-loading-skeleton height="1.25rem" width="3.5rem" />
+            <app-loading-skeleton height="1.25rem" width="3.5rem" />
+          </div>
+        </li>
+      }
+    </ul>
   } @else if (visible().length === 0) {
     <div class="glass p-8 text-center flex flex-col gap-2 items-center">
       <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
@@ -51,7 +61,7 @@
   } @else {
     <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
       @for (item of visible(); track item.id) {
-        <li>
+        <li appReveal>
           <app-blog-card
             [title]="item.title"
             [excerpt]="item.content ?? item.url ?? ''"

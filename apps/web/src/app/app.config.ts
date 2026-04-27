@@ -24,6 +24,7 @@ import {
 } from '@rahul-dev/shared-terminal';
 import { appRoutes } from './app.routes';
 import { AppErrorHandler } from './core/app-error-handler';
+import { environment } from '../environments/environments';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,9 +36,9 @@ export const appConfig: ApplicationConfig = {
     // Phase 6 runtime config. Real Supabase credentials are swapped in via
     // Vercel env vars at build time (or a provider override in tests).
     provideAppConfig({
-      supabase: { url: '', anonKey: '' },
+      supabase: { url: environment.supabase.url, anonKey: environment.supabase.anonKey },
       analytics: { enabled: false },
-      admin: { email: '' },
+      admin: { email: environment.admin.email },
     }),
     createSupabaseClientProvider(),
 

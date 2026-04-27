@@ -1,7 +1,62 @@
-<main class="max-w-6xl mx-auto px-4 md:px-6 py-16">
-  <app-section-heading
-    kicker="cd /about"
-    title="About"
-    subtitle="Career timeline, tech stack bubble chart, open-to-opportunities toggle. Lands in Phase 6 of the build."
-  />
+<main class="max-w-5xl mx-auto px-4 md:px-6 py-16 space-y-24">
+
+  <!-- Bio -->
+  <section>
+    @if (openToOpportunities()) {
+      <div class="open-badge">
+        <span class="open-badge__dot" aria-hidden="true"></span>
+        Open to opportunities
+      </div>
+    }
+
+    <h1 class="bio__name">Rahul E</h1>
+    <p class="bio__tagline">Frontend Developer · Angular · Data Visualisation</p>
+
+    <p class="bio__text">
+      I build fast, accessible web applications with Angular — mostly the kind that
+      make dense data feel approachable. Three-plus years of shipping production Angular,
+      the last stretch at Data Unveil where I've been deep in D3, real-time dashboards,
+      and design systems.
+    </p>
+    <p class="bio__text">
+      Outside the day job I'm building this site as a living playground: an Nx monorepo,
+      Angular 21 SSR, Supabase, and whatever D3 experiment catches my eye.
+    </p>
+
+    <div class="bio__links">
+      <a href="https://github.com/rahulennazhiyil" target="_blank" rel="noopener" class="bio__link">
+        <lucide-angular [img]="Github" [size]="15" aria-hidden="true" />
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/rahul-e" target="_blank" rel="noopener" class="bio__link">
+        <lucide-angular [img]="Linkedin" [size]="15" aria-hidden="true" />
+        LinkedIn
+      </a>
+    </div>
+  </section>
+
+  <!-- Career -->
+  <section appReveal>
+    <app-section-heading
+      kicker="$ git log --career"
+      title="Career"
+      subtitle="Where I've been and what I've shipped."
+    />
+    <div class="mt-10">
+      <app-career-timeline />
+    </div>
+  </section>
+
+  <!-- Tech stack -->
+  <section appReveal>
+    <app-section-heading
+      kicker="$ npm list --depth=0"
+      title="Tech Stack"
+      subtitle="Bubble size = expertise level. Hover to explore."
+    />
+    <div class="mt-10">
+      <app-tech-bubbles />
+    </div>
+  </section>
+
 </main>

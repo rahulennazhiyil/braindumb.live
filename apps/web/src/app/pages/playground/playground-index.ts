@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ArrowUpRight, LucideAngularModule } from 'lucide-angular';
-import { SectionHeading, TagChip } from '@rahul-dev/shared-ui';
+import { Reveal, SectionHeading, TagChip } from '@rahul-dev/shared-ui';
 
 interface DemoCard {
   readonly slug: string;
@@ -13,7 +13,7 @@ interface DemoCard {
 
 @Component({
   selector: 'app-playground-index',
-  imports: [RouterLink, LucideAngularModule, SectionHeading, TagChip],
+  imports: [RouterLink, LucideAngularModule, Reveal, SectionHeading, TagChip],
   templateUrl: './playground-index.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

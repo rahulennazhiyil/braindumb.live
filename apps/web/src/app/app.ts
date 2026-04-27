@@ -9,6 +9,7 @@ import { TerminalOverlay, TerminalService } from '@rahul-dev/shared-terminal';
 import {
   THEMES,
   ThemeService,
+  ThemeToggle,
   ViewSourceService,
   type ThemeName,
 } from '@rahul-dev/shared-theme';
@@ -17,6 +18,7 @@ import {
   NavLink,
   Navbar,
   OfflineBanner,
+  ScrollToTop,
   SocialLink,
 } from '@rahul-dev/shared-ui';
 
@@ -26,8 +28,10 @@ import {
     Navbar,
     Footer,
     OfflineBanner,
+    ScrollToTop,
     CommandPaletteOverlay,
     TerminalOverlay,
+    ThemeToggle,
   ],
   selector: 'app-root',
   templateUrl: './app.html',

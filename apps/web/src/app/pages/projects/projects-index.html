@@ -12,9 +12,20 @@
   }
 
   @if (loading()) {
-    <p class="font-mono text-xs text-text-muted">
-      <span class="text-accent-primary">$</span> loading…
-    </p>
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" aria-label="Loading projects">
+      @for (i of skeletonItems; track i) {
+        <li class="glass p-6 flex flex-col gap-4 min-h-[160px]">
+          <app-loading-skeleton height="0.5rem" width="35%" />
+          <app-loading-skeleton height="1.375rem" width="75%" />
+          <app-loading-skeleton height="0.8rem" width="100%" />
+          <app-loading-skeleton height="0.8rem" width="65%" />
+          <div class="flex gap-1.5 mt-auto">
+            <app-loading-skeleton height="1.25rem" width="4rem" />
+            <app-loading-skeleton height="1.25rem" width="4rem" />
+          </div>
+        </li>
+      }
+    </ul>
   } @else if (ordered().length === 0) {
     <div class="glass p-8 text-center flex flex-col gap-2 items-center">
       <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
@@ -28,7 +39,7 @@
     <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       @for (p of ordered(); track p.id) {
         @let link = hrefFor(p);
-        <li>
+        <li appReveal>
           <app-project-card
             [title]="p.title"
             [description]="p.description ?? ''"

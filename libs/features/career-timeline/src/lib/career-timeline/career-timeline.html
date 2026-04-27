@@ -1,1 +1,40 @@
-<p>CareerTimeline works!</p>
+<div class="timeline">
+  @for (entry of entries; track entry.id; let last = $last) {
+    <article class="entry" [class.entry--current]="entry.current" [class.entry--last]="last">
+      <div class="entry__spine">
+        <div class="entry__dot"></div>
+        @if (!last) {
+          <div class="entry__line"></div>
+        }
+      </div>
+
+      <div class="entry__body">
+        @if (entry.current) {
+          <span class="entry__badge">Current</span>
+        }
+        <h3 class="entry__role">{{ entry.role }}</h3>
+        <div class="entry__meta">
+          <span class="entry__company">{{ entry.company }}</span>
+          <span class="entry__sep" aria-hidden="true">·</span>
+          <span class="entry__period">{{ entry.period }}</span>
+          <span class="entry__sep" aria-hidden="true">·</span>
+          <span class="entry__location">{{ entry.location }}</span>
+        </div>
+
+        <p class="entry__summary">{{ entry.summary }}</p>
+
+        <ul class="entry__highlights">
+          @for (h of entry.highlights; track h) {
+            <li>{{ h }}</li>
+          }
+        </ul>
+
+        <div class="entry__tags">
+          @for (tag of entry.tags; track tag) {
+            <app-tag-chip>{{ tag }}</app-tag-chip>
+          }
+        </div>
+      </div>
+    </article>
+  }
+</div>

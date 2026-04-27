@@ -11,17 +11,18 @@ import {
   type FeedItem,
   type FeedItemType,
 } from '@rahul-dev/shared-types';
-import { BlogCard, SectionHeading } from '@rahul-dev/shared-ui';
+import { BlogCard, LoadingSkeleton, Reveal, SectionHeading } from '@rahul-dev/shared-ui';
 
 type FilterValue = 'all' | FeedItemType;
 
 @Component({
   selector: 'app-feed',
-  imports: [BlogCard, SectionHeading],
+  imports: [BlogCard, LoadingSkeleton, Reveal, SectionHeading],
   templateUrl: './feed.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Feed {
+  protected readonly skeletonItems = Array.from({ length: 4 }, (_, i) => i);
   private readonly service = inject(FeedService);
 
   protected readonly filters: readonly FilterValue[] = [

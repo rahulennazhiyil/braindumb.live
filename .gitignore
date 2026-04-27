@@ -58,3 +58,6 @@ Thumbs.db
 __screenshots__/
 
 test-output
+
+# Local environment files with real credentials
+apps/web/src/environments/environments.ts

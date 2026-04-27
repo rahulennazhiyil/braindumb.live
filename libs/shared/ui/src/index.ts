@@ -10,3 +10,6 @@ export type { SocialLink } from './lib/footer/footer';
 export { ProjectCard } from './lib/project-card/project-card';
 export { BlogCard } from './lib/blog-card/blog-card';
 export { OfflineBanner } from './lib/offline-banner/offline-banner';
+export { Reveal } from './lib/reveal/reveal.directive';
+export { CountUp } from './lib/count-up/count-up.directive';
+export { ScrollToTop } from './lib/scroll-to-top/scroll-to-top';
