@@ -45,6 +45,14 @@ export class PlaygroundIndex {
       status: 'live',
     },
     {
+      slug: 'force-pop',
+      title: 'Force Pop · mini-game',
+      description:
+        'Tap rising bubbles before they drift off the top. Combos chain, smaller is worth more, 30 seconds.',
+      tags: ['game', 'rAF', 'mobile-first'],
+      status: 'live',
+    },
+    {
       slug: 'rxjs',
       title: 'RxJS marble stream',
       description:
