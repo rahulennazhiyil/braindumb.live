@@ -1,9 +1,22 @@
-<main class="max-w-6xl mx-auto px-4 md:px-6 py-16 flex flex-col gap-8">
-  <app-section-heading
-    kicker="ls ./projects"
-    title="Projects"
-    subtitle="Case studies, production work, and side projects. Featured first."
-  />
+<section
+  appSceneFrame
+  (sceneEnter)="onIndexEnter()"
+  class="max-w-6xl mx-auto px-4 md:px-6 py-16 flex flex-col gap-8"
+>
+  <header class="flex flex-col gap-2 items-start text-left">
+    <span class="font-mono text-xs uppercase tracking-[0.18em] text-accent-primary">
+      <span class="text-text-muted">~$</span>
+      <span [appDecryptText]="'ls ./projects'" [autoplay]="indexReady()">
+        ls ./projects
+      </span>
+    </span>
+    <h1 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+      <app-kinetic-heading text="Projects" [ready]="indexReady()" />
+    </h1>
+    <p class="font-body text-text-secondary max-w-2xl">
+      Case studies, production work, and side projects. Featured first.
+    </p>
+  </header>
 
   @if (error(); as e) {
     <p class="font-mono text-xs text-error">
@@ -28,7 +41,7 @@
     </ul>
   } @else if (ordered().length === 0) {
     <div class="glass p-8 text-center flex flex-col gap-2 items-center">
-      <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+      <span class="font-mono text-xs uppercase tracking-[0.18em] text-text-muted">
         <span class="text-accent-primary">~$</span> ls --empty
       </span>
       <p class="font-body text-sm text-text-secondary">
@@ -51,4 +64,4 @@
       }
     </ul>
   }
-</main>
+</section>
