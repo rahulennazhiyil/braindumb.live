@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HeroGraph, type TechNode } from '@rahul-dev/features-hero-graph';
+import { SceneFrame } from '@rahul-dev/features-scene-frame';
+import { DecryptText, KineticHeading } from '@rahul-dev/shared-cinematics';
 import { TerminalService } from '@rahul-dev/shared-terminal';
 import { Button, Reveal, SectionHeading, TagChip } from '@rahul-dev/shared-ui';
 import { Github, Linkedin, LucideAngularModule, Mail, MapPin } from 'lucide-angular';
@@ -32,6 +34,9 @@ interface HomeCard {
     RouterLink,
     HeroGraph,
     LucideAngularModule,
+    DecryptText,
+    KineticHeading,
+    SceneFrame,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -44,6 +49,8 @@ export class Home {
   protected readonly Linkedin = Linkedin;
   protected readonly Mail = Mail;
   protected readonly MapPin = MapPin;
+
+  protected readonly heroReady = signal<boolean>(false);
 
   protected readonly contact = {
     email: 'rahulennazhiyil6@gmail.com',
@@ -116,5 +123,9 @@ export class Home {
 
   protected onNodeActivated(node: TechNode): void {
     void node;
+  }
+
+  protected onHeroEnter(): void {
+    this.heroReady.set(true);
   }
 }

@@ -344,3 +344,10 @@
   .hero__dot, .hero__cursor { animation: none; }
   .hero__meta-link, .hero__inline { transition: none; }
 }
+
+.hero__name app-kinetic-heading,
+.hero__name .kinetic-heading {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}

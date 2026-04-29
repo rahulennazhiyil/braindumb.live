@@ -1,5 +1,7 @@
 <!-- ================= HERO ================= -->
 <section
+  appSceneFrame
+  (sceneEnter)="onHeroEnter()"
   class="hero relative overflow-hidden"
   aria-label="Rahul E — intro"
 >
@@ -24,17 +26,21 @@
 
       <span class="hero__kicker">
         <span class="text-text-muted">~$</span>
-        whoami --verbose
+        <span [appDecryptText]="'whoami --verbose'" [autoplay]="heroReady()">
+          whoami --verbose
+        </span>
       </span>
 
       <h1 class="hero__name">
-        Rahul E<span class="hero__cursor" aria-hidden="true">_</span>
+        <app-kinetic-heading text="Rahul E" [ready]="heroReady()" />
       </h1>
 
       <p class="hero__role">
         Frontend Developer
         <span class="hero__sep" aria-hidden="true">/</span>
-        Angular · TypeScript · D3.js
+        <span [appDecryptText]="'Angular · TypeScript · D3.js'" [autoplay]="heroReady()">
+          Angular · TypeScript · D3.js
+        </span>
       </p>
 
       <p class="hero__pitch">
@@ -113,7 +119,7 @@
 </section>
 
 <!-- ================= FEATURED WORK ================= -->
-<section class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
+<section appSceneFrame class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
   <div appReveal class="flex items-end justify-between flex-wrap gap-4 mb-8">
     <app-section-heading
       kicker="git log --featured"
@@ -149,7 +155,7 @@
 </section>
 
 <!-- ================= EXPLORE CARDS ================= -->
-<section class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
+<section appSceneFrame class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
   <div appReveal>
     <app-section-heading
       kicker="ls -la"
@@ -197,6 +203,7 @@
 
 <!-- ================= CONTACT CTA ================= -->
 <section
+  appSceneFrame
   appReveal
   class="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-24 border-t border-glass-border"
 >
