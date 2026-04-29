@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { SceneFrame } from '@rahul-dev/features-scene-frame';
+import { DecryptText, KineticHeading } from '@rahul-dev/shared-cinematics';
+import { Reveal, TagChip } from '@rahul-dev/shared-ui';
 import { ArrowUpRight, LucideAngularModule } from 'lucide-angular';
-import { Reveal, SectionHeading, TagChip } from '@rahul-dev/shared-ui';
 
 interface DemoCard {
   readonly slug: string;
@@ -13,12 +15,23 @@ interface DemoCard {
 
 @Component({
   selector: 'app-playground-index',
-  imports: [RouterLink, LucideAngularModule, Reveal, SectionHeading, TagChip],
+  imports: [
+    RouterLink,
+    LucideAngularModule,
+    Reveal,
+    TagChip,
+    DecryptText,
+    KineticHeading,
+    SceneFrame,
+  ],
   templateUrl: './playground-index.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlaygroundIndex {
   protected readonly ArrowUpRight = ArrowUpRight;
+
+  protected readonly playgroundReady = signal<boolean>(false);
+
   protected readonly demos: readonly DemoCard[] = [
     {
       slug: 'kubernetes',
@@ -85,4 +98,8 @@ export class PlaygroundIndex {
       status: 'soon',
     },
   ];
+
+  protected onPlaygroundEnter(): void {
+    this.playgroundReady.set(true);
+  }
 }
