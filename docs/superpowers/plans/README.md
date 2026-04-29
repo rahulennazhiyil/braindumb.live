@@ -15,8 +15,8 @@ site stays deployable after every plan.
 | 3 | Boot terminal + kinetic-text primitives | ✅ shipped | 1 + 3 | No (lib only) |
 | 4 | Hero two-beat — boot terminal → force graph | ✅ shipped | 4 | **Yes — major** |
 | 5 | Home other scenes — scroll-lock + marquees + decrypt/kinetic on scenes 2-4 | ✅ shipped | 5 | Yes |
-| 6 | About + projects-index restaging | 🔜 next | 6 | Yes |
-| 7 | Kinetic-only treatment: feed, contact, admin, playground | ⏳ planned | 7 | Yes (subtle) |
+| 6 | About + projects-index restaging | ✅ shipped | 6 | Yes |
+| 7 | Kinetic-only treatment: feed, contact, admin, playground | 🔜 next | 7 | Yes (subtle) |
 | 8 | Audio (ambient + UI sfx) + custom crosshair cursor | ⏳ planned | 8 | Yes |
 | 9 | New easter eggs: shake gesture, Konami in boot, replay-intro | ⏳ planned | 9 | Yes (mobile) |
 | 10 | QA pass: Lighthouse, Playwright smoke, theme matrix | ⏳ planned | 10 | No (verification) |
@@ -68,16 +68,33 @@ scenes, and `[appSceneScrollLock]` on the page root.
 
 **Plan doc:** [`2026-04-27-makeover-plan-5-home-scenes.md`](2026-04-27-makeover-plan-5-home-scenes.md).
 
-### Plan 6 — About + projects-index restaging
+### Plan 6 — About + projects-index restaging ✅ shipped
 
-**Goal:** Same treatment as the home page, applied to `/about` (3 scenes:
-Identity / Stack / Off-grid) and `/projects` (1 featured panel + ARCHIVE
-grid).
+**Goal:** Apply the home cinematic treatment to `/about` (3 scenes:
+Bio / Career / Tech Stack) and `/projects` (cinematic header on the
+existing grid).
 
-**Files:** `apps/web/src/app/pages/about/about.*`,
-`apps/web/src/app/pages/projects/projects-index.*`.
+**Shipped via commits 7609183 + 7992a48 on 2026-04-29:**
+- `apps/web/src/app/pages/about/about.*` — `<main appSceneScrollLock>`
+  wrapper; three `appSceneFrame` sections with their own ready signals;
+  inline `appDecryptText` kickers (`whoami --about`, `git log --career`,
+  `npm list --depth=0`); `<app-kinetic-heading>` titles; two
+  `<app-marquee-band>` strips between sections.
+- `apps/web/src/app/pages/projects/projects-index.*` — `<section
+  appSceneFrame>` wrapper; inline cinematic header (`ls ./projects`
+  decrypts; `Projects` rises). Empty-state kicker tracking corrected
+  to 0.18em (system label spec).
 
-**Dependencies:** Plan 5 (so the patterns are stable).
+**Deferred:**
+- About "Off-grid" scene from spec § 4.2 — no source content; spec § 7
+  forbids new copy.
+- Projects-index "1-featured-panel + ARCHIVE-grid" restructure — content
+  rework, not a primitive treatment.
+- Featured/project-card "FILE 01 / FILE 02" decrypt labels with corner
+  brackets — same cross-buildable-lib import problem the SectionHeading
+  enhancement hit.
+
+**Plan doc:** [`2026-04-27-makeover-plan-6-about-projects.md`](2026-04-27-makeover-plan-6-about-projects.md).
 
 ### Plan 7 — Kinetic-only treatment for remaining pages
 
