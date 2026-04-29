@@ -2,20 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HeroGraph, type TechNode } from '@rahul-dev/features-hero-graph';
 import { TerminalService } from '@rahul-dev/shared-terminal';
-import { Button, CountUp, Reveal, SectionHeading, TagChip } from '@rahul-dev/shared-ui';
+import { Button, Reveal, SectionHeading, TagChip } from '@rahul-dev/shared-ui';
 import { Github, Linkedin, LucideAngularModule, Mail, MapPin } from 'lucide-angular';
-
-interface Metric {
-  readonly value: string;
-  readonly label: string;
-  readonly detail?: string;
-  /** If present, triggers the count-up directive with this target. */
-  readonly countTo?: number;
-  /** Text rendered after the animated number. Defaults to empty. */
-  readonly countSuffix?: string;
-  /** Text rendered before the animated number (e.g. a '+' or a unit). */
-  readonly countTrail?: string;
-}
 
 interface FeaturedProject {
   readonly slug: string;
@@ -38,7 +26,6 @@ interface HomeCard {
   selector: 'app-home',
   imports: [
     Button,
-    CountUp,
     Reveal,
     SectionHeading,
     TagChip,
@@ -64,47 +51,6 @@ export class Home {
     linkedin: 'https://linkedin.com/in/rahul-ennazhiyil',
     location: 'Bengaluru, IN',
   };
-
-  protected readonly heroStack: readonly string[] = [
-    'Angular 14–19',
-    'TypeScript',
-    'RxJS',
-    'Signals',
-    'D3.js',
-    'Chart.js',
-    'SCSS',
-    'Azure DevOps',
-  ];
-
-  protected readonly metrics: readonly Metric[] = [
-    {
-      value: '3+ yrs',
-      label: 'shipping production Angular',
-      detail: 'v14 through v19 · Signals · RxJS',
-      countTo: 3,
-      countSuffix: '+',
-      countTrail: ' yrs',
-    },
-    {
-      value: '40%',
-      label: 'manual AML review time cut',
-      detail: 'via real-time API integrations on FinchSCAN',
-      countTo: 40,
-      countSuffix: '%',
-    },
-    {
-      value: '20%',
-      label: 'client satisfaction lift',
-      detail: 'UX collaboration with international teams',
-      countTo: 20,
-      countSuffix: '%',
-    },
-    {
-      value: 'AI · SQL',
-      label: 'text-to-SQL interface in flight',
-      detail: 'SCRAII analytics at Data Unveil',
-    },
-  ];
 
   protected readonly featured: readonly FeaturedProject[] = [
     {
@@ -139,34 +85,28 @@ export class Home {
     },
   ];
 
-  protected readonly cards: readonly HomeCard[] = [
+  protected readonly featuredCard: HomeCard = {
+    kicker: 'play',
+    title: 'Playground',
+    description:
+      'Live D3 demos: Kubernetes force graph, CI/CD Sankey, bundle treemap, fully-client-side finance analyzer. The visualization work, running.',
+    href: '/playground',
+  };
+
+  protected readonly secondaryCards: readonly HomeCard[] = [
     {
-      kicker: '01 · work',
-      title: 'Projects',
-      description:
-        'Case studies from shipped work — SCRAII, FinchSCAN, FinchCOMPLY, and the D3 / Angular experiments behind them.',
-      href: '/projects',
-    },
-    {
-      kicker: '02 · play',
-      title: 'Playground',
-      description:
-        'Interactive D3 demos — Kubernetes force graphs, CI/CD Sankeys, bundle treemaps, finance analyzer.',
-      href: '/playground',
-    },
-    {
-      kicker: '03 · write',
-      title: 'Feed',
-      description:
-        'Notes, posts, and links — whatever I am learning or breaking this week.',
-      href: '/feed',
-    },
-    {
-      kicker: '04 · me',
+      kicker: 'me',
       title: 'About',
       description:
-        'Career timeline, tech bubbles, and how I ended up at the intersection of Angular and data viz.',
+        'Career timeline, tech bubbles, and the path from Angular to data viz.',
       href: '/about',
+    },
+    {
+      kicker: 'write',
+      title: 'Feed',
+      description:
+        'Notes, posts, and links from what I am learning or breaking this week.',
+      href: '/feed',
     },
   ];
 

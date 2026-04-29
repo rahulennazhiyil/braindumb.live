@@ -66,87 +66,57 @@
 
       <div class="hero__ctas">
         <a routerLink="/projects">
-          <app-button variant="primary" size="lg">View projects</app-button>
+          <app-button variant="primary" size="lg">View work →</app-button>
         </a>
-        <a routerLink="/about">
-          <app-button variant="secondary" size="lg">About me</app-button>
-        </a>
-        <a routerLink="/contact">
-          <app-button variant="ghost" size="lg">Say hello →</app-button>
-        </a>
+        <a routerLink="/about" class="hero__inline">About me</a>
       </div>
-
-      <p class="hero__easter">
-        Drag the graph behind. Hover a node. Three nodes hide a door.
-      </p>
     </div>
 
-    <!-- RIGHT — terminal-style identity card -->
-    <aside class="hero__card" aria-label="Identity card">
-      <header class="hero__card-chrome">
-        <span class="hero__card-dot hero__card-dot--r" aria-hidden="true"></span>
-        <span class="hero__card-dot hero__card-dot--y" aria-hidden="true"></span>
-        <span class="hero__card-dot hero__card-dot--g" aria-hidden="true"></span>
-        <span class="hero__card-title">~/rahul-e/profile.ts</span>
+    <!-- RIGHT — telemetry HUD readout -->
+    <aside class="hero__hud" aria-label="Profile readout">
+      <header class="hero__hud-head">
+        <span class="hero__hud-prompt">~$</span>
+        <span class="hero__hud-title">scope/active</span>
       </header>
 
-      <pre class="hero__card-body"><span class="tok-comment">// Currently</span>
-<span class="tok-key">role</span>:     <span class="tok-str">'Software Developer'</span>,
-<span class="tok-key">company</span>:  <span class="tok-str">'Data Unveil'</span>,
-<span class="tok-key">building</span>: <span class="tok-str">'SCRAII · text-to-SQL AI'</span>,
-
-<span class="tok-comment">// Stack</span>
-<span class="tok-key">core</span>:     [<span class="tok-str">'Angular 14–19'</span>, <span class="tok-str">'TS'</span>, <span class="tok-str">'RxJS'</span>, <span class="tok-str">'Signals'</span>],
-<span class="tok-key">viz</span>:      [<span class="tok-str">'D3.js'</span>, <span class="tok-str">'Chart.js'</span>],
-<span class="tok-key">devops</span>:   [<span class="tok-str">'Azure DevOps'</span>, <span class="tok-str">'Docker'</span>, <span class="tok-str">'Git'</span>],
-
-<span class="tok-comment">// Track record</span>
-<span class="tok-key">impact</span>:   <span class="tok-str">'-40% AML review · +20% CSAT'</span>,
-<span class="tok-key">years</span>:    <span class="tok-num">3</span>,
-<span class="tok-key">open_to</span>:  <span class="tok-str">'senior FE / data-viz roles'</span>,</pre>
-
-      <footer class="hero__card-stack">
-        @for (tech of heroStack; track tech) {
-          <app-tag-chip>{{ tech }}</app-tag-chip>
-        }
-      </footer>
+      <dl class="hero__hud-body">
+        <div class="hero__hud-row">
+          <dt>role</dt>
+          <dd>Frontend Engineer</dd>
+        </div>
+        <div class="hero__hud-row">
+          <dt>shipping</dt>
+          <dd>SCRAII · text-to-SQL AI</dd>
+        </div>
+        <div class="hero__hud-row">
+          <dt>company</dt>
+          <dd>Data Unveil · Bengaluru</dd>
+        </div>
+        <div class="hero__hud-row">
+          <dt>tenure</dt>
+          <dd>3+ years production Angular</dd>
+        </div>
+        <div class="hero__hud-row hero__hud-row--lead">
+          <dt>impact</dt>
+          <dd>
+            <span class="hero__hud-figure">−40%</span>
+            <span class="hero__hud-figure-note">manual AML review · FinchSCAN</span>
+          </dd>
+        </div>
+        <div class="hero__hud-row">
+          <dt>open to</dt>
+          <dd>senior FE / data-viz roles</dd>
+        </div>
+      </dl>
     </aside>
   </div>
-</section>
-
-<!-- ================= METRICS ================= -->
-<section
-  appReveal
-  class="max-w-6xl mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-6 md:pb-8"
-  aria-label="Key metrics"
->
-  <ul class="metrics">
-    @for (m of metrics; track m.label) {
-      <li class="metric">
-        <span class="metric__value">
-          @if (m.countTo !== undefined) {
-            <span [appCountUp]="m.countTo" [suffix]="m.countSuffix ?? ''">0</span>
-            @if (m.countTrail) {
-              <span>{{ m.countTrail }}</span>
-            }
-          } @else {
-            {{ m.value }}
-          }
-        </span>
-        <span class="metric__label">{{ m.label }}</span>
-        @if (m.detail) {
-          <span class="metric__detail">{{ m.detail }}</span>
-        }
-      </li>
-    }
-  </ul>
 </section>
 
 <!-- ================= FEATURED WORK ================= -->
 <section class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
   <div appReveal class="flex items-end justify-between flex-wrap gap-4 mb-8">
     <app-section-heading
-      kicker="$ git log --featured"
+      kicker="git log --featured"
       title="Selected work"
       subtitle="Three production platforms I've shaped the front end of."
     />
@@ -182,63 +152,68 @@
 <section class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
   <div appReveal>
     <app-section-heading
-      kicker="$ ls -la"
+      kicker="ls -la"
       title="What else is here"
       subtitle="A portfolio, a D3.js playground, a feed, and the long story."
     />
   </div>
 
-  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
-    @for (card of cards; track card.href) {
-      <a
-        appReveal
-        [routerLink]="card.href"
-        class="group glass p-6 flex flex-col gap-3 hover:border-accent-primary/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
-      >
-        <div class="flex items-baseline justify-between">
-          <span class="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-text-muted">
-            {{ card.kicker }}
-          </span>
-          <span
-            class="font-mono text-accent-primary group-hover:translate-x-1 transition-transform"
-            aria-hidden="true"
-          >→</span>
-        </div>
-        <h3 class="font-display text-xl md:text-2xl text-text-primary font-semibold">
-          {{ card.title }}
-        </h3>
-        <p class="font-body text-sm text-text-secondary leading-relaxed">
-          {{ card.description }}
-        </p>
-      </a>
-    }
+  <div class="explore mt-10">
+    <a
+      appReveal
+      [routerLink]="featuredCard.href"
+      class="explore__hero group"
+    >
+      <div class="explore__head">
+        <span class="explore__kicker">
+          <span class="text-text-muted">~$</span> {{ featuredCard.kicker }}
+        </span>
+        <span class="explore__arrow" aria-hidden="true">→</span>
+      </div>
+      <h3 class="explore__title">{{ featuredCard.title }}</h3>
+      <p class="explore__desc">{{ featuredCard.description }}</p>
+    </a>
+
+    <div class="explore__stack">
+      @for (card of secondaryCards; track card.href) {
+        <a
+          appReveal
+          [routerLink]="card.href"
+          class="explore__small group"
+        >
+          <div class="explore__head">
+            <span class="explore__kicker">
+              <span class="text-text-muted">~$</span> {{ card.kicker }}
+            </span>
+            <span class="explore__arrow" aria-hidden="true">→</span>
+          </div>
+          <h3 class="explore__title explore__title--sm">{{ card.title }}</h3>
+          <p class="explore__desc explore__desc--sm">{{ card.description }}</p>
+        </a>
+      }
+    </div>
   </div>
 </section>
 
 <!-- ================= CONTACT CTA ================= -->
 <section
   appReveal
-  class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16 border-t border-glass-border"
+  class="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-24 border-t border-glass-border"
 >
-  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-    <div>
-      <p class="font-mono text-xs text-text-muted uppercase tracking-[0.3em]">
-        currently
+  <div class="contact">
+    <div class="contact__lead">
+      <p class="contact__kicker">
+        <span class="text-text-muted">~$</span> transmission/open
       </p>
-      <p class="font-body text-base md:text-lg text-text-secondary mt-2 max-w-2xl leading-relaxed">
+      <p class="contact__pitch">
         Building the AI-powered
         <span class="text-accent-primary">SCRAII</span> platform at
         <span class="text-accent-primary">Data Unveil</span>.
         Open to senior Angular / data-viz roles and collaborations.
       </p>
     </div>
-    <div class="flex gap-2">
-      <a [href]="'mailto:' + contact.email">
-        <app-button variant="primary">Say hello</app-button>
-      </a>
-      <a routerLink="/contact">
-        <app-button variant="secondary">Contact form</app-button>
-      </a>
-    </div>
+    <a [href]="'mailto:' + contact.email" class="contact__cta">
+      <app-button variant="primary" size="lg">Say hello →</app-button>
+    </a>
   </div>
 </section>

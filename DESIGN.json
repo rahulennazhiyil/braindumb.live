@@ -1,0 +1,485 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-04-28T00:00:00.000Z",
+  "title": "Design System: rahul.dev",
+  "extensions": {
+    "colorMeta": {
+      "void-black": {
+        "role": "neutral",
+        "displayName": "Void Black",
+        "canonical": "oklch(10% 0.005 280)",
+        "tonalRamp": [
+          "oklch(5% 0.002 280)",
+          "oklch(10% 0.005 280)",
+          "oklch(18% 0.005 280)",
+          "oklch(28% 0.005 280)",
+          "oklch(40% 0.005 280)",
+          "oklch(55% 0.005 280)",
+          "oklch(72% 0.004 280)",
+          "oklch(94% 0.003 280)"
+        ]
+      },
+      "hull-indigo": {
+        "role": "neutral",
+        "displayName": "Hull Indigo",
+        "canonical": "oklch(18% 0.04 280)",
+        "tonalRamp": [
+          "oklch(8% 0.02 280)",
+          "oklch(13% 0.03 280)",
+          "oklch(18% 0.04 280)",
+          "oklch(28% 0.05 280)",
+          "oklch(40% 0.05 280)",
+          "oklch(55% 0.04 280)",
+          "oklch(72% 0.03 280)",
+          "oklch(92% 0.02 280)"
+        ]
+      },
+      "deck-slate": {
+        "role": "neutral",
+        "displayName": "Deck Slate",
+        "canonical": "oklch(28% 0.04 280)",
+        "tonalRamp": [
+          "oklch(12% 0.02 280)",
+          "oklch(18% 0.03 280)",
+          "oklch(28% 0.04 280)",
+          "oklch(40% 0.04 280)",
+          "oklch(55% 0.04 280)",
+          "oklch(70% 0.03 280)",
+          "oklch(85% 0.02 280)",
+          "oklch(94% 0.01 280)"
+        ]
+      },
+      "signal-cyan": {
+        "role": "primary",
+        "displayName": "Signal Cyan",
+        "canonical": "oklch(85% 0.13 200)",
+        "tonalRamp": [
+          "oklch(15% 0.05 200)",
+          "oklch(28% 0.08 200)",
+          "oklch(40% 0.10 200)",
+          "oklch(53% 0.12 200)",
+          "oklch(65% 0.13 200)",
+          "oklch(75% 0.13 200)",
+          "oklch(85% 0.13 200)",
+          "oklch(94% 0.06 200)"
+        ]
+      },
+      "warning-amber": {
+        "role": "secondary",
+        "displayName": "Warning Amber",
+        "canonical": "oklch(76% 0.16 70)",
+        "tonalRamp": [
+          "oklch(20% 0.08 70)",
+          "oklch(35% 0.12 70)",
+          "oklch(50% 0.14 70)",
+          "oklch(62% 0.15 70)",
+          "oklch(76% 0.16 70)",
+          "oklch(83% 0.15 70)",
+          "oklch(90% 0.10 70)",
+          "oklch(95% 0.04 70)"
+        ]
+      },
+      "console-bright": {
+        "role": "neutral",
+        "displayName": "Console Bright",
+        "canonical": "oklch(92% 0.02 250)",
+        "tonalRamp": [
+          "oklch(18% 0.01 250)",
+          "oklch(28% 0.01 250)",
+          "oklch(45% 0.015 250)",
+          "oklch(60% 0.015 250)",
+          "oklch(72% 0.018 250)",
+          "oklch(82% 0.018 250)",
+          "oklch(92% 0.02 250)",
+          "oklch(96% 0.005 250)"
+        ]
+      },
+      "console-mid": {
+        "role": "neutral",
+        "displayName": "Console Mid",
+        "canonical": "oklch(68% 0.03 250)",
+        "tonalRamp": [
+          "oklch(18% 0.01 250)",
+          "oklch(28% 0.015 250)",
+          "oklch(40% 0.02 250)",
+          "oklch(55% 0.025 250)",
+          "oklch(68% 0.03 250)",
+          "oklch(78% 0.025 250)",
+          "oklch(88% 0.018 250)",
+          "oklch(95% 0.005 250)"
+        ]
+      },
+      "console-dim": {
+        "role": "neutral",
+        "displayName": "Console Dim",
+        "canonical": "oklch(52% 0.03 250)",
+        "tonalRamp": [
+          "oklch(15% 0.01 250)",
+          "oklch(25% 0.015 250)",
+          "oklch(38% 0.02 250)",
+          "oklch(52% 0.03 250)",
+          "oklch(65% 0.028 250)",
+          "oklch(76% 0.022 250)",
+          "oklch(86% 0.015 250)",
+          "oklch(94% 0.005 250)"
+        ]
+      },
+      "bulkhead": {
+        "role": "neutral",
+        "displayName": "Bulkhead",
+        "canonical": "oklch(36% 0.03 250)",
+        "tonalRamp": [
+          "oklch(12% 0.01 250)",
+          "oklch(20% 0.02 250)",
+          "oklch(28% 0.025 250)",
+          "oklch(36% 0.03 250)",
+          "oklch(50% 0.03 250)",
+          "oklch(65% 0.025 250)",
+          "oklch(80% 0.018 250)",
+          "oklch(93% 0.005 250)"
+        ]
+      },
+      "glass-skin": {
+        "role": "neutral",
+        "displayName": "Glass Skin",
+        "canonical": "rgba(255,255,255,0.05)",
+        "tonalRamp": [
+          "rgba(255,255,255,0.02)",
+          "rgba(255,255,255,0.04)",
+          "rgba(255,255,255,0.05)",
+          "rgba(255,255,255,0.07)",
+          "rgba(255,255,255,0.10)",
+          "rgba(255,255,255,0.14)",
+          "rgba(255,255,255,0.20)",
+          "rgba(255,255,255,0.30)"
+        ]
+      },
+      "glass-edge": {
+        "role": "neutral",
+        "displayName": "Glass Edge",
+        "canonical": "rgba(255,255,255,0.10)",
+        "tonalRamp": [
+          "rgba(255,255,255,0.04)",
+          "rgba(255,255,255,0.07)",
+          "rgba(255,255,255,0.10)",
+          "rgba(255,255,255,0.14)",
+          "rgba(255,255,255,0.20)",
+          "rgba(255,255,255,0.30)",
+          "rgba(255,255,255,0.45)",
+          "rgba(255,255,255,0.65)"
+        ]
+      },
+      "pulse-green": {
+        "role": "secondary",
+        "displayName": "Pulse Green",
+        "canonical": "oklch(72% 0.18 145)",
+        "tonalRamp": [
+          "oklch(20% 0.08 145)",
+          "oklch(34% 0.12 145)",
+          "oklch(48% 0.16 145)",
+          "oklch(60% 0.18 145)",
+          "oklch(72% 0.18 145)",
+          "oklch(82% 0.16 145)",
+          "oklch(90% 0.10 145)",
+          "oklch(96% 0.04 145)"
+        ]
+      },
+      "red-alert": {
+        "role": "secondary",
+        "displayName": "Red Alert",
+        "canonical": "oklch(64% 0.22 25)",
+        "tonalRamp": [
+          "oklch(20% 0.10 25)",
+          "oklch(34% 0.14 25)",
+          "oklch(48% 0.18 25)",
+          "oklch(64% 0.22 25)",
+          "oklch(74% 0.20 25)",
+          "oklch(84% 0.14 25)",
+          "oklch(91% 0.08 25)",
+          "oklch(96% 0.03 25)"
+        ]
+      },
+      "cat-infra": {
+        "role": "tertiary",
+        "displayName": "Cat Infra (purple)",
+        "canonical": "oklch(70% 0.16 290)"
+      },
+      "cat-data": {
+        "role": "tertiary",
+        "displayName": "Cat Data (mint)",
+        "canonical": "oklch(78% 0.14 160)"
+      },
+      "cat-platform": {
+        "role": "tertiary",
+        "displayName": "Cat Platform (rose)",
+        "canonical": "oklch(73% 0.18 350)"
+      },
+      "cat-frontend": {
+        "role": "tertiary",
+        "displayName": "Cat Frontend (sky)",
+        "canonical": "oklch(72% 0.14 240)"
+      },
+      "cat-tools": {
+        "role": "tertiary",
+        "displayName": "Cat Tools (clay)",
+        "canonical": "oklch(72% 0.16 50)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero name and the boot terminal headline. Mono so every character is on-grid."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles inside app-section-heading. Sets the page rhythm."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles on featured panels, project cards, blog cards."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Inter sans for prose, descriptions, and contact text. The only place Inter appears."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Every uppercase mono label across the system. Buttons, kickers, navbar links, marquee bands all share this role and the 0.18em tracking."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-glass",
+        "value": "0 8px 32px rgba(0,0,0,0.3)",
+        "purpose": "Resting elevation for any glass panel on the default theme. Atmospheric, never structural. Remaps per theme."
+      },
+      {
+        "name": "shadow-glow",
+        "value": "0 0 24px rgba(0,240,255,0.25)",
+        "purpose": "The hover bloom. Tinted with the theme's primary signal so it reads as interactivity, not surface depth. Remaps per theme."
+      },
+      {
+        "name": "shadow-glow-synthwave",
+        "value": "0 0 24px rgba(255,41,117,0.5)",
+        "purpose": "Synthwave's stronger neon variant. Synthwave doubles down on bloom because its 'material' is light, not weight."
+      },
+      {
+        "name": "shadow-print-paper",
+        "value": "0 1px 3px rgba(15,23,42,0.08)",
+        "purpose": "The single hairline shadow used on the print theme. Reads as a sheet of paper resting on a desk."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-bridge-out",
+        "value": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "purpose": "Default exponential ease-out for kinetic-heading and most state transitions. Settles fast then crawls; never bounces."
+      },
+      {
+        "name": "duration-hover",
+        "value": "180ms",
+        "purpose": "Hover transitions on cards, buttons, links. Fast enough to read as feedback, slow enough to register."
+      },
+      {
+        "name": "duration-card",
+        "value": "300ms",
+        "purpose": "Card lift + glow expand on hover."
+      },
+      {
+        "name": "duration-decrypt",
+        "value": "600ms",
+        "purpose": "Text-scramble settle time. Capped so screen readers see the final string almost immediately."
+      },
+      {
+        "name": "duration-kinetic",
+        "value": "480ms",
+        "purpose": "Per-character rise on KineticHeading."
+      },
+      {
+        "name": "duration-marquee",
+        "value": "30s",
+        "purpose": "Marquee band scroll loop. Slow enough that it reads as ambient telemetry, not a banner ad."
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile-base", "value": "0px" },
+      { "name": "tablet", "value": "700px" },
+      { "name": "scene-fallback", "value": "768px" },
+      { "name": "desktop", "value": "1024px" },
+      { "name": "container-max", "value": "1152px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary action. The single live signal of the page; rare by design.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">~$ explore</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--accent-primary, #00f0ff); color: var(--bg-primary, #0a0a0f); font-family: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; transition: box-shadow 200ms cubic-bezier(0.2,0.8,0.2,1), transform 200ms cubic-bezier(0.2,0.8,0.2,1); } .ds-btn-primary:hover { box-shadow: var(--shadow-glow, 0 0 24px rgba(0,240,255,0.25)); transform: translateY(-2px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent-primary, #00f0ff); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary action. Border carries the signal on hover.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">view source</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--bg-surface, #1a1a2e); color: var(--text-primary, #e2e8f0); font-family: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--border, #334155); border-radius: 6px; cursor: pointer; transition: border-color 200ms, color 200ms; } .ds-btn-secondary:hover { border-color: var(--accent-primary, #00f0ff); color: var(--accent-primary, #00f0ff); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--accent-primary, #00f0ff); outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Low-emphasis action. Theme toggles, palette triggers, secondary nav actions.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">theme</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: transparent; color: var(--text-secondary, #94a3b8); font-family: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; transition: background 200ms, color 200ms; } .ds-btn-ghost:hover { background: var(--bg-elevated, #2d2d44); color: var(--accent-primary, #00f0ff); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--accent-primary, #00f0ff); outline-offset: 2px; }"
+    },
+    {
+      "name": "Tag Chip (Terminal)",
+      "kind": "chip",
+      "refersTo": "tag-chip-terminal",
+      "description": "Mono uppercase chip that wraps content in `{ }` braces. The system's verbal tic.",
+      "html": "<span class=\"ds-chip-terminal\"><span class=\"ds-chip-terminal__brace\">{</span>angular<span class=\"ds-chip-terminal__brace\">}</span></span>",
+      "css": ".ds-chip-terminal { display: inline-flex; align-items: center; gap: 4px; background: rgba(45,45,68,0.5); color: var(--accent-primary, #00f0ff); font-family: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border: 1px solid var(--border, #334155); border-radius: 6px; } .ds-chip-terminal__brace { color: var(--text-muted, #64748b); }"
+    },
+    {
+      "name": "Glass Panel",
+      "kind": "card",
+      "refersTo": "glass-panel",
+      "description": "The system's primary container. Translucent skin, hairline edge, hover-glow on lift.",
+      "html": "<article class=\"ds-glass-panel\"><div class=\"ds-glass-panel__head\"><span class=\"ds-glass-panel__index\">FILE 01</span><span class=\"ds-glass-panel__status\">live</span></div><h3 class=\"ds-glass-panel__title\">force pop</h3><p class=\"ds-glass-panel__body\">A click-the-floating-bubbles micro-game built on the same D3 force simulation that powers the hero graph.</p></article>",
+      "css": ".ds-glass-panel { display: flex; flex-direction: column; gap: 12px; background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.10); border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); transition: border-color 200ms, transform 300ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 300ms cubic-bezier(0.2,0.8,0.2,1); } .ds-glass-panel:hover { border-color: rgba(0,240,255,0.45); transform: translateY(-2px); box-shadow: 0 10px 40px rgba(0,240,255,0.12); } .ds-glass-panel__head { display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted, #64748b); } .ds-glass-panel__index { color: var(--accent-primary, #00f0ff); } .ds-glass-panel__status { padding: 1px 9px; border-radius: 9999px; background: rgba(0,240,255,0.12); border: 1px solid rgba(0,240,255,0.30); color: var(--accent-primary, #00f0ff); } .ds-glass-panel__title { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-weight: 700; font-size: 1.6rem; letter-spacing: -0.02em; color: var(--text-primary, #e2e8f0); margin: 0; } .ds-glass-panel__body { font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary, #94a3b8); margin: 0; }"
+    },
+    {
+      "name": "Section Heading",
+      "kind": "custom",
+      "refersTo": "section-heading-title",
+      "description": "Mono kicker leading with `~$`, mono display title under it.",
+      "html": "<header class=\"ds-section-heading\"><span class=\"ds-section-heading__kicker\"><span class=\"ds-section-heading__prompt\">~$</span> playground</span><h2 class=\"ds-section-heading__title\">D3 demos</h2><p class=\"ds-section-heading__subtitle\">Seven small scenes that exercise the same simulation engine the hero is built on.</p></header>",
+      "css": ".ds-section-heading { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; text-align: left; } .ds-section-heading__kicker { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-primary, #00f0ff); } .ds-section-heading__prompt { color: var(--text-muted, #64748b); } .ds-section-heading__title { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-weight: 700; font-size: 1.875rem; letter-spacing: -0.02em; color: var(--text-primary, #e2e8f0); margin: 0; } .ds-section-heading__subtitle { font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; font-size: 1rem; line-height: 1.6; color: var(--text-secondary, #94a3b8); max-width: 28rem; margin: 0; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": null,
+      "description": "Single-line input. Border stays neutral; focus ring carries the signal.",
+      "html": "<label class=\"ds-input-wrap\"><span class=\"ds-input-label\">~$ email</span><input class=\"ds-input\" type=\"email\" placeholder=\"you@somewhere.dev\" /></label>",
+      "css": ".ds-input-wrap { display: flex; flex-direction: column; gap: 6px; } .ds-input-label { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-secondary, #94a3b8); } .ds-input { background: var(--bg-surface, #1a1a2e); color: var(--text-primary, #e2e8f0); font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; font-size: 1rem; line-height: 1.5; padding: 8px 12px; border: 1px solid var(--border, #334155); border-radius: 6px; } .ds-input::placeholder { color: var(--text-muted, #64748b); } .ds-input:focus-visible { outline: 2px solid var(--accent-primary, #00f0ff); outline-offset: 2px; }"
+    },
+    {
+      "name": "Navbar",
+      "kind": "nav",
+      "refersTo": "navbar",
+      "description": "Sticky glass nav, mono `~$ rahul` logo, mono uppercase links.",
+      "html": "<nav class=\"ds-navbar\" aria-label=\"Primary\"><a class=\"ds-navbar__logo\" href=\"/\"><span class=\"ds-navbar__prompt\">~$</span> rahul</a><ul class=\"ds-navbar__links\"><li><a href=\"/about\">about</a></li><li><a href=\"/projects\">projects</a></li><li><a href=\"/playground\" class=\"is-active\">playground</a></li><li><a href=\"/feed\">feed</a></li><li><a href=\"/contact\">contact</a></li></ul></nav>",
+      "css": ".ds-navbar { display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 16px; background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.10); } .ds-navbar__logo { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-primary, #00f0ff); text-decoration: none; } .ds-navbar__prompt { color: var(--text-muted, #64748b); } .ds-navbar__links { list-style: none; display: flex; gap: 24px; margin: 0; padding: 0; } .ds-navbar__links a { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-secondary, #94a3b8); text-decoration: none; transition: color 200ms; } .ds-navbar__links a:hover, .ds-navbar__links a.is-active { color: var(--accent-primary, #00f0ff); }"
+    },
+    {
+      "name": "Marquee Band",
+      "kind": "custom",
+      "refersTo": "marquee-band",
+      "description": "Horizontal mono ASCII strip that scrolls between scenes. Decorative, aria-hidden.",
+      "html": "<div class=\"ds-marquee\" aria-hidden=\"true\"><div class=\"ds-marquee__track\"><span class=\"ds-marquee__item\">// SCENE 02 / projects</span><span class=\"ds-marquee__item\">// RUNTIME 1m24s</span><span class=\"ds-marquee__item\">// BUILD #043</span><span class=\"ds-marquee__item\">// SCENE 02 / projects</span><span class=\"ds-marquee__item\">// RUNTIME 1m24s</span><span class=\"ds-marquee__item\">// BUILD #043</span></div></div>",
+      "css": ".ds-marquee { position: relative; width: 100%; overflow: hidden; border-block: 1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.05); font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 11px; line-height: 1; color: var(--text-muted, #64748b); letter-spacing: 0.18em; text-transform: uppercase; user-select: none; pointer-events: none; } .ds-marquee__track { display: inline-flex; white-space: nowrap; padding-block: 9px; animation: ds-marquee-scroll 30s linear infinite; will-change: transform; } .ds-marquee__item { padding-inline: 10px; } @keyframes ds-marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } } @media (prefers-reduced-motion: reduce) { .ds-marquee__track { animation: none; transform: translateX(0); } }"
+    },
+    {
+      "name": "Boot Terminal Line",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Single line of the auto-typing boot sequence. Past lines fade to console-dim, the active line carries the cursor.",
+      "html": "<div class=\"ds-boot\"><div class=\"ds-boot__line ds-boot__line--past\">~$ boot --user=rahul</div><div class=\"ds-boot__line ds-boot__line--past\">[ OK ] mounting profile…</div><div class=\"ds-boot__line ds-boot__line--past\">[ OK ] loading projects (8/8)</div><div class=\"ds-boot__line\">~$ rahul --start<span class=\"ds-boot__cursor\">▌</span></div><div class=\"ds-boot__hint\">press any key to skip</div></div>",
+      "css": ".ds-boot { width: 100%; max-width: 38rem; display: flex; flex-direction: column; gap: 6px; font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 13px; line-height: 1.55; color: var(--text-primary, #e2e8f0); padding: 24px; background: var(--bg-primary, #0a0a0f); } .ds-boot__line { white-space: pre-wrap; } .ds-boot__line--past { color: var(--text-muted, #64748b); } .ds-boot__cursor { display: inline-block; margin-left: 1px; color: var(--accent-primary, #00f0ff); animation: ds-boot-blink 1s steps(2, start) infinite; } .ds-boot__hint { color: var(--text-muted, #64748b); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.7; margin-top: 12px; } @keyframes ds-boot-blink { to { opacity: 0; } } @media (prefers-reduced-motion: reduce) { .ds-boot__cursor { animation: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Bridge",
+    "overview": "The interface is the instrument panel; the work is what you are flying. Every visible surface reads as telemetry: HUD chrome around the force graph, corner brackets on featured panels, a marquee runtime ticker between scenes, decrypt animations on section headings, a boot terminal that auto-types the first contact. The visitor is not browsing a portfolio; they are stepping onto a small bridge and watching its instruments come alive.\n\nThe system is built on glass over void. The default theme is dark, translucent, and backlit by a single cyan signal. Three alternate theme materials snap onto the same chrome: a high-contrast green CRT (terminal), a quiet ink-on-paper boss-mode (print), and a saturated neon nightscape (synthwave). The chrome is constant across all four; only the material changes.\n\nDensity is medium: type is generous, spacing has rhythm, scenes breathe. The site is theatrical, but never cluttered. Cinematic touches (grain, scan-lines, decrypt, kinetic-rise, marquee) are atmospheric layers, never decoration. They are dialed per-theme through --cinematic-* custom properties, and print deliberately turns all of them off so the site can be shared as a clean reference.",
+    "keyCharacteristics": [
+      "Mono-coded primitives, glass-bodied surfaces.",
+      "Four theme materials, one constant chrome.",
+      "Cinematic atmosphere as a CSS-variable dial, not as decoration.",
+      "`~$` prompt mark and `{ }` braces as the system's verbal tics.",
+      "Hover lifts and glow trails over hard drop-shadows.",
+      "Reduced-motion is fully honored; the boss-mode `print` theme strips the show."
+    ],
+    "rules": [
+      {
+        "name": "The Theme-Material Rule",
+        "body": "Each of the four themes uses a different physics to communicate depth: glass uses backdrop-filter blur and translucent fills, terminal uses contrast borders only (radius 0, no glass), print uses ink weight and one subtle drop-shadow, synthwave uses neon glow as the elevation mechanism. Never port a shadow recipe across themes. Tune depth in the material the theme is made of.",
+        "section": "colors"
+      },
+      {
+        "name": "The One-Signal Rule",
+        "body": "The cyan accent is the live signal of the bridge. It appears on roughly 5–10% of any visible surface. Multiplying it weakens the signal; restraint is the point. If a screen needs more emphasis, change typeset or composition, not color count.",
+        "section": "colors"
+      },
+      {
+        "name": "The `~$` Prompt Rule",
+        "body": "Every section kicker, the navbar logo, the footer prompt, and most interactive labels lead with the literal token `~$ ` (mono, text-text-muted on the `~$`, text-accent-primary on the term that follows). This is the system's verbal tic; it is how the chrome speaks. New components that need a kicker must use it. Do not invent a different prefix.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono-First Rule",
+        "body": "Headings use the display (JetBrains Mono) face in three of the four themes; only print swaps to serif. Sans is for prose, never for headlines, never for buttons, never for labels.",
+        "section": "typography"
+      },
+      {
+        "name": "The 0.18em Tracking Rule",
+        "body": "Every uppercase mono label uses letter-spacing: 0.18em. Buttons, kickers, navbar links, marquee bands all share the same loose tracking. It is the system's audio signature.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hover-Glows-Not-Lifts Rule",
+        "body": "On hover, surfaces translate -2px on Y and their box-shadow expands to shadow-glow (a tinted halo). They do not gain a heavier drop-shadow; they bloom. The lift is small enough to read as feedback, not as theatrics.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Print-Mode Rule",
+        "body": "The print theme deliberately disables grain, scan-lines, glow, and most cinematics. It is the boss-mode reference theme. New cinematic features must check the print matrix before shipping; if a feature looks broken in print, the right answer is usually to disable it for that theme.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Brace Rule",
+        "body": "The terminal variant of tag-chip wraps its content between `{` and `}` characters in console-dim. This is one of the system's two verbal tics (the other is `~$`). New chip variants in cinematic contexts must adopt it.",
+        "section": "components"
+      },
+      {
+        "name": "The Three-Layer Component Rule",
+        "body": "Every page composition uses three layers: (1) instrument-grade primitives (mono buttons, glass panels, sans body); (2) cinematic chrome around them (HUD corner brackets, decrypt headers, marquee bands, scene frames); (3) ceremonial transitions between states (kinetic-rise, decrypt-resolve, hover-glow, scroll-snap on home/about). All three or nothing.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do use signal-cyan (#00f0ff) for the single primary action and the focus ring on every public surface.",
+      "Do lead every kicker, navbar logo, footer prompt, and label-style mono string with `~$`.",
+      "Do wrap terminal-variant tag-chip content between `{` and `}` braces rendered in console-dim.",
+      "Do use letter-spacing: 0.18em on every uppercase mono label.",
+      "Do use mono (JetBrains Mono Variable) for headings on glass, terminal, and synthwave. print is the only theme allowed to swap to serif.",
+      "Do glow on hover (shadow-glow + translateY(-2px)), never deepen the drop-shadow.",
+      "Do dial cinematic intensity per theme via the --cinematic-* custom properties.",
+      "Do check the print matrix before shipping any new cinematic feature.",
+      "Do respect prefers-reduced-motion: reduce on every animation.",
+      "Do keep brand cinematics off /admin/*. Productivity over performance on the operator's side.",
+      "Do mark every decorative overlay with aria-hidden=\"true\" and pointer-events: none.",
+      "Do cap body line length at 65–75ch on long-form pages."
+    ],
+    "donts": [
+      "Don't use #000 or #fff directly. Reach for void-black or console-bright; every neutral is tinted.",
+      "Don't ship a generic developer-portfolio template (avatar + bio + project grid + tech-stack icons).",
+      "Don't ship a SaaS landing-page cliché (gradient hero, big metric, three identical feature cards, social-proof logo strip).",
+      "Don't ship an off-the-shelf cyberpunk-neon look (solid black + magenta glow + Matrix-rain decoration).",
+      "Don't ship a corporate-resume page (beige, polite, 'I am passionate about clean code').",
+      "Don't use a side-stripe border (border-left or border-right > 1px as a colored accent).",
+      "Don't use gradient text (background-clip: text over a gradient background).",
+      "Don't use glassmorphism decoratively. The glass class is structural; do not blur things just because.",
+      "Don't stack a third elevated surface beyond page → glass panel.",
+      "Don't invent a new theme to solve a layout problem. Four themes is the ceiling.",
+      "Don't carry the `~$` prompt or the `{ }` braces into /admin/*.",
+      "Don't animate CSS layout properties. Use transform and opacity.",
+      "Don't add a colored shadow on print. The print theme's --shadow-glow is none for a reason.",
+      "Don't preload audio assets. Ambient drone and UI sfx are off by default and lazy-loaded only on the first toggle.",
+      "Don't rely on hue alone in data viz.",
+      "Don't use bouncy / elastic easing. Bounce reads as consumer-app, not instrument."
+    ]
+  }
+}

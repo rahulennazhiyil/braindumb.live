@@ -53,39 +53,7 @@
   }
 }
 
-/* === Reusable metric + featured primitives (used on home) === */
-.metrics {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: 1fr;
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-card);
-  background: color-mix(in oklab, var(--bg-surface) 70%, transparent);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  overflow: hidden;
-}
-@media (min-width: 700px) { .metrics { grid-template-columns: repeat(4, 1fr); } }
-
-.metric {
-  padding: 1.25rem 1.25rem 1.35rem;
-  display: flex; flex-direction: column; gap: 0.35rem;
-  border-bottom: 1px solid var(--glass-border);
-  transition: background 0.18s;
-}
-.metric:hover { background: color-mix(in oklab, var(--accent-primary) 6%, transparent); }
-
-@media (min-width: 700px) {
-  .metric { border-bottom: none; border-right: 1px solid var(--glass-border); }
-  .metric:last-child { border-right: none; }
-}
-
-.metric__value {
-  font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(1.5rem, 2.5vw, 2rem); letter-spacing: -0.02em;
-  color: var(--text-primary); line-height: 1.1;
-}
-.metric__label { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4; }
-.metric__detail { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); }
-
+/* === Featured primitives (used on home) === */
 .featured__more {
   font-family: var(--font-mono); font-size: 0.8rem;
   color: var(--accent-primary); text-decoration: none;
@@ -117,8 +85,8 @@
 
 .featured__head {
   display: flex; align-items: center; justify-content: space-between;
-  font-family: var(--font-mono); font-size: 0.7rem;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);
+  font-family: var(--font-mono); font-size: 0.75rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted);
 }
 .featured__index { color: var(--accent-primary); }
 .featured__status {
