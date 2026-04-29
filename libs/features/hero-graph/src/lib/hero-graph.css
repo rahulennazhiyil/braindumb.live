@@ -60,3 +60,36 @@
     transition: none;
   }
 }
+
+.hero-graph__bracket {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  border-color: color-mix(in oklab, var(--accent-primary) 75%, transparent);
+}
+.hero-graph__bracket--tl { top: 12px; left: 12px; border-top: 1px solid; border-left: 1px solid; }
+.hero-graph__bracket--tr { top: 12px; right: 12px; border-top: 1px solid; border-right: 1px solid; }
+.hero-graph__bracket--bl { bottom: 12px; left: 12px; border-bottom: 1px solid; border-left: 1px solid; }
+.hero-graph__bracket--br { bottom: 12px; right: 12px; border-bottom: 1px solid; border-right: 1px solid; }
+
+.hero-graph__node-count,
+.hero-graph__frame-ticker {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: color-mix(in oklab, var(--accent-primary) 80%, transparent);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.hero-graph__node-count { top: 14px; left: 38px; }
+.hero-graph__frame-ticker {
+  bottom: 14px;
+  right: 38px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-graph__frame-ticker { visibility: hidden; }
+}

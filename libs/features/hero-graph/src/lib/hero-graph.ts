@@ -68,10 +68,15 @@ export class HeroGraph implements AfterViewInit, OnDestroy {
     return n ? `${n.label} · lvl ${n.level}` : '';
   });
 
+  protected readonly nodeCount = computed(() => this.data().nodes.length);
+  protected readonly frameLabel = signal<string>('FRAME 0000');
+
   private simulation?: d3.Simulation<SimNode, SimEdge>;
   private resizeObserver?: ResizeObserver;
   private clickTimestamps: number[] = [];
   private readonly mouse = { x: 0, y: 0 };
+  private rafId = 0;
+  private frameCount = 0;
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -84,6 +89,7 @@ export class HeroGraph implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.simulation?.stop();
     this.resizeObserver?.disconnect();
+    if (this.rafId) cancelAnimationFrame(this.rafId);
   }
 
   private init(): void {
@@ -91,6 +97,17 @@ export class HeroGraph implements AfterViewInit, OnDestroy {
     this.draw(host);
     this.resizeObserver = new ResizeObserver(() => this.draw(host));
     this.resizeObserver.observe(host);
+
+    const tick = () => {
+      this.frameCount = (this.frameCount + 1) % 10000;
+      this.zone.run(() =>
+        this.frameLabel.set(
+          `FRAME ${String(this.frameCount).padStart(4, '0')}`,
+        ),
+      );
+      this.rafId = requestAnimationFrame(tick);
+    };
+    this.rafId = requestAnimationFrame(tick);
 
     const onPointerMove = (e: PointerEvent) => {
       const rect = host.getBoundingClientRect();
