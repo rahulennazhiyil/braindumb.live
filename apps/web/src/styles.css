@@ -127,3 +127,21 @@
     transform: none !important;
   }
 }
+
+/* === SceneScrollLock — engaged via [appSceneScrollLock] === */
+.scene-scroll-lock {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+.scene-scroll-lock > section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .scene-scroll-lock { scroll-snap-type: none; }
+  .scene-scroll-lock > section { min-height: 0; }
+}

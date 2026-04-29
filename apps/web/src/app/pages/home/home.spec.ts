@@ -64,4 +64,69 @@ describe('Home', () => {
     );
     expect(scenes.length).toBeGreaterThanOrEqual(4);
   });
+
+  it('wraps the page root in an [appSceneScrollLock] container', async () => {
+    await TestBed.configureTestingModule({
+      imports: [Home],
+      providers: baseProviders,
+    }).compileComponents();
+    const fixture = TestBed.createComponent(Home);
+    fixture.detectChanges();
+    const root = fixture.nativeElement.querySelector('[appSceneScrollLock]');
+    expect(root).toBeTruthy();
+  });
+
+  it('inserts marquee bands between scenes', async () => {
+    await TestBed.configureTestingModule({
+      imports: [Home],
+      providers: baseProviders,
+    }).compileComponents();
+    const fixture = TestBed.createComponent(Home);
+    fixture.detectChanges();
+    const bands = fixture.nativeElement.querySelectorAll('app-marquee-band');
+    expect(bands.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it('decrypts the featured-work and explore section kickers', async () => {
+    await TestBed.configureTestingModule({
+      imports: [Home],
+      providers: baseProviders,
+    }).compileComponents();
+    const fixture = TestBed.createComponent(Home);
+    fixture.detectChanges();
+    expect(
+      fixture.nativeElement.querySelector('[aria-label="git log --featured"]'),
+    ).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector('[aria-label="ls -la"]'),
+    ).toBeTruthy();
+  });
+
+  it('renders kinetic titles for featured-work and explore sections', async () => {
+    await TestBed.configureTestingModule({
+      imports: [Home],
+      providers: baseProviders,
+    }).compileComponents();
+    const fixture = TestBed.createComponent(Home);
+    fixture.detectChanges();
+    expect(
+      fixture.nativeElement.querySelector('[aria-label="Selected work"]'),
+    ).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector('[aria-label="What else is here"]'),
+    ).toBeTruthy();
+  });
+
+  it('decrypts the contact kicker', async () => {
+    await TestBed.configureTestingModule({
+      imports: [Home],
+      providers: baseProviders,
+    }).compileComponents();
+    const fixture = TestBed.createComponent(Home);
+    fixture.detectChanges();
+    const contact = fixture.nativeElement.querySelector(
+      '.contact__kicker [aria-label="transmission/open"]',
+    );
+    expect(contact).toBeTruthy();
+  });
 });

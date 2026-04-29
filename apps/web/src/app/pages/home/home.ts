@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HeroGraph, type TechNode } from '@rahul-dev/features-hero-graph';
-import { SceneFrame } from '@rahul-dev/features-scene-frame';
+import {
+  MarqueeBand,
+  SceneFrame,
+  SceneScrollLock,
+} from '@rahul-dev/features-scene-frame';
 import { DecryptText, KineticHeading } from '@rahul-dev/shared-cinematics';
 import { TerminalService } from '@rahul-dev/shared-terminal';
-import { Button, Reveal, SectionHeading, TagChip } from '@rahul-dev/shared-ui';
+import { Button, Reveal, TagChip } from '@rahul-dev/shared-ui';
 import { Github, Linkedin, LucideAngularModule, Mail, MapPin } from 'lucide-angular';
 
 interface FeaturedProject {
@@ -29,7 +33,6 @@ interface HomeCard {
   imports: [
     Button,
     Reveal,
-    SectionHeading,
     TagChip,
     RouterLink,
     HeroGraph,
@@ -37,6 +40,8 @@ interface HomeCard {
     DecryptText,
     KineticHeading,
     SceneFrame,
+    SceneScrollLock,
+    MarqueeBand,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -51,6 +56,9 @@ export class Home {
   protected readonly MapPin = MapPin;
 
   protected readonly heroReady = signal<boolean>(false);
+  protected readonly featuredReady = signal<boolean>(false);
+  protected readonly exploreReady = signal<boolean>(false);
+  protected readonly contactReady = signal<boolean>(false);
 
   protected readonly contact = {
     email: 'rahulennazhiyil6@gmail.com',
@@ -127,5 +135,17 @@ export class Home {
 
   protected onHeroEnter(): void {
     this.heroReady.set(true);
+  }
+
+  protected onFeaturedEnter(): void {
+    this.featuredReady.set(true);
+  }
+
+  protected onExploreEnter(): void {
+    this.exploreReady.set(true);
+  }
+
+  protected onContactEnter(): void {
+    this.contactReady.set(true);
   }
 }

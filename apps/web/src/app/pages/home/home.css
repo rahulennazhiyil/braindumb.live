@@ -351,3 +351,20 @@
   letter-spacing: inherit;
   color: inherit;
 }
+
+/* ============ Page wrapper for SceneScrollLock ============ */
+.home__page {
+  display: flex;
+  flex-direction: column;
+}
+.home__page > app-marquee-band {
+  flex: 0 0 auto;
+}
+
+/* Inline section headings (h2 wraps app-kinetic-heading) inherit the h2 box. */
+.featured__heading h2 app-kinetic-heading,
+.featured__heading h2 .kinetic-heading {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
