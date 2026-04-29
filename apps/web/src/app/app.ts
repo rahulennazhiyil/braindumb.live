@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  HostListener,
+  inject,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterOutlet } from '@angular/router';
 import {
   CommandPaletteOverlay,
@@ -9,6 +17,7 @@ import {
   CrosshairCursor,
   GrainOverlay,
   ScanLineOverlay,
+  ShakeDetector,
 } from '@rahul-dev/shared-cinematics';
 import {
   BootGuardService,
@@ -57,6 +66,9 @@ export class App {
   private readonly viewSource = inject(ViewSourceService);
   private readonly terminal = inject(TerminalService);
   private readonly bootGuard = inject(BootGuardService);
+  private readonly shake = inject(ShakeDetector);
+  private readonly destroyRef = inject(DestroyRef);
+  private shakeStarted = false;
 
   protected readonly bootVisible = signal<boolean>(this.bootGuard.shouldPlayLong());
 
@@ -84,6 +96,16 @@ export class App {
 
   constructor() {
     this.palette.register(this.buildCommands());
+    this.shake.shake$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.terminal.open());
+  }
+
+  @HostListener('window:pointerdown')
+  protected onFirstPointerDown(): void {
+    if (this.shakeStarted) return;
+    this.shakeStarted = true;
+    void this.shake.start();
   }
 
   protected onLogoLongPress(): void {
@@ -93,6 +115,10 @@ export class App {
   protected onBootDone(): void {
     this.bootGuard.markPlayed();
     this.bootVisible.set(false);
+  }
+
+  protected onBootKonami(): void {
+    this.terminal.open();
   }
 
   protected onReplayIntro(): void {

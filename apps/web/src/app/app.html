@@ -17,6 +17,9 @@
   <app-grain-overlay />
   <app-scan-line-overlay />
   @if (bootVisible()) {
-    <app-boot-sequence (done)="onBootDone()" />
+    <app-boot-sequence
+      (done)="onBootDone()"
+      (konamiTriggered)="onBootKonami()"
+    />
   }
 </div>
