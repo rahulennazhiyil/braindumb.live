@@ -14,8 +14,8 @@ site stays deployable after every plan.
 | 2 | Scene-frame: SceneFrame / SceneScrollLock / MarqueeBand | ✅ shipped | 3 | No (lib only) |
 | 3 | Boot terminal + kinetic-text primitives | ✅ shipped | 1 + 3 | No (lib only) |
 | 4 | Hero two-beat — boot terminal → force graph | ✅ shipped | 4 | **Yes — major** |
-| 5 | Home other scenes (metrics, featured, what-I-do, about-preview) | 🔜 next | 5 | Yes |
-| 6 | About + projects-index restaging | ⏳ planned | 6 | Yes |
+| 5 | Home other scenes — scroll-lock + marquees + decrypt/kinetic on scenes 2-4 | ✅ shipped | 5 | Yes |
+| 6 | About + projects-index restaging | 🔜 next | 6 | Yes |
 | 7 | Kinetic-only treatment: feed, contact, admin, playground | ⏳ planned | 7 | Yes (subtle) |
 | 8 | Audio (ambient + UI sfx) + custom crosshair cursor | ⏳ planned | 8 | Yes |
 | 9 | New easter eggs: shake gesture, Konami in boot, replay-intro | ⏳ planned | 9 | Yes (mobile) |
@@ -51,16 +51,22 @@ HUD chrome around the force graph, apply `KineticHeading` and
 
 **Plan doc:** [`2026-04-27-makeover-plan-4-hero-two-beat.md`](2026-04-27-makeover-plan-4-hero-two-beat.md).
 
-### Plan 5 — Home other scenes
+### Plan 5 — Home other scenes ✅ shipped
 
-**Goal:** Restage scenes 2-5 of the home page. Every existing section
-keeps its content, gains: kinetic heading, decrypt-text on labels,
-`[appSceneFrame]` for intersection reveals, marquee band between scenes.
-Enable `[appSceneScrollLock]` on the home root container at this point.
+**Goal:** Restage scenes 2–4 of the home page (featured-work, explore,
+contact). Every section keeps its content; gains kinetic title, decrypt
+kicker, per-scene `(sceneEnter)` ready signal, marquee band between
+scenes, and `[appSceneScrollLock]` on the page root.
 
-**Files:** `apps/web/src/app/pages/home/home.html` (heavy), `home.css`.
+**Shipped via commit d9792b1 on 2026-04-29:**
+- `apps/web/src/styles.css` — global `.scene-scroll-lock` rule (auto-disabled <768px and under reduced motion).
+- `apps/web/src/app/pages/home/home.ts` — three new ready signals (`featuredReady`, `exploreReady`, `contactReady`) + handlers; imports `SceneScrollLock`, `MarqueeBand` from `features-scene-frame`.
+- `apps/web/src/app/pages/home/home.html` — `<div class="home__page" appSceneScrollLock>` wrapper; three `<app-marquee-band>` strips between sections; inline `appDecryptText` kickers + `<app-kinetic-heading>` titles on featured-work, explore, and contact.
+- `apps/web/src/app/pages/home/home.css` — page wrapper rule + kinetic-heading inheritance reset for the inline section heads.
 
-**Dependencies:** Plan 4.
+**Deferred:** spec § 6 `SectionHeading [decrypt]` opt-in input. Cross-buildable-lib path-alias imports hit an ng-packagr `referencedFiles` bug; the cinematic primitives are wired inline in `home.html` instead, achieving the same UX without the build issue. Will revisit when the lib pipeline allows.
+
+**Plan doc:** [`2026-04-27-makeover-plan-5-home-scenes.md`](2026-04-27-makeover-plan-5-home-scenes.md).
 
 ### Plan 6 — About + projects-index restaging
 
