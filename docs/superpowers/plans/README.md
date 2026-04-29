@@ -19,8 +19,8 @@ site stays deployable after every plan.
 | 7 | Kinetic-only treatment: feed, contact, privacy, playground (admin excluded per CLAUDE.md) | ✅ shipped | 7 | Yes (subtle) |
 | 8 | Custom crosshair cursor (audio deferred — see Plan 8.5) | ✅ shipped | 8 | Yes |
 | 8.5 | Audio (ambient drone + UI sfx) + nav toggles | ⏸ deferred (asset blocker) | 8 | Yes |
-| 9 | New easter eggs: shake gesture, Konami in boot, replay-intro | 🔜 next | 9 | Yes (mobile) |
-| 10 | QA pass: Lighthouse, Playwright smoke, theme matrix | ⏳ planned | 10 | No (verification) |
+| 9 | New easter eggs: shake gesture + Konami in boot (replay-intro shipped Plan 4; corner-tap deferred) | ✅ shipped | 9 | Yes (mobile) |
+| 10 | QA pass: Lighthouse, Playwright smoke, theme matrix | 🔜 next | 10 | No (verification) |
 
 ## How to pick up
 
@@ -148,21 +148,21 @@ follow-up plan.
 
 **Audio assets needed:** ambient drone (~30s seamless OGG loop, ~120KB) and a small UI SFX library lazy-loaded on first toggle.
 
-### Plan 9 — New easter eggs
+### Plan 9 — New easter eggs ✅ shipped
 
-**Goal:** Three more mobile-friendly admin entry points beyond the five
-already shipped.
+**Goal:** Land the shake gesture + Konami in boot (the third easter
+egg, `~$ replay-intro` in the footer, already shipped in Plan 4
+commit 2758836).
 
-**New units:**
-- `ShakeDetector` service (in `shared/cinematics`) — handles `DeviceMotionEvent`
-  permission UX on iOS, fires on three shakes within 1.5s.
-- Konami sequence trap inside `BootSequence` — `↑↑↓↓` on desktop or
-  four-corner taps on mobile during the boot, jumps straight to the
-  auth terminal.
-- Footer `~$ replay-intro` target — calls `BootGuardService.reset()` then
-  reloads. Doubles as a discovery moment for the boot animation.
+**Shipped via commits c54aa05 → b328ba5 on 2026-04-29:**
+- `libs/shared/cinematics/src/lib/shake-detector/shake-detector.service.ts` — `ShakeDetector` service. Detects 3 high-magnitude `DeviceMotionEvent` accelerations within 1500 ms. iOS permission via `start()` (called from a user-gesture handler). `processMotionEvent(event)` is the public test surface.
+- `libs/features/boot-sequence/src/lib/boot-sequence/boot-sequence.ts` — selective `window:keydown` handler buffers arrow keys; `↑↑↓↓` match emits a new `konamiTriggered` output, then skips. Non-arrow keys still skip immediately. Pointerdown skip behaviour unchanged.
+- `apps/web/src/app/app.{ts,html}` — App injects `ShakeDetector`, subscribes to `shake$` → `terminal.open()`. App calls `shake.start()` on the first `window:pointerdown`. App listens to `<app-boot-sequence (konamiTriggered)>` → `terminal.open()`.
 
-**Dependencies:** Plan 4 (uses `BootGuardService`); Plan 8 is independent.
+**Deferred:**
+- Corner-tap variant of Konami (mobile alternative). Unusual UX, hard to test reliably. The shake gesture serves the mobile slot; corner-tap can land later if requested.
+
+**Plan doc:** [`2026-04-27-makeover-plan-9-easter-eggs.md`](2026-04-27-makeover-plan-9-easter-eggs.md).
 
 ### Plan 10 — QA pass
 
