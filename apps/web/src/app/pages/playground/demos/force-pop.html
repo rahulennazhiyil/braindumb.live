@@ -1,0 +1,131 @@
+<app-demo-frame
+  [kicker]="kicker"
+  [title]="title"
+  [summary]="summary"
+  [techTags]="tags"
+  [notes]="notes"
+>
+  <div slot="viz" class="force-pop-stage" #host>
+    <!-- HUD -->
+    <div class="force-pop-hud font-mono text-xs">
+      <div class="force-pop-hud-row">
+        <span class="force-pop-stat">
+          <span class="force-pop-stat-key">score</span>
+          <span class="force-pop-stat-val">{{ score() }}</span>
+        </span>
+        <span class="force-pop-stat">
+          <span class="force-pop-stat-key">combo</span>
+          <span
+            class="force-pop-stat-val"
+            [class.force-pop-stat-hot]="combo() > 1"
+          >×{{ combo() }}</span>
+        </span>
+        <span class="force-pop-stat">
+          <span class="force-pop-stat-key">missed</span>
+          <span class="force-pop-stat-val">{{ missed() }}</span>
+        </span>
+        <span class="force-pop-stat">
+          <span class="force-pop-stat-key">time</span>
+          <span class="force-pop-stat-val">{{ remainingLabel() }}</span>
+        </span>
+      </div>
+      <div class="force-pop-progress" aria-hidden="true">
+        <span [style.width.%]="progressPct()"></span>
+      </div>
+    </div>
+
+    <!-- Bubbles -->
+    <svg
+      class="force-pop-canvas"
+      [attr.aria-busy]="phase() === 'playing'"
+      role="application"
+      aria-label="Tap rising bubbles to score"
+    >
+      @for (b of bubbles(); track b.id) {
+        <g
+          class="force-pop-bubble"
+          [attr.transform]="'translate(' + b.px + ',' + b.py + ')'"
+          (pointerdown)="popBubble(b, $event)"
+        >
+          <circle
+            [attr.r]="b.r"
+            [attr.fill]="'hsla(' + b.hue + ', 90%, 65%, 0.18)'"
+            [attr.stroke]="'hsl(' + b.hue + ', 90%, 70%)'"
+            stroke-width="1.5"
+          />
+          <text
+            text-anchor="middle"
+            dominant-baseline="central"
+            font-family="var(--font-mono)"
+            font-size="11"
+            [attr.fill]="'hsl(' + b.hue + ', 90%, 80%)'"
+          >+{{ b.value }}</text>
+        </g>
+      }
+    </svg>
+
+    <!-- Idle / End screens -->
+    @if (phase() === 'idle') {
+      <div class="force-pop-overlay">
+        <div class="force-pop-overlay-card">
+          <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-text-muted">
+            mini-game
+          </p>
+          <h3 class="font-display text-2xl text-text-primary mt-1">Force Pop</h3>
+          <p class="font-body text-sm text-text-secondary mt-3 max-w-xs">
+            Tap rising bubbles. Smaller is worth more. Chain pops within 1.2s
+            to stack a combo. 30 seconds, no second chance.
+          </p>
+          @if (highScore() > 0) {
+            <p class="font-mono text-xs text-text-muted mt-3">
+              best · {{ highScore() }}
+            </p>
+          }
+          <button
+            type="button"
+            class="force-pop-btn mt-4"
+            (click)="start()"
+          >
+            <span class="text-text-muted">~$</span> start
+          </button>
+        </div>
+      </div>
+    } @else if (phase() === 'ended') {
+      <div class="force-pop-overlay">
+        <div class="force-pop-overlay-card">
+          <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-text-muted">
+            game over
+          </p>
+          <p class="font-display text-3xl text-accent-primary mt-1">{{ score() }}</p>
+          <p class="font-mono text-xs text-text-muted mt-1">
+            missed · {{ missed() }}
+            @if (score() >= highScore() && score() > 0) {
+              <span class="text-accent-secondary"> · new best</span>
+            }
+          </p>
+          <button
+            type="button"
+            class="force-pop-btn mt-4"
+            (click)="start()"
+          >
+            <span class="text-text-muted">~$</span> retry
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div slot="explanation">
+    <p>
+      A purpose-built rAF loop ticks bubble positions each frame, with the
+      spawn interval ramping with score so pacing feels fair early and brutal
+      late. Each pop adds <em>value × combo</em>, and combos cap at ×4 to keep
+      the ceiling reachable on a phone screen.
+    </p>
+    <p>
+      Built for touch first — the SVG bubbles use <code>pointerdown</code>, not
+      <code>click</code>, so taps register on press without waiting for the
+      300ms touch delay. Best score is persisted in <code>localStorage</code>.
+    </p>
+  </div>
+</app-demo-frame>

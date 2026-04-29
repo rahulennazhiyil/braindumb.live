@@ -1,244 +1,264 @@
-<!-- ================= HERO ================= -->
-<section
-  class="hero relative overflow-hidden"
-  aria-label="Rahul E — intro"
->
-  <!-- Atmospheric graph (pushed far behind the content). -->
-  <div class="hero__graph" aria-hidden="true">
-    <app-hero-graph
-      (secretTriggered)="onSecretTriggered()"
-      (nodeActivated)="onNodeActivated($event)"
-    />
-  </div>
-  <div class="hero__mask" aria-hidden="true"></div>
+<div class="home__page" appSceneScrollLock>
+  <!-- ================= HERO ================= -->
+  <section
+    appSceneFrame
+    (sceneEnter)="onHeroEnter()"
+    class="hero relative overflow-hidden"
+    aria-label="Rahul E — intro"
+  >
+    <!-- Atmospheric graph (pushed far behind the content). -->
+    <div class="hero__graph" aria-hidden="true">
+      <app-hero-graph
+        (secretTriggered)="onSecretTriggered()"
+        (nodeActivated)="onNodeActivated($event)"
+      />
+    </div>
+    <div class="hero__mask" aria-hidden="true"></div>
 
-  <div class="hero__shell">
-    <!-- LEFT — identity + pitch + CTAs -->
-    <div class="hero__lead">
-      <div class="hero__status">
-        <span class="hero__dot" aria-hidden="true"></span>
-        <span class="hero__status-label">
-          Available · Oct 2025 – Present @ Data Unveil
+    <div class="hero__shell">
+      <!-- LEFT — identity + pitch + CTAs -->
+      <div class="hero__lead">
+        <div class="hero__status">
+          <span class="hero__dot" aria-hidden="true"></span>
+          <span class="hero__status-label">
+            Available · Oct 2025 – Present @ Data Unveil
+          </span>
+        </div>
+
+        <span class="hero__kicker">
+          <span class="text-text-muted">~$</span>
+          <span [appDecryptText]="'whoami --verbose'" [autoplay]="heroReady()">
+            whoami --verbose
+          </span>
         </span>
+
+        <h1 class="hero__name">
+          <app-kinetic-heading text="Rahul E" [ready]="heroReady()" />
+        </h1>
+
+        <p class="hero__role">
+          Frontend Developer
+          <span class="hero__sep" aria-hidden="true">/</span>
+          <span [appDecryptText]="'Angular · TypeScript · D3.js'" [autoplay]="heroReady()">
+            Angular · TypeScript · D3.js
+          </span>
+        </p>
+
+        <p class="hero__pitch">
+          I build <span class="hero__hi">fast, accessible web apps</span> that
+          make dense data feel approachable. Three-plus years of production
+          Angular — currently shipping an
+          <span class="hero__hi">AI-powered text-to-SQL interface</span>
+          on SCRAII at Data Unveil, and a task-management module alongside it.
+        </p>
+
+        <div class="hero__meta">
+          <span class="hero__meta-item">
+            <lucide-angular [img]="MapPin" [size]="14" aria-hidden="true" />
+            {{ contact.location }}
+          </span>
+          <a class="hero__meta-link" [href]="'mailto:' + contact.email">
+            <lucide-angular [img]="Mail" [size]="14" aria-hidden="true" />
+            {{ contact.email }}
+          </a>
+          <a class="hero__meta-link" [href]="contact.github" target="_blank" rel="noopener">
+            <lucide-angular [img]="Github" [size]="14" aria-hidden="true" />
+            github.com/rahulennazhiyil
+          </a>
+          <a class="hero__meta-link" [href]="contact.linkedin" target="_blank" rel="noopener">
+            <lucide-angular [img]="Linkedin" [size]="14" aria-hidden="true" />
+            linkedin.com/in/rahul-ennazhiyil
+          </a>
+        </div>
+
+        <div class="hero__ctas">
+          <a routerLink="/projects">
+            <app-button variant="primary" size="lg">View work →</app-button>
+          </a>
+          <a routerLink="/about" class="hero__inline">About me</a>
+        </div>
       </div>
 
-      <span class="hero__kicker">
-        <span class="text-text-muted">~$</span>
-        whoami --verbose
-      </span>
+      <!-- RIGHT — telemetry HUD readout -->
+      <aside class="hero__hud" aria-label="Profile readout">
+        <header class="hero__hud-head">
+          <span class="hero__hud-prompt">~$</span>
+          <span class="hero__hud-title">scope/active</span>
+        </header>
 
-      <h1 class="hero__name">
-        Rahul E<span class="hero__cursor" aria-hidden="true">_</span>
-      </h1>
+        <dl class="hero__hud-body">
+          <div class="hero__hud-row">
+            <dt>role</dt>
+            <dd>Frontend Engineer</dd>
+          </div>
+          <div class="hero__hud-row">
+            <dt>shipping</dt>
+            <dd>SCRAII · text-to-SQL AI</dd>
+          </div>
+          <div class="hero__hud-row">
+            <dt>company</dt>
+            <dd>Data Unveil · Bengaluru</dd>
+          </div>
+          <div class="hero__hud-row">
+            <dt>tenure</dt>
+            <dd>3+ years production Angular</dd>
+          </div>
+          <div class="hero__hud-row hero__hud-row--lead">
+            <dt>impact</dt>
+            <dd>
+              <span class="hero__hud-figure">−40%</span>
+              <span class="hero__hud-figure-note">manual AML review · FinchSCAN</span>
+            </dd>
+          </div>
+          <div class="hero__hud-row">
+            <dt>open to</dt>
+            <dd>senior FE / data-viz roles</dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </section>
 
-      <p class="hero__role">
-        Frontend Developer
-        <span class="hero__sep" aria-hidden="true">/</span>
-        Angular · TypeScript · D3.js
-      </p>
+  <app-marquee-band label="SCENE 02 / selected work · git log --featured · runtime live" />
 
-      <p class="hero__pitch">
-        I build <span class="hero__hi">fast, accessible web apps</span> that
-        make dense data feel approachable. Three-plus years of production
-        Angular — currently shipping an
-        <span class="hero__hi">AI-powered text-to-SQL interface</span>
-        on SCRAII at Data Unveil, and a task-management module alongside it.
-      </p>
-
-      <div class="hero__meta">
-        <span class="hero__meta-item">
-          <lucide-angular [img]="MapPin" [size]="14" aria-hidden="true" />
-          {{ contact.location }}
+  <!-- ================= FEATURED WORK ================= -->
+  <section
+    appSceneFrame
+    (sceneEnter)="onFeaturedEnter()"
+    class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16 w-full"
+  >
+    <div appReveal class="flex items-end justify-between flex-wrap gap-4 mb-8">
+      <header class="featured__heading flex flex-col gap-2 items-start text-left">
+        <span class="font-mono text-xs uppercase tracking-[0.18em] text-accent-primary">
+          <span class="text-text-muted">~$</span>
+          <span [appDecryptText]="'git log --featured'" [autoplay]="featuredReady()">
+            git log --featured
+          </span>
         </span>
-        <a class="hero__meta-link" [href]="'mailto:' + contact.email">
-          <lucide-angular [img]="Mail" [size]="14" aria-hidden="true" />
-          {{ contact.email }}
-        </a>
-        <a class="hero__meta-link" [href]="contact.github" target="_blank" rel="noopener">
-          <lucide-angular [img]="Github" [size]="14" aria-hidden="true" />
-          github.com/rahulennazhiyil
-        </a>
-        <a class="hero__meta-link" [href]="contact.linkedin" target="_blank" rel="noopener">
-          <lucide-angular [img]="Linkedin" [size]="14" aria-hidden="true" />
-          linkedin.com/in/rahul-ennazhiyil
-        </a>
-      </div>
-
-      <div class="hero__ctas">
-        <a routerLink="/projects">
-          <app-button variant="primary" size="lg">View projects</app-button>
-        </a>
-        <a routerLink="/about">
-          <app-button variant="secondary" size="lg">About me</app-button>
-        </a>
-        <a routerLink="/contact">
-          <app-button variant="ghost" size="lg">Say hello →</app-button>
-        </a>
-      </div>
-
-      <p class="hero__easter">
-        Drag the graph behind. Hover a node. Three nodes hide a door.
-      </p>
+        <h2 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+          <app-kinetic-heading text="Selected work" [ready]="featuredReady()" />
+        </h2>
+        <p class="font-body text-text-secondary max-w-2xl">
+          Three production platforms I've shaped the front end of.
+        </p>
+      </header>
+      <a routerLink="/projects" class="featured__more">
+        All projects <span aria-hidden="true">→</span>
+      </a>
     </div>
 
-    <!-- RIGHT — terminal-style identity card -->
-    <aside class="hero__card" aria-label="Identity card">
-      <header class="hero__card-chrome">
-        <span class="hero__card-dot hero__card-dot--r" aria-hidden="true"></span>
-        <span class="hero__card-dot hero__card-dot--y" aria-hidden="true"></span>
-        <span class="hero__card-dot hero__card-dot--g" aria-hidden="true"></span>
-        <span class="hero__card-title">~/rahul-e/profile.ts</span>
-      </header>
-
-      <pre class="hero__card-body"><span class="tok-comment">// Currently</span>
-<span class="tok-key">role</span>:     <span class="tok-str">'Software Developer'</span>,
-<span class="tok-key">company</span>:  <span class="tok-str">'Data Unveil'</span>,
-<span class="tok-key">building</span>: <span class="tok-str">'SCRAII · text-to-SQL AI'</span>,
-
-<span class="tok-comment">// Stack</span>
-<span class="tok-key">core</span>:     [<span class="tok-str">'Angular 14–19'</span>, <span class="tok-str">'TS'</span>, <span class="tok-str">'RxJS'</span>, <span class="tok-str">'Signals'</span>],
-<span class="tok-key">viz</span>:      [<span class="tok-str">'D3.js'</span>, <span class="tok-str">'Chart.js'</span>],
-<span class="tok-key">devops</span>:   [<span class="tok-str">'Azure DevOps'</span>, <span class="tok-str">'Docker'</span>, <span class="tok-str">'Git'</span>],
-
-<span class="tok-comment">// Track record</span>
-<span class="tok-key">impact</span>:   <span class="tok-str">'-40% AML review · +20% CSAT'</span>,
-<span class="tok-key">years</span>:    <span class="tok-num">3</span>,
-<span class="tok-key">open_to</span>:  <span class="tok-str">'senior FE / data-viz roles'</span>,</pre>
-
-      <footer class="hero__card-stack">
-        @for (tech of heroStack; track tech) {
-          <app-tag-chip>{{ tech }}</app-tag-chip>
-        }
-      </footer>
-    </aside>
-  </div>
-</section>
-
-<!-- ================= METRICS ================= -->
-<section
-  appReveal
-  class="max-w-6xl mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-6 md:pb-8"
-  aria-label="Key metrics"
->
-  <ul class="metrics">
-    @for (m of metrics; track m.label) {
-      <li class="metric">
-        <span class="metric__value">
-          @if (m.countTo !== undefined) {
-            <span [appCountUp]="m.countTo" [suffix]="m.countSuffix ?? ''">0</span>
-            @if (m.countTrail) {
-              <span>{{ m.countTrail }}</span>
+    <ul class="featured">
+      @for (p of featured; track p.slug) {
+        <li appReveal class="featured__card">
+          <div class="featured__head">
+            <span class="featured__index">{{ '0' + ($index + 1) }}</span>
+            <span class="featured__status">{{ p.status }}</span>
+          </div>
+          <h3 class="featured__name">{{ p.name }}</h3>
+          <p class="featured__tagline">{{ p.tagline }}</p>
+          <p class="featured__desc">{{ p.description }}</p>
+          <div class="featured__tech">
+            @for (t of p.tech; track t) {
+              <app-tag-chip>{{ t }}</app-tag-chip>
             }
-          } @else {
-            {{ m.value }}
-          }
+          </div>
+          <p class="featured__role">
+            <span class="text-text-muted">role ·</span> {{ p.role }}
+          </p>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <app-marquee-band label="SCENE 03 / what else is here · ls -la · 03 entries" />
+
+  <!-- ================= EXPLORE CARDS ================= -->
+  <section
+    appSceneFrame
+    (sceneEnter)="onExploreEnter()"
+    class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16 w-full"
+  >
+    <div appReveal>
+      <header class="flex flex-col gap-2 items-start text-left">
+        <span class="font-mono text-xs uppercase tracking-[0.18em] text-accent-primary">
+          <span class="text-text-muted">~$</span>
+          <span [appDecryptText]="'ls -la'" [autoplay]="exploreReady()">
+            ls -la
+          </span>
         </span>
-        <span class="metric__label">{{ m.label }}</span>
-        @if (m.detail) {
-          <span class="metric__detail">{{ m.detail }}</span>
-        }
-      </li>
-    }
-  </ul>
-</section>
-
-<!-- ================= FEATURED WORK ================= -->
-<section class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
-  <div appReveal class="flex items-end justify-between flex-wrap gap-4 mb-8">
-    <app-section-heading
-      kicker="$ git log --featured"
-      title="Selected work"
-      subtitle="Three production platforms I've shaped the front end of."
-    />
-    <a routerLink="/projects" class="featured__more">
-      All projects <span aria-hidden="true">→</span>
-    </a>
-  </div>
-
-  <ul class="featured">
-    @for (p of featured; track p.slug) {
-      <li appReveal class="featured__card">
-        <div class="featured__head">
-          <span class="featured__index">{{ '0' + ($index + 1) }}</span>
-          <span class="featured__status">{{ p.status }}</span>
-        </div>
-        <h3 class="featured__name">{{ p.name }}</h3>
-        <p class="featured__tagline">{{ p.tagline }}</p>
-        <p class="featured__desc">{{ p.description }}</p>
-        <div class="featured__tech">
-          @for (t of p.tech; track t) {
-            <app-tag-chip>{{ t }}</app-tag-chip>
-          }
-        </div>
-        <p class="featured__role">
-          <span class="text-text-muted">role ·</span> {{ p.role }}
+        <h2 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+          <app-kinetic-heading text="What else is here" [ready]="exploreReady()" />
+        </h2>
+        <p class="font-body text-text-secondary max-w-2xl">
+          A portfolio, a D3.js playground, a feed, and the long story.
         </p>
-      </li>
-    }
-  </ul>
-</section>
+      </header>
+    </div>
 
-<!-- ================= EXPLORE CARDS ================= -->
-<section class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
-  <div appReveal>
-    <app-section-heading
-      kicker="$ ls -la"
-      title="What else is here"
-      subtitle="A portfolio, a D3.js playground, a feed, and the long story."
-    />
-  </div>
-
-  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
-    @for (card of cards; track card.href) {
+    <div class="explore mt-10">
       <a
         appReveal
-        [routerLink]="card.href"
-        class="group glass p-6 flex flex-col gap-3 hover:border-accent-primary/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+        [routerLink]="featuredCard.href"
+        class="explore__hero group"
       >
-        <div class="flex items-baseline justify-between">
-          <span class="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-text-muted">
-            {{ card.kicker }}
+        <div class="explore__head">
+          <span class="explore__kicker">
+            <span class="text-text-muted">~$</span> {{ featuredCard.kicker }}
           </span>
-          <span
-            class="font-mono text-accent-primary group-hover:translate-x-1 transition-transform"
-            aria-hidden="true"
-          >→</span>
+          <span class="explore__arrow" aria-hidden="true">→</span>
         </div>
-        <h3 class="font-display text-xl md:text-2xl text-text-primary font-semibold">
-          {{ card.title }}
-        </h3>
-        <p class="font-body text-sm text-text-secondary leading-relaxed">
-          {{ card.description }}
-        </p>
+        <h3 class="explore__title">{{ featuredCard.title }}</h3>
+        <p class="explore__desc">{{ featuredCard.description }}</p>
       </a>
-    }
-  </div>
-</section>
 
-<!-- ================= CONTACT CTA ================= -->
-<section
-  appReveal
-  class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16 border-t border-glass-border"
->
-  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-    <div>
-      <p class="font-mono text-xs text-text-muted uppercase tracking-[0.3em]">
-        currently
-      </p>
-      <p class="font-body text-base md:text-lg text-text-secondary mt-2 max-w-2xl leading-relaxed">
-        Building the AI-powered
-        <span class="text-accent-primary">SCRAII</span> platform at
-        <span class="text-accent-primary">Data Unveil</span>.
-        Open to senior Angular / data-viz roles and collaborations.
-      </p>
+      <div class="explore__stack">
+        @for (card of secondaryCards; track card.href) {
+          <a
+            appReveal
+            [routerLink]="card.href"
+            class="explore__small group"
+          >
+            <div class="explore__head">
+              <span class="explore__kicker">
+                <span class="text-text-muted">~$</span> {{ card.kicker }}
+              </span>
+              <span class="explore__arrow" aria-hidden="true">→</span>
+            </div>
+            <h3 class="explore__title explore__title--sm">{{ card.title }}</h3>
+            <p class="explore__desc explore__desc--sm">{{ card.description }}</p>
+          </a>
+        }
+      </div>
     </div>
-    <div class="flex gap-2">
-      <a [href]="'mailto:' + contact.email">
-        <app-button variant="primary">Say hello</app-button>
-      </a>
-      <a routerLink="/contact">
-        <app-button variant="secondary">Contact form</app-button>
+  </section>
+
+  <app-marquee-band label="SCENE 04 / transmission/open · mailto rahul · open to roles" />
+
+  <!-- ================= CONTACT CTA ================= -->
+  <section
+    appSceneFrame
+    (sceneEnter)="onContactEnter()"
+    appReveal
+    class="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-24 border-t border-glass-border w-full"
+  >
+    <div class="contact">
+      <div class="contact__lead">
+        <p class="contact__kicker">
+          <span class="text-text-muted">~$</span>
+          <span [appDecryptText]="'transmission/open'" [autoplay]="contactReady()">
+            transmission/open
+          </span>
+        </p>
+        <p class="contact__pitch">
+          Building the AI-powered
+          <span class="text-accent-primary">SCRAII</span> platform at
+          <span class="text-accent-primary">Data Unveil</span>.
+          Open to senior Angular / data-viz roles and collaborations.
+        </p>
+      </div>
+      <a [href]="'mailto:' + contact.email" class="contact__cta">
+        <app-button variant="primary" size="lg">Say hello →</app-button>
       </a>
     </div>
-  </div>
-</section>
+  </section>
+</div>

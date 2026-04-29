@@ -26,6 +26,12 @@ export const playgroundRoutes: Route[] = [
     title: 'Bundle · Playground · Rahul E',
   },
   {
+    path: 'force-pop',
+    loadComponent: () =>
+      import('./demos/force-pop').then((m) => m.ForcePop),
+    title: 'Force Pop · Playground · Rahul E',
+  },
+  {
     path: ':demo',
     loadComponent: () =>
       import('./playground-demo').then((m) => m.PlaygroundDemo),

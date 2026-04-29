@@ -9,10 +9,12 @@ import {
   PLATFORM_ID,
   inject,
   input,
+  output,
   signal,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule, Menu, X } from 'lucide-angular';
+import { LongPress } from '../long-press/long-press.directive';
 
 export interface NavLink {
   readonly label: string;
@@ -21,13 +23,14 @@ export interface NavLink {
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive, LucideAngularModule],
+  imports: [RouterLink, RouterLinkActive, LucideAngularModule, LongPress],
   templateUrl: './navbar.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Navbar implements OnInit {
   readonly links = input.required<readonly NavLink[]>();
   readonly logoText = input<string>('rahul');
+  readonly logoLongPress = output<void>();
 
   private readonly platformId = inject(PLATFORM_ID);
   private readonly zone = inject(NgZone);

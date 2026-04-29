@@ -9,22 +9,19 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ContactService } from '@rahul-dev/core-supabase';
-import {
-  SectionHeading,
-  type SocialLink,
-} from '@rahul-dev/shared-ui';
+import { SceneFrame } from '@rahul-dev/features-scene-frame';
+import { DecryptText, KineticHeading } from '@rahul-dev/shared-cinematics';
+import { type SocialLink } from '@rahul-dev/shared-ui';
 import { map } from 'rxjs';
 
 /**
- * Contact page — blueprint §5.6. Also the landing for unauthenticated
- * visitors that the authGuard redirects away from /admin. When the
- * redirect adds `?from=admin`, the page surfaces the "this area is for
- * Rahul" banner called out in the blueprint; otherwise it's just the
- * regular form + socials.
+ * Contact page — also the landing for unauthenticated visitors that the
+ * authGuard redirects away from /admin. When the redirect adds
+ * `?from=admin`, the page surfaces the "this area is for Rahul" banner.
  */
 @Component({
   selector: 'app-contact',
-  imports: [FormsModule, SectionHeading],
+  imports: [FormsModule, DecryptText, KineticHeading, SceneFrame],
   templateUrl: './contact.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -33,24 +30,17 @@ export class Contact {
   private readonly route = inject(ActivatedRoute);
 
   protected readonly socials: readonly SocialLink[] = [
-    {
-      label: 'GitHub',
-      href: 'https://github.com/rahuledu6',
-      icon: 'github',
-    },
-    {
-      label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/rahule',
-      icon: 'linkedin',
-    },
+    { label: 'GitHub', href: 'https://github.com/rahuledu6', icon: 'github' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/rahule', icon: 'linkedin' },
     { label: 'Email', href: 'mailto:duboopathi@gmail.com', icon: 'mail' },
   ];
 
-  // Wrap the arriving-from-admin-guard path so the template can react.
   protected readonly fromAdmin = toSignal(
     this.route.queryParamMap.pipe(map((m) => m.get('from') === 'admin')),
     { initialValue: false },
   );
+
+  protected readonly contactReady = signal<boolean>(false);
 
   protected readonly name = signal('');
   protected readonly email = signal('');
@@ -66,6 +56,10 @@ export class Contact {
       /.+@.+\..+/.test(this.email().trim()) &&
       this.message().trim().length >= 4,
   );
+
+  protected onContactEnter(): void {
+    this.contactReady.set(true);
+  }
 
   protected async submit(event: Event): Promise<void> {
     event.preventDefault();

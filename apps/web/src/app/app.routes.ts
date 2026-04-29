@@ -48,6 +48,11 @@ export const appRoutes: Route[] = [
       import('./pages/admin/admin.routes').then((m) => m.adminRoutes),
   },
   {
+    path: 'sudo',
+    loadComponent: () => import('./pages/sudo/sudo').then((m) => m.Sudo),
+    title: 'sudo · Rahul E',
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./pages/not-found/not-found').then((m) => m.NotFound),

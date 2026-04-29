@@ -13,6 +13,7 @@ describe('appRoutes', () => {
       'contact',
       'privacy',
       'admin',
+      'sudo',
       '**',
     ]);
   });

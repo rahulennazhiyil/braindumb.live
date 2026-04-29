@@ -1,0 +1,25 @@
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  opacity: var(--cinematic-grain-opacity, 0);
+  mix-blend-mode: overlay;
+  contain: strict;
+}
+
+.grain-overlay svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.grain-overlay rect {
+  fill: rgb(var(--cinematic-noise-color, 255, 255, 255));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-overlay {
+    opacity: 0;
+  }
+}

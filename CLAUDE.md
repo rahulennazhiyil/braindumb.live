@@ -108,3 +108,41 @@ using `tsc --noEmit -p libs/<scope>/<name>/tsconfig.lib.json` and
 has the same override pattern for its single `tsconfig.json`. If a new lib
 is added, add the matching typecheck override — do not rely on the inferred
 target.
+
+## Design Context
+
+Two strategic-design files at the project root drive the visual system:
+
+- `PRODUCT.md` — register (`brand`), users, purpose, brand personality
+  (`Cinematic, rigorous, ARG-coded`), the four anti-references, five
+  design principles, accessibility floor (WCAG 2.2 AA + reduced-motion
+  fully respected). Read first when shaping a new public surface.
+- `DESIGN.md` — Stitch six-section spec under the **"The Bridge"** Creative
+  North Star. Carries the canonical color tokens (`signal-cyan`,
+  `void-black`, `console-bright`, etc.), five-step type scale, four-theme
+  material model (`glass` / `terminal` / `print` / `synthwave`), nine
+  Named Rules. Read when adding or modifying a visible component.
+- `DESIGN.json` — sidecar consumed by impeccable's live panel. Carries
+  tonal ramps, shadow / motion tokens, breakpoints, and ten self-contained
+  HTML+CSS component snippets. Regenerate via `/impeccable document` when
+  tokens drift; do not hand-edit.
+
+The four most-cited Named Rules to enforce:
+
+1. **The `~$` Prompt Rule.** Every kicker, navbar logo, footer prompt, and
+   most mono labels lead with `~$`.
+2. **The Brace Rule.** Terminal-variant `tag-chip` wraps its content in
+   `{ }`.
+3. **The Theme-Material Rule.** Don't port a shadow or surface treatment
+   across themes; each theme has its own physics.
+4. **The Three-Layer Component Rule.** Every page composition is
+   instrument-grade primitives + cinematic chrome + ceremonial transitions.
+   Removing any layer collapses the system.
+
+Brand cinematics (`grain-overlay`, `scan-line-overlay`, `decrypt-text`,
+`kinetic-heading`, `marquee-band`, scroll-locked scenes, `~$`, `{ }`) stay
+off `/admin/*` — that surface is product-register and prioritises
+productivity over theatre.
+
+Run `/impeccable critique <target>` before merging visible changes;
+`/impeccable polish <target>` before shipping.

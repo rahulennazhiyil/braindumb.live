@@ -1,11 +1,18 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SectionHeading } from '@rahul-dev/shared-ui';
+import { SceneFrame } from '@rahul-dev/features-scene-frame';
+import { DecryptText, KineticHeading } from '@rahul-dev/shared-cinematics';
 
 @Component({
   selector: 'app-privacy',
-  imports: [SectionHeading, RouterLink],
+  imports: [RouterLink, DecryptText, KineticHeading, SceneFrame],
   templateUrl: './privacy.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Privacy {}
+export class Privacy {
+  protected readonly privacyReady = signal<boolean>(false);
+
+  protected onPrivacyEnter(): void {
+    this.privacyReady.set(true);
+  }
+}

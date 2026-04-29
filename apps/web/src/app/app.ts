@@ -1,10 +1,28 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  HostListener,
+  inject,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterOutlet } from '@angular/router';
 import {
   CommandPaletteOverlay,
   CommandPaletteService,
   type Command,
 } from '@rahul-dev/shared-command-palette';
+import {
+  CrosshairCursor,
+  GrainOverlay,
+  ScanLineOverlay,
+  ShakeDetector,
+} from '@rahul-dev/shared-cinematics';
+import {
+  BootGuardService,
+  BootSequence,
+} from '@rahul-dev/features-boot-sequence';
 import { TerminalOverlay, TerminalService } from '@rahul-dev/shared-terminal';
 import {
   THEMES,
@@ -32,6 +50,10 @@ import {
     CommandPaletteOverlay,
     TerminalOverlay,
     ThemeToggle,
+    GrainOverlay,
+    ScanLineOverlay,
+    BootSequence,
+    CrosshairCursor,
   ],
   selector: 'app-root',
   templateUrl: './app.html',
@@ -43,6 +65,12 @@ export class App {
   private readonly theme = inject(ThemeService);
   private readonly viewSource = inject(ViewSourceService);
   private readonly terminal = inject(TerminalService);
+  private readonly bootGuard = inject(BootGuardService);
+  private readonly shake = inject(ShakeDetector);
+  private readonly destroyRef = inject(DestroyRef);
+  private shakeStarted = false;
+
+  protected readonly bootVisible = signal<boolean>(this.bootGuard.shouldPlayLong());
 
   protected readonly navLinks: readonly NavLink[] = [
     { label: 'About', href: '/about' },
@@ -68,6 +96,34 @@ export class App {
 
   constructor() {
     this.palette.register(this.buildCommands());
+    this.shake.shake$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.terminal.open());
+  }
+
+  @HostListener('window:pointerdown')
+  protected onFirstPointerDown(): void {
+    if (this.shakeStarted) return;
+    this.shakeStarted = true;
+    void this.shake.start();
+  }
+
+  protected onLogoLongPress(): void {
+    this.terminal.open();
+  }
+
+  protected onBootDone(): void {
+    this.bootGuard.markPlayed();
+    this.bootVisible.set(false);
+  }
+
+  protected onBootKonami(): void {
+    this.terminal.open();
+  }
+
+  protected onReplayIntro(): void {
+    this.bootGuard.reset();
+    this.bootVisible.set(true);
   }
 
   private buildCommands(): readonly Command[] {
@@ -119,6 +175,14 @@ export class App {
         keywords: ['admin', 'login', 'sudo', 'terminal'],
         hint: 'sudo su',
         run: () => this.terminal.open(),
+      },
+      {
+        id: 'action:replay-intro',
+        label: 'Replay intro / boot sequence',
+        group: 'action',
+        keywords: ['intro', 'boot', 'replay', 'sequence'],
+        hint: '~$ replay-intro',
+        run: () => this.onReplayIntro(),
       },
     ];
 

@@ -1,0 +1,39 @@
+.marquee-band {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-block: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+}
+
+.marquee-band__track {
+  display: inline-flex;
+  white-space: nowrap;
+  padding-block: 0.55rem;
+  animation: marquee-band-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-band__item {
+  padding-inline: 0.6rem;
+}
+
+@keyframes marquee-band-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-band__track {
+    animation: none;
+    transform: translateX(0);
+  }
+}

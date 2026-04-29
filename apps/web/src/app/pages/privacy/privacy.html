@@ -1,9 +1,22 @@
-<main class="max-w-3xl mx-auto px-4 md:px-6 py-16 flex flex-col gap-8">
-  <app-section-heading
-    kicker="cat /privacy"
-    title="Privacy"
-    subtitle="How rahul.dev tracks visitors, and what it deliberately doesn't."
-  />
+<section
+  appSceneFrame
+  (sceneEnter)="onPrivacyEnter()"
+  class="max-w-3xl mx-auto px-4 md:px-6 py-16 flex flex-col gap-8"
+>
+  <header class="flex flex-col gap-2 items-start text-left">
+    <span class="font-mono text-xs uppercase tracking-[0.18em] text-accent-primary">
+      <span class="text-text-muted">~$</span>
+      <span [appDecryptText]="'cat /privacy'" [autoplay]="privacyReady()">
+        cat /privacy
+      </span>
+    </span>
+    <h1 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+      <app-kinetic-heading text="Privacy" [ready]="privacyReady()" />
+    </h1>
+    <p class="font-body text-text-secondary max-w-2xl">
+      How rahul.dev tracks visitors, and what it deliberately doesn't.
+    </p>
+  </header>
 
   <section class="flex flex-col gap-3 font-body text-text-secondary leading-relaxed">
     <h2 class="font-display font-bold text-xl text-text-primary mt-4">
@@ -67,4 +80,4 @@
       or the <a routerLink="/contact" class="text-accent-primary hover:underline">contact form</a>.
     </p>
   </section>
-</main>
+</section>

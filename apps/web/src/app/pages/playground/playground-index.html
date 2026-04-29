@@ -1,9 +1,22 @@
-<main class="max-w-6xl mx-auto px-4 md:px-6 py-16 flex flex-col gap-10">
-  <app-section-heading
-    kicker="ls ./playground"
-    title="Visualization playground"
-    subtitle="D3.js demos of Kubernetes, CI/CD, bundles, RxJS streams, API heatmaps, and more."
-  />
+<section
+  appSceneFrame
+  (sceneEnter)="onPlaygroundEnter()"
+  class="max-w-6xl mx-auto px-4 md:px-6 py-16 flex flex-col gap-10"
+>
+  <header class="flex flex-col gap-2 items-start text-left">
+    <span class="font-mono text-xs uppercase tracking-[0.18em] text-accent-primary">
+      <span class="text-text-muted">~$</span>
+      <span [appDecryptText]="'ls ./playground'" [autoplay]="playgroundReady()">
+        ls ./playground
+      </span>
+    </span>
+    <h1 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+      <app-kinetic-heading text="Visualization playground" [ready]="playgroundReady()" />
+    </h1>
+    <p class="font-body text-text-secondary max-w-2xl">
+      D3.js demos of Kubernetes, CI/CD, bundles, RxJS streams, API heatmaps, and more.
+    </p>
+  </header>
 
   <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     @for (d of demos; track d.slug) {
@@ -44,7 +57,7 @@
               <h3 class="font-display font-bold text-lg text-text-primary">
                 {{ d.title }}
               </h3>
-              <span class="font-mono text-xs uppercase tracking-wider text-text-muted">
+              <span class="font-mono text-xs uppercase tracking-[0.18em] text-text-muted">
                 soon
               </span>
             </div>
@@ -63,4 +76,4 @@
       </li>
     }
   </ul>
-</main>
+</section>

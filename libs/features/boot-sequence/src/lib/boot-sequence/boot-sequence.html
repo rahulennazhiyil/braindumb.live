@@ -1,0 +1,21 @@
+<div class="boot-sequence" role="status" aria-live="polite">
+  <div class="boot-sequence__panel">
+    <div class="boot-sequence__lines">
+      @for (line of typedLines(); track $index) {
+        <div class="boot-sequence__line boot-sequence__line--past">
+          {{ line }}
+        </div>
+      }
+      @if (currentLine(); as line) {
+        <div class="boot-sequence__line">
+          <span>{{ line.prompt }} </span>
+          <span>{{ currentLineText() }}</span>
+          <span class="boot-sequence__cursor" aria-hidden="true">▮</span>
+        </div>
+      }
+    </div>
+    <div class="boot-sequence__hint" aria-hidden="true">
+      tap or press any key to skip
+    </div>
+  </div>
+</div>

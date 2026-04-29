@@ -6,12 +6,21 @@ import {
   signal,
 } from '@angular/core';
 import { ProjectService } from '@rahul-dev/core-supabase';
+import { SceneFrame } from '@rahul-dev/features-scene-frame';
+import { DecryptText, KineticHeading } from '@rahul-dev/shared-cinematics';
 import type { Project } from '@rahul-dev/shared-types';
-import { LoadingSkeleton, ProjectCard, Reveal, SectionHeading } from '@rahul-dev/shared-ui';
+import { LoadingSkeleton, ProjectCard, Reveal } from '@rahul-dev/shared-ui';
 
 @Component({
   selector: 'app-projects-index',
-  imports: [LoadingSkeleton, ProjectCard, Reveal, SectionHeading],
+  imports: [
+    LoadingSkeleton,
+    ProjectCard,
+    Reveal,
+    DecryptText,
+    KineticHeading,
+    SceneFrame,
+  ],
   templateUrl: './projects-index.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -22,6 +31,8 @@ export class ProjectsIndex {
   protected readonly items = signal<readonly Project[]>([]);
   protected readonly loading = signal(false);
   protected readonly error = signal<string | null>(null);
+
+  protected readonly indexReady = signal<boolean>(false);
 
   /**
    * Featured projects first, then everything else in `sort_order` ascending.
@@ -45,6 +56,10 @@ export class ProjectsIndex {
     if (p.live_url) return { href: p.live_url, external: true };
     if (p.github_url) return { href: p.github_url, external: true };
     return { href: `/projects/${p.slug}`, external: false };
+  }
+
+  protected onIndexEnter(): void {
+    this.indexReady.set(true);
   }
 
   protected async refresh(): Promise<void> {
