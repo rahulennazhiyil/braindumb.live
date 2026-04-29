@@ -73,3 +73,26 @@
 .bio__link:hover {
   border-color: var(--accent-primary);
 }
+
+/* ============ Page wrapper for SceneScrollLock ============ */
+.about__page {
+  display: flex;
+  flex-direction: column;
+}
+.about__page > app-marquee-band {
+  flex: 0 0 auto;
+}
+
+.bio__name app-kinetic-heading,
+.bio__name .kinetic-heading {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.about__scene h2 app-kinetic-heading,
+.about__scene h2 .kinetic-heading {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}

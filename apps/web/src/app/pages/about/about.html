@@ -1,7 +1,11 @@
-<main class="max-w-5xl mx-auto px-4 md:px-6 py-16 space-y-24">
-
-  <!-- Bio -->
-  <section>
+<main class="about__page" appSceneScrollLock>
+  <!-- ================= BIO ================= -->
+  <section
+    appSceneFrame
+    (sceneEnter)="onBioEnter()"
+    class="about__scene about__scene--bio max-w-5xl mx-auto px-4 md:px-6 py-16"
+    aria-label="Rahul E — about"
+  >
     @if (openToOpportunities()) {
       <div class="open-badge">
         <span class="open-badge__dot" aria-hidden="true"></span>
@@ -9,7 +13,16 @@
       </div>
     }
 
-    <h1 class="bio__name">Rahul E</h1>
+    <span class="bio__kicker font-mono text-xs uppercase tracking-[0.18em] text-accent-primary">
+      <span class="text-text-muted">~$</span>
+      <span [appDecryptText]="'whoami --about'" [autoplay]="bioReady()">
+        whoami --about
+      </span>
+    </span>
+
+    <h1 class="bio__name">
+      <app-kinetic-heading text="Rahul E" [ready]="bioReady()" />
+    </h1>
     <p class="bio__tagline">Frontend Developer · Angular · Data Visualisation</p>
 
     <p class="bio__text">
@@ -35,28 +48,59 @@
     </div>
   </section>
 
-  <!-- Career -->
-  <section appReveal>
-    <app-section-heading
-      kicker="$ git log --career"
-      title="Career"
-      subtitle="Where I've been and what I've shipped."
-    />
+  <app-marquee-band label="SCENE 02 / career · git log --career · 3+ years prod angular" />
+
+  <!-- ================= CAREER ================= -->
+  <section
+    appSceneFrame
+    (sceneEnter)="onCareerEnter()"
+    appReveal
+    class="about__scene max-w-5xl mx-auto px-4 md:px-6 py-16 w-full"
+  >
+    <header class="flex flex-col gap-2 items-start text-left">
+      <span class="font-mono text-xs uppercase tracking-[0.18em] text-accent-primary">
+        <span class="text-text-muted">~$</span>
+        <span [appDecryptText]="'git log --career'" [autoplay]="careerReady()">
+          git log --career
+        </span>
+      </span>
+      <h2 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+        <app-kinetic-heading text="Career" [ready]="careerReady()" />
+      </h2>
+      <p class="font-body text-text-secondary max-w-2xl">
+        Where I've been and what I've shipped.
+      </p>
+    </header>
     <div class="mt-10">
       <app-career-timeline />
     </div>
   </section>
 
-  <!-- Tech stack -->
-  <section appReveal>
-    <app-section-heading
-      kicker="$ npm list --depth=0"
-      title="Tech Stack"
-      subtitle="Bubble size = expertise level. Hover to explore."
-    />
+  <app-marquee-band label="SCENE 03 / tech stack · npm list --depth=0 · bubbles by expertise" />
+
+  <!-- ================= TECH STACK ================= -->
+  <section
+    appSceneFrame
+    (sceneEnter)="onStackEnter()"
+    appReveal
+    class="about__scene max-w-5xl mx-auto px-4 md:px-6 py-16 w-full"
+  >
+    <header class="flex flex-col gap-2 items-start text-left">
+      <span class="font-mono text-xs uppercase tracking-[0.18em] text-accent-primary">
+        <span class="text-text-muted">~$</span>
+        <span [appDecryptText]="'npm list --depth=0'" [autoplay]="stackReady()">
+          npm list --depth=0
+        </span>
+      </span>
+      <h2 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+        <app-kinetic-heading text="Tech Stack" [ready]="stackReady()" />
+      </h2>
+      <p class="font-body text-text-secondary max-w-2xl">
+        Bubble size = expertise level. Hover to explore.
+      </p>
+    </header>
     <div class="mt-10">
       <app-tech-bubbles />
     </div>
   </section>
-
 </main>
