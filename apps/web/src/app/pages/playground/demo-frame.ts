@@ -1,11 +1,20 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { SceneFrame } from '@rahul-dev/features-scene-frame';
+import { DecryptText, KineticHeading } from '@rahul-dev/shared-cinematics';
+import { TagChip } from '@rahul-dev/shared-ui';
 import { ArrowLeft, Code2, LucideAngularModule } from 'lucide-angular';
-import { SectionHeading, TagChip } from '@rahul-dev/shared-ui';
 
 @Component({
   selector: 'app-demo-frame',
-  imports: [RouterLink, LucideAngularModule, SectionHeading, TagChip],
+  imports: [
+    RouterLink,
+    LucideAngularModule,
+    TagChip,
+    DecryptText,
+    KineticHeading,
+    SceneFrame,
+  ],
   templateUrl: './demo-frame.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -22,10 +31,15 @@ export class DemoFrame {
   readonly notes = input<string>();
 
   protected readonly showNotes = signal(false);
+  protected readonly demoReady = signal<boolean>(false);
   protected readonly ArrowLeft = ArrowLeft;
   protected readonly Code2 = Code2;
 
   protected toggleNotes(): void {
     this.showNotes.update((v) => !v);
+  }
+
+  protected onDemoEnter(): void {
+    this.demoReady.set(true);
   }
 }

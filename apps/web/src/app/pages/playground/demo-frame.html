@@ -1,22 +1,35 @@
-<main class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16 flex flex-col gap-6">
+<section
+  appSceneFrame
+  (sceneEnter)="onDemoEnter()"
+  class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16 flex flex-col gap-6"
+>
   <a
     routerLink="/playground"
-    class="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-text-muted hover:text-accent-primary transition-colors w-max"
+    class="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-[0.18em] text-text-muted hover:text-accent-primary transition-colors w-max"
   >
     <lucide-angular [img]="ArrowLeft" [size]="12" aria-hidden="true" />
     <span>cd ../</span>
   </a>
 
   <div class="flex items-start justify-between flex-wrap gap-4">
-    <app-section-heading
-      [kicker]="kicker()"
-      [title]="title()"
-      [subtitle]="summary()"
-    />
+    <header class="flex flex-col gap-2 items-start text-left">
+      <span class="font-mono text-xs uppercase tracking-[0.18em] text-accent-primary">
+        <span class="text-text-muted">~$</span>
+        <span [appDecryptText]="kicker()" [autoplay]="demoReady()">
+          {{ kicker() }}
+        </span>
+      </span>
+      <h1 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+        <app-kinetic-heading [text]="title()" [ready]="demoReady()" />
+      </h1>
+      @if (summary(); as s) {
+        <p class="font-body text-text-secondary max-w-2xl">{{ s }}</p>
+      }
+    </header>
     @if (notes()) {
       <button
         type="button"
-        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-chip border border-border text-text-secondary hover:text-accent-primary hover:border-accent-primary/60 font-mono text-xs uppercase tracking-wider transition-colors"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-chip border border-border text-text-secondary hover:text-accent-primary hover:border-accent-primary/60 font-mono text-xs uppercase tracking-[0.18em] transition-colors"
         [attr.aria-pressed]="showNotes()"
         (click)="toggleNotes()"
       >
@@ -54,4 +67,4 @@
       >{{ n }}</pre>
     }
   </section>
-</main>
+</section>
