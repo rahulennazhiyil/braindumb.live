@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import {
   CommandPaletteOverlay,
@@ -9,6 +9,10 @@ import {
   GrainOverlay,
   ScanLineOverlay,
 } from '@rahul-dev/shared-cinematics';
+import {
+  BootGuardService,
+  BootSequence,
+} from '@rahul-dev/features-boot-sequence';
 import { TerminalOverlay, TerminalService } from '@rahul-dev/shared-terminal';
 import {
   THEMES,
@@ -38,6 +42,7 @@ import {
     ThemeToggle,
     GrainOverlay,
     ScanLineOverlay,
+    BootSequence,
   ],
   selector: 'app-root',
   templateUrl: './app.html',
@@ -49,6 +54,9 @@ export class App {
   private readonly theme = inject(ThemeService);
   private readonly viewSource = inject(ViewSourceService);
   private readonly terminal = inject(TerminalService);
+  private readonly bootGuard = inject(BootGuardService);
+
+  protected readonly bootVisible = signal<boolean>(this.bootGuard.shouldPlayLong());
 
   protected readonly navLinks: readonly NavLink[] = [
     { label: 'About', href: '/about' },
@@ -78,6 +86,16 @@ export class App {
 
   protected onLogoLongPress(): void {
     this.terminal.open();
+  }
+
+  protected onBootDone(): void {
+    this.bootGuard.markPlayed();
+    this.bootVisible.set(false);
+  }
+
+  protected onReplayIntro(): void {
+    this.bootGuard.reset();
+    this.bootVisible.set(true);
   }
 
   private buildCommands(): readonly Command[] {
@@ -129,6 +147,14 @@ export class App {
         keywords: ['admin', 'login', 'sudo', 'terminal'],
         hint: 'sudo su',
         run: () => this.terminal.open(),
+      },
+      {
+        id: 'action:replay-intro',
+        label: 'Replay intro / boot sequence',
+        group: 'action',
+        keywords: ['intro', 'boot', 'replay', 'sequence'],
+        hint: '~$ replay-intro',
+        run: () => this.onReplayIntro(),
       },
     ];
 

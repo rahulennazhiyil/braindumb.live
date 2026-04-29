@@ -5,11 +5,18 @@
   <main class="flex-1">
     <router-outlet />
   </main>
-  <app-footer [socials]="socials" (secretTriggered)="onLogoLongPress()" />
+  <app-footer
+    [socials]="socials"
+    (secretTriggered)="onLogoLongPress()"
+    (replayIntroTriggered)="onReplayIntro()"
+  />
   <app-offline-banner />
   <app-command-palette />
   <app-terminal-overlay />
   <app-scroll-to-top />
   <app-grain-overlay />
   <app-scan-line-overlay />
+  @if (bootVisible()) {
+    <app-boot-sequence (done)="onBootDone()" />
+  }
 </div>
