@@ -6,18 +6,27 @@ import {
   signal,
 } from '@angular/core';
 import { FeedService } from '@rahul-dev/core-supabase';
+import { SceneFrame } from '@rahul-dev/features-scene-frame';
+import { DecryptText, KineticHeading } from '@rahul-dev/shared-cinematics';
 import {
   FEED_ITEM_TYPES,
   type FeedItem,
   type FeedItemType,
 } from '@rahul-dev/shared-types';
-import { BlogCard, LoadingSkeleton, Reveal, SectionHeading } from '@rahul-dev/shared-ui';
+import { BlogCard, LoadingSkeleton, Reveal } from '@rahul-dev/shared-ui';
 
 type FilterValue = 'all' | FeedItemType;
 
 @Component({
   selector: 'app-feed',
-  imports: [BlogCard, LoadingSkeleton, Reveal, SectionHeading],
+  imports: [
+    BlogCard,
+    LoadingSkeleton,
+    Reveal,
+    DecryptText,
+    KineticHeading,
+    SceneFrame,
+  ],
   templateUrl: './feed.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -34,6 +43,8 @@ export class Feed {
   protected readonly loading = signal(false);
   protected readonly error = signal<string | null>(null);
 
+  protected readonly feedReady = signal<boolean>(false);
+
   protected readonly visible = computed<readonly FeedItem[]>(() => {
     const f = this.filter();
     const list = this.items();
@@ -46,6 +57,10 @@ export class Feed {
 
   protected setFilter(v: FilterValue): void {
     this.filter.set(v);
+  }
+
+  protected onFeedEnter(): void {
+    this.feedReady.set(true);
   }
 
   protected async refresh(): Promise<void> {
@@ -65,8 +80,6 @@ export class Feed {
     return f === 'all' ? list.length : list.filter((i) => i.type === f).length;
   }
 
-  /** Resolve the best link for a feed item: external URL for links/articles,
-   *  internal /feed/slug later when blog rendering lands. */
   protected hrefFor(item: FeedItem): string | undefined {
     return item.url ?? undefined;
   }
