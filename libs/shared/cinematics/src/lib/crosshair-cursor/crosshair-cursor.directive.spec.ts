@@ -1,6 +1,5 @@
 import { Component, PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { CrosshairCursor } from './crosshair-cursor.directive';
 
 @Component({
