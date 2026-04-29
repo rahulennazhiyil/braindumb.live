@@ -13,8 +13,8 @@ site stays deployable after every plan.
 | 1 | Foundation: cinematics overlays + theme tokens | ✅ shipped | 1 + 2 | Yes (subtle grain + scan-lines) |
 | 2 | Scene-frame: SceneFrame / SceneScrollLock / MarqueeBand | ✅ shipped | 3 | No (lib only) |
 | 3 | Boot terminal + kinetic-text primitives | ✅ shipped | 1 + 3 | No (lib only) |
-| 4 | Hero two-beat — boot terminal → force graph | 🔜 next | 4 | **Yes — major** |
-| 5 | Home other scenes (metrics, featured, what-I-do, about-preview) | ⏳ planned | 5 | Yes |
+| 4 | Hero two-beat — boot terminal → force graph | ✅ shipped | 4 | **Yes — major** |
+| 5 | Home other scenes (metrics, featured, what-I-do, about-preview) | 🔜 next | 5 | Yes |
 | 6 | About + projects-index restaging | ⏳ planned | 6 | Yes |
 | 7 | Kinetic-only treatment: feed, contact, admin, playground | ⏳ planned | 7 | Yes (subtle) |
 | 8 | Audio (ambient + UI sfx) + custom crosshair cursor | ⏳ planned | 8 | Yes |
@@ -34,7 +34,7 @@ site stays deployable after every plan.
 
 ## Plan-by-plan briefing
 
-### Plan 4 — Hero two-beat (next up) 🔜
+### Plan 4 — Hero two-beat ✅ shipped
 
 **Goal:** First user-visible payoff. Wire the boot sequence to the App
 shell, restage the home hero with the two-beat (terminal → graph), add
@@ -42,15 +42,14 @@ HUD chrome around the force graph, apply `KineticHeading` and
 `DecryptText` to the name + tagline, wrap each home section with
 `[appSceneFrame]`.
 
-**Files this plan will touch:**
-- `apps/web/src/app/app.ts` / `app.html` — boot sequence wrap (first visit)
-- `apps/web/src/app/pages/home/home.ts` / `.html` / `.css` — restage hero
-- `libs/features/hero-graph` — add HUD chrome (corner brackets, node count, frame ticker)
-- `libs/shared/ui/src/lib/footer/footer.html` — add `~$ replay-intro` target wired to `BootGuardService.reset()`
+**Shipped via commits 2bb383e → b5cf558 on 2026-04-29:**
+- `apps/web/src/app/app.ts` / `app.html` — `@if (bootVisible())` boot overlay gated by `BootGuardService` + footer `replayIntroTriggered` handler + palette `Replay intro` command.
+- `apps/web/src/app/pages/home/home.*` — hero `<h1>` swapped for `<app-kinetic-heading>`; kicker + tagline wrap `appDecryptText`; every section gains `appSceneFrame`; `heroReady` signal flips on intersect.
+- `libs/features/hero-graph` — four corner brackets, signal-driven `NODES NN` readout, RAF-driven `FRAME NNNN` ticker (cancelled on destroy, hidden under reduced-motion).
+- `libs/shared/ui/src/lib/footer/footer.*` — visible `~$ replay-intro` button emits new `replayIntroTriggered` output.
+- `apps/web/project.json` — bumped `anyComponentStyle` budget to 8kb warn / 12kb error to fit the redesigned hero CSS.
 
-**Dependencies:** Plans 1, 2, 3 (all shipped).
-
-**Estimated size:** 6–8 tasks of moderate size.
+**Plan doc:** [`2026-04-27-makeover-plan-4-hero-two-beat.md`](2026-04-27-makeover-plan-4-hero-two-beat.md).
 
 ### Plan 5 — Home other scenes
 
