@@ -16,8 +16,8 @@ site stays deployable after every plan.
 | 4 | Hero two-beat — boot terminal → force graph | ✅ shipped | 4 | **Yes — major** |
 | 5 | Home other scenes — scroll-lock + marquees + decrypt/kinetic on scenes 2-4 | ✅ shipped | 5 | Yes |
 | 6 | About + projects-index restaging | ✅ shipped | 6 | Yes |
-| 7 | Kinetic-only treatment: feed, contact, admin, playground | 🔜 next | 7 | Yes (subtle) |
-| 8 | Audio (ambient + UI sfx) + custom crosshair cursor | ⏳ planned | 8 | Yes |
+| 7 | Kinetic-only treatment: feed, contact, privacy, playground (admin excluded per CLAUDE.md) | ✅ shipped | 7 | Yes (subtle) |
+| 8 | Audio (ambient + UI sfx) + custom crosshair cursor | 🔜 next | 8 | Yes |
 | 9 | New easter eggs: shake gesture, Konami in boot, replay-intro | ⏳ planned | 9 | Yes (mobile) |
 | 10 | QA pass: Lighthouse, Playwright smoke, theme matrix | ⏳ planned | 10 | No (verification) |
 
@@ -96,16 +96,28 @@ existing grid).
 
 **Plan doc:** [`2026-04-27-makeover-plan-6-about-projects.md`](2026-04-27-makeover-plan-6-about-projects.md).
 
-### Plan 7 — Kinetic-only treatment for remaining pages
+### Plan 7 — Kinetic-only treatment for remaining pages ✅ shipped
 
-**Goal:** Lighter treatment (no scroll-lock, no marquee bands) for
-`/feed`, `/contact`, `/playground`, `/admin/*`. Section headers get
-`DecryptText`; section bodies get `[appSceneFrame]` reveals.
-Admin pages keep this minimal — they need to be productive.
+**Goal:** Lighter cinematic treatment (no scroll-lock, no marquees)
+applied across `/feed`, `/contact`, `/privacy`, `/playground` (index +
+DemoFrame). Each page gets an inline `appDecryptText` kicker +
+`<app-kinetic-heading>` title and a per-page `[appSceneFrame]` reveal
+signal. Bonus 0.18em-tracking sweep on every kicker / form label /
+button touched (memory tag 373).
 
-**Files:** all the page components above.
+**Shipped via commits 8d9bddb → 4a2cef3 on 2026-04-29:**
+- `apps/web/src/app/pages/feed/*` — `~$ tail -f feed.log` decrypt + kinetic `Feed` title; filter tabs + empty-state tracking flipped to 0.18em.
+- `apps/web/src/app/pages/contact/*` — `~$ echo $EMAIL` decrypt + kinetic `Contact` title; six tracking-[0.2em]/wider violations across form labels, socials kicker, denied-banner kicker, send button → 0.18em.
+- `apps/web/src/app/pages/privacy/*` — `~$ cat /privacy` decrypt + kinetic `Privacy` title.
+- `apps/web/src/app/pages/playground/playground-index.*` — `~$ ls ./playground` decrypt + kinetic title; "soon" badge tracking → 0.18em.
+- `apps/web/src/app/pages/playground/demo-frame.*` — kicker/title inputs piped into the inline cinematic header; cd-back link + view-notes button tracking → 0.18em.
 
-**Dependencies:** Plan 6.
+**Deferred (per CLAUDE.md "Design Context"):**
+- `/admin/*` cinematic touch — admin is product-register, productivity-first; brand cinematics stay off that surface.
+- Playground demo-card hover preview SVGs (spec § 4.2) — content/D3 build.
+- Featured/project-card "FILE NN" decrypt labels with corner brackets — same buildable-lib import problem.
+
+**Plan doc:** [`2026-04-27-makeover-plan-7-kinetic-only.md`](2026-04-27-makeover-plan-7-kinetic-only.md).
 
 ### Plan 8 — Audio + custom cursor
 
