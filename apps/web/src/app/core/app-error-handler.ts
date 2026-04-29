@@ -6,3 +6,4 @@ export class AppErrorHandler implements ErrorHandler {
     console.error('[AppErrorHandler]', error);
   }
 }
+//test
