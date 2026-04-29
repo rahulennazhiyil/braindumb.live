@@ -35,6 +35,7 @@ export class Footer {
   readonly year = input<number>(new Date().getFullYear());
   readonly tagline = input<string>('Built with Angular, D3.js, and too much coffee.');
   readonly secretTriggered = output<void>();
+  readonly replayIntroTriggered = output<void>();
 
   private taps: number[] = [];
 
@@ -51,5 +52,9 @@ export class Footer {
       this.taps = [];
       this.secretTriggered.emit();
     }
+  }
+
+  protected onReplayIntro(): void {
+    this.replayIntroTriggered.emit();
   }
 }

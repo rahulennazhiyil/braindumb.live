@@ -39,7 +39,7 @@
           }
         </ul>
       }
-      <p class="font-mono text-xs text-text-muted flex items-center gap-2">
+      <p class="font-mono text-xs text-text-muted flex items-center gap-2 flex-wrap">
         <span>© {{ year() }} · Rahul E</span>
         <span aria-hidden="true">·</span>
         <a
@@ -48,6 +48,16 @@
         >
           privacy
         </a>
+        <span aria-hidden="true">·</span>
+        <button
+          type="button"
+          data-testid="footer-replay-intro"
+          class="font-mono text-xs text-text-muted hover:text-accent-primary transition-colors p-0 bg-transparent border-0 cursor-pointer"
+          (click)="onReplayIntro()"
+        >
+          <span class="text-text-muted">~$</span>
+          replay-intro
+        </button>
       </p>
     </div>
   </div>

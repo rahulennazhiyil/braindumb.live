@@ -14,4 +14,23 @@ describe('Footer', () => {
       new Date().getFullYear().toString(),
     );
   });
+
+  it('emits replayIntroTriggered when the ~$ replay-intro target is clicked', async () => {
+    await TestBed.configureTestingModule({
+      imports: [Footer],
+      providers: [provideRouter([])],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(Footer);
+    fixture.detectChanges();
+
+    let fired = false;
+    fixture.componentInstance.replayIntroTriggered.subscribe(() => (fired = true));
+
+    const target = fixture.nativeElement.querySelector(
+      '[data-testid="footer-replay-intro"]',
+    ) as HTMLButtonElement;
+    expect(target).toBeTruthy();
+    target.click();
+    expect(fired).toBe(true);
+  });
 });
