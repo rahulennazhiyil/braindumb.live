@@ -17,8 +17,9 @@ site stays deployable after every plan.
 | 5 | Home other scenes — scroll-lock + marquees + decrypt/kinetic on scenes 2-4 | ✅ shipped | 5 | Yes |
 | 6 | About + projects-index restaging | ✅ shipped | 6 | Yes |
 | 7 | Kinetic-only treatment: feed, contact, privacy, playground (admin excluded per CLAUDE.md) | ✅ shipped | 7 | Yes (subtle) |
-| 8 | Audio (ambient + UI sfx) + custom crosshair cursor | 🔜 next | 8 | Yes |
-| 9 | New easter eggs: shake gesture, Konami in boot, replay-intro | ⏳ planned | 9 | Yes (mobile) |
+| 8 | Custom crosshair cursor (audio deferred — see Plan 8.5) | ✅ shipped | 8 | Yes |
+| 8.5 | Audio (ambient drone + UI sfx) + nav toggles | ⏸ deferred (asset blocker) | 8 | Yes |
+| 9 | New easter eggs: shake gesture, Konami in boot, replay-intro | 🔜 next | 9 | Yes (mobile) |
 | 10 | QA pass: Lighthouse, Playwright smoke, theme matrix | ⏳ planned | 10 | No (verification) |
 
 ## How to pick up
@@ -119,25 +120,33 @@ button touched (memory tag 373).
 
 **Plan doc:** [`2026-04-27-makeover-plan-7-kinetic-only.md`](2026-04-27-makeover-plan-7-kinetic-only.md).
 
-### Plan 8 — Audio + custom cursor
+### Plan 8 — Custom crosshair cursor ✅ shipped
 
-**Goal:** Add the optional layers — ambient drone (off by default) and
-UI sound effects (off by default), both toggleable in the nav and gated
-behind `prefers-reduced-motion`. Custom monospace crosshair cursor on
-desktop only.
+**Goal:** Desktop-only two-layer custom cursor — slow-follow outer ring
++ 1:1 inner dot — applied via `[appCrosshairCursor]` on the App root.
+Hover targets opt in via `data-cursor="active"`. Disabled on touch
+devices and under `prefers-reduced-motion`.
 
-**New components/services:**
-- `AmbientAudioService` (in `shared/cinematics`)
-- `UiSoundService` (in `shared/cinematics`)
-- `CrosshairCursor` directive (in `shared/cinematics`)
-- Audio toggles in the nav
+**Shipped via commits e34df81 → dc1ce23 on 2026-04-29:**
+- `libs/shared/cinematics/src/lib/crosshair-cursor/crosshair-cursor.directive.ts` — directive (RAF easing on outer, direct `transform: translate3d` on inner; cleans up on destroy).
+- `apps/web/src/styles.css` — global cursor CSS (body class hides system cursor; `:has([data-cursor='active']:hover)` triggers pulse).
+- `apps/web/src/app/app.{ts,html}` — directive applied on the root container.
 
-**Audio assets:** ambient drone (~30s seamless OGG loop, ~120KB) and a
-small UI SFX library lazy-loaded on first toggle. The OGG loop itself is
-out of scope — needs to be sourced or synthesized externally.
+### Plan 8.5 — Audio (ambient drone + UI sfx) ⏸ deferred
 
-**Dependencies:** None (independent layer). Could ship before Plan 7 if
-desired.
+**Why deferred:** spec § 7 explicitly excludes the audio asset from
+this makeover ("No real audio composition"). Building toggles for a
+feature that produces no sound creates broken UX. Defer until the OGG
+asset(s) are sourced or synthesized externally, then ship as a focused
+follow-up plan.
+
+**Future scope:**
+- `AmbientAudioService` (in `shared/cinematics`) — manages a single `<audio>` element with the drone, signals for `enabled` + `volume`, persisted in localStorage.
+- `UiSoundService` (in `shared/cinematics`) — pre-loaded `AudioBuffer` library for hover/click/success/error/boot-tick.
+- Two opt-in toggles in the nav next to the theme toggle.
+- Both gated behind `prefers-reduced-motion`. Off by default.
+
+**Audio assets needed:** ambient drone (~30s seamless OGG loop, ~120KB) and a small UI SFX library lazy-loaded on first toggle.
 
 ### Plan 9 — New easter eggs
 
