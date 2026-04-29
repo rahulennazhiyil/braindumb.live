@@ -34,20 +34,24 @@ const SCRIPT_SHORT: readonly ScriptedLine[] = [
 
 const CHAR_INTERVAL_MS = 34;
 
+const KONAMI_SEQUENCE: readonly string[] = [
+  'ArrowUp',
+  'ArrowUp',
+  'ArrowDown',
+  'ArrowDown',
+];
+
 /**
  * Animated terminal panel that types its scripted lines character by
  * character. Emits `done` when the script finishes (or when `skip()` is
  * called by a tap/key event). Caller should hide the component on `done`
  * and reveal the real hero.
  *
+ * Konami sequence (↑↑↓↓) during the boot fires `konamiTriggered` then
+ * `done` — consumers can react by opening the auth terminal directly.
+ *
  * Browser-only — server-rendered output is just the empty shell so SSR
  * doesn't show a partially-typed line.
- *
- * Usage:
- *   <app-boot-sequence
- *     [mode]="firstVisit ? 'long' : 'short'"
- *     (done)="bootDone.set(true)"
- *   />
  */
 @Component({
   selector: 'app-boot-sequence',
@@ -59,6 +63,7 @@ export class BootSequence implements AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
 
   readonly done = output<void>();
+  readonly konamiTriggered = output<void>();
 
   protected readonly mode = signal<'long' | 'short'>('long');
   protected readonly typedLines = signal<readonly string[]>([]);
@@ -72,6 +77,7 @@ export class BootSequence implements AfterViewInit, OnDestroy {
 
   private timer: ReturnType<typeof setTimeout> | null = null;
   private skipped = false;
+  private konamiBuffer: string[] = [];
 
   setMode(mode: 'long' | 'short'): void {
     this.mode.set(mode);
@@ -94,7 +100,27 @@ export class BootSequence implements AfterViewInit, OnDestroy {
     this.cancelTimer();
   }
 
-  @HostListener('window:keydown')
+  @HostListener('window:keydown', ['$event'])
+  protected onKeydown(event: KeyboardEvent): void {
+    if (this.skipped) return;
+
+    const expected = KONAMI_SEQUENCE[this.konamiBuffer.length];
+    if (event.key === expected) {
+      this.konamiBuffer.push(event.key);
+      if (this.konamiBuffer.length === KONAMI_SEQUENCE.length) {
+        this.konamiBuffer = [];
+        this.konamiTriggered.emit();
+        this.skip();
+      }
+      return;
+    }
+
+    // Wrong key during a partial sequence: reset, then fall through to
+    // the normal "any key skips" behaviour.
+    this.konamiBuffer = [];
+    this.skip();
+  }
+
   @HostListener('window:pointerdown')
   skip(): void {
     if (this.skipped) return;
