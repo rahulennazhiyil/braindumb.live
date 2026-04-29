@@ -6,6 +6,7 @@ import {
   type Command,
 } from '@rahul-dev/shared-command-palette';
 import {
+  CrosshairCursor,
   GrainOverlay,
   ScanLineOverlay,
 } from '@rahul-dev/shared-cinematics';
@@ -43,6 +44,7 @@ import {
     GrainOverlay,
     ScanLineOverlay,
     BootSequence,
+    CrosshairCursor,
   ],
   selector: 'app-root',
   templateUrl: './app.html',

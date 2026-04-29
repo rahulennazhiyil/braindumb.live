@@ -145,3 +145,44 @@
   .scene-scroll-lock { scroll-snap-type: none; }
   .scene-scroll-lock > section { min-height: 0; }
 }
+
+/* === CrosshairCursor — engaged via [appCrosshairCursor] === */
+body.has-crosshair-cursor,
+body.has-crosshair-cursor * {
+  cursor: none;
+}
+
+body.has-crosshair-cursor :focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.crosshair-cursor__layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 2147483646;
+  will-change: transform;
+}
+
+.crosshair-cursor__outer {
+  width: 28px;
+  height: 28px;
+  border: 1px solid color-mix(in oklab, var(--accent-primary) 75%, transparent);
+  border-radius: 50%;
+  transition: width 0.18s ease, height 0.18s ease, border-color 0.18s ease;
+}
+
+.crosshair-cursor__inner {
+  width: 4px;
+  height: 4px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+}
+
+body:has([data-cursor='active']:hover) .crosshair-cursor__outer {
+  width: 44px;
+  height: 44px;
+  border-color: var(--accent-primary);
+}
