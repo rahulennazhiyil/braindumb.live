@@ -1,5 +1,13 @@
 # KPR-verse Makeover — Plans Index
 
+> **🎬 Makeover complete via plans 1–10 (2026-04-27 → 2026-04-29).** All
+> ten roadmap plans shipped. Plan 8.5 (audio drone + nav toggles)
+> remains deferred — blocked on the OGG asset (spec § 7 explicitly
+> excludes audio composition). Lighthouse CI hookup waits for the
+> Vercel deploy (pre-Vercel audit memory IDs 36/37). See
+> `docs/QA-CHECKLIST.md` for the manual cross-device + theme + a11y
+> matrix.
+
 Master roadmap for the 10-plan rollout. Spec lives at
 [`../specs/2026-04-27-kprverse-makeover-design.md`](../specs/2026-04-27-kprverse-makeover-design.md).
 
@@ -20,7 +28,7 @@ site stays deployable after every plan.
 | 8 | Custom crosshair cursor (audio deferred — see Plan 8.5) | ✅ shipped | 8 | Yes |
 | 8.5 | Audio (ambient drone + UI sfx) + nav toggles | ⏸ deferred (asset blocker) | 8 | Yes |
 | 9 | New easter eggs: shake gesture + Konami in boot (replay-intro shipped Plan 4; corner-tap deferred) | ✅ shipped | 9 | Yes (mobile) |
-| 10 | QA pass: Lighthouse, Playwright smoke, theme matrix | 🔜 next | 10 | No (verification) |
+| 10 | QA pass: Playwright smoke + theme matrix + bundle baseline + manual checklist (Lighthouse deferred) | ✅ shipped | 10 | No (verification) |
 
 ## How to pick up
 
@@ -164,20 +172,35 @@ commit 2758836).
 
 **Plan doc:** [`2026-04-27-makeover-plan-9-easter-eggs.md`](2026-04-27-makeover-plan-9-easter-eggs.md).
 
-### Plan 10 — QA pass
+### Plan 10 — QA pass ✅ shipped
 
-**Goal:** Final verification.
+**Goal:** Final verification of the makeover. Replace the placeholder
+Playwright spec with a real smoke suite, confirm bundle sizes still
+respect the 700kb-warn / 1mb-error budget, sanity-check the theme
+matrix at the unit level, and capture a manual QA checklist for the
+cross-device / Lighthouse / iOS DeviceMotion verifications that need
+real hardware.
 
-- Lighthouse pass (target ≥85 on mobile).
-- Playwright smoke: home loads, boot completes/skips, all 5 scenes
-  reachable, force graph renders.
-- Manual cross-device matrix: iPhone Safari, iPad, Pixel Chrome, desktop
-  Chrome/Firefox/Safari.
-- Theme matrix: all 4 themes don't break in any scene.
-- iOS DeviceMotion permission UX sanity check.
-- Bundle size check: initial JS still <700KB warn / <1MB error.
+**Shipped via commits 1db8015 → 4e159fd on 2026-04-29:**
+- `apps/web-e2e/src/home.spec.ts` — first-visit boot overlay visible/dismisses + hero force-graph SVG mount; return-visit skips overlay.
+- `apps/web-e2e/src/scenes.spec.ts` — every public route (`/about`, `/projects`, `/playground`, `/feed`, `/contact`, `/privacy`) exposes its `<app-kinetic-heading>` `aria-label`.
+- `libs/shared/theme/src/lib/theme.matrix.spec.ts` — walks `THEMES` via `ThemeService.setTheme()` to confirm none throw; asserts the four themes; verifies `documentElement[data-theme]` reflects the active theme.
+- `docs/QA-CHECKLIST.md` — manual SOP covering cross-device, theme, iOS DeviceMotion, reduced-motion. Records the Plan 10 baseline bundle sizes (615.94 kB initial raw / 162.82 kB transfer — well under the 700 kb warn cap).
 
-**Dependencies:** All prior plans.
+**Deferred:**
+- Lighthouse pass — needs the Vercel deploy (pre-Vercel audit memory IDs 36/37 noted three blockers; resolve those first, then wire Lighthouse as a CI step).
+- Real-device cross-browser execution — captured in the checklist for the human to walk.
+- Visual regression / screenshot tests — useful but adds infra cost; defer.
+
+**Plan doc:** [`2026-04-27-makeover-plan-10-qa-pass.md`](2026-04-27-makeover-plan-10-qa-pass.md).
+
+---
+
+## What's left after the makeover
+
+- **Plan 8.5** — audio layer + nav toggles, blocked on OGG asset.
+- **Pre-Vercel deploy work** (memory IDs 36/37) — three blockers identified Apr 24 that need clearing before public ship + Lighthouse CI hookup.
+- **Optional polish** — featured/project-card "FILE NN" decrypt labels with corner brackets (carried since Plans 5–7 — needs the buildable-lib import problem solved or inlined per-page).
 
 ## Conventions reminder for future sessions
 
